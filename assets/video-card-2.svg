@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a2542"/>
+      <stop offset="100%" stop-color="#2466a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg2)"/>
+  <path d="M0 620 C220 520 420 700 640 610 C840 530 1020 640 1280 560 L1280 720 L0 720 Z" fill="#79c5ff" opacity="0.18"/>
+  <rect x="180" y="130" width="920" height="460" rx="22" fill="none" stroke="#d6ebff" stroke-width="3" opacity="0.75"/>
+  <circle cx="640" cy="360" r="80" fill="#d6ebff" opacity="0.9"/>
+  <polygon points="620,325 620,395 690,360" fill="#1a4f84"/>
+  <text x="210" y="620" fill="#ebf5ff" font-size="46" font-family="Segoe UI, Arial, sans-serif">Speaking Practice Session</text>
+</svg>

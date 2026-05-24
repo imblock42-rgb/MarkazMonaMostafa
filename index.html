@@ -1,70 +1,114 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Уроки арабского языка | Тичер Мона Мостафа</title>
+    <title>Mona Mostafa Courses</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="#hero" class="brand">
+                <img src="assets/Logo.jpg" alt="Mona Mostafa Logo">
+                <span data-i18n="brand">Mona Mostafa</span>
+            </a>
+            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links" >
+                <a href="#about" data-i18n="nav_about">О нас</a>
+                <a href="#blog" data-i18n="nav_blog">Блог</a>
+                <a href="#courses" data-i18n="nav_courses">Курсы</a>
+                <a href="#reviews" data-i18n="nav_reviews">Отзывы</a>
+            </div>
+            <div class="nav-controls">
+                <select id="languageSelect" aria-label="Language" placeholder="Language">
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                    <option value="ar">AR</option>
+                </select>
+                <button id="themeToggle" type="button" aria-label="Toggle Theme" data-i18n="theme_button">Тема</button>
+            </div>
+        </div>
+    </nav>
 
-    <header>
-        <h1>Арабский язык с Тичером Моной Мостафа</h1>
-        <p>Изучай арабский легко, эффективно и с правильным произношением</p>
+    <header id="hero" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">Профессиональные курсы арабского языка</h1>
+            <p data-i18n="hero_text">Системное обучение, живые занятия и практический результат для взрослых и детей.</p>
+        </div>
     </header>
 
-    <div class="container">
-        
-        <section id="about">
-            <h2>О преподавателе</h2>
-            <p>Добро пожаловать на информационный портал курсов арабского языка! Тичер Мона Мостафа помогает студентам со всего мира освоить язык с нуля, поставить красивое произношение и уверенно заговорить.</p>
+    <main class="container">
+        <section id="about" class="panel">
+            <h2 data-i18n="about_title">О нас</h2>
+            <p data-i18n="about_text">Школа Mona Mostafa помогает студентам уверенно говорить, читать и понимать арабский язык с нуля и до продвинутого уровня.</p>
         </section>
 
-        <section id="lessons">
-            <h2>Пробные уроки</h2>
+        <section id="blog" class="panel">
+            <h2 data-i18n="blog_title">Блог</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <p class="meta" data-i18n="blog_date_1">24 мая 2026</p>
+                    <h3 data-i18n="blog_head_1">Как быстро запомнить арабский алфавит</h3>
+                    <p data-i18n="blog_body_1">Проверенные методы повторения, которые экономят время и дают стабильный прогресс.</p>
+                </article>
+                <article class="blog-card">
+                    <p class="meta" data-i18n="blog_date_2">18 мая 2026</p>
+                    <h3 data-i18n="blog_head_2">5 ошибок начинающих в произношении</h3>
+                    <p data-i18n="blog_body_2">Разбираем типичные ошибки и показываем, как исправлять их уже на первом месяце обучения.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="courses" class="panel">
+            <h2 data-i18n="courses_title">Тарифы на курсы</h2>
+            <div class="course-grid">
+                <article class="course-card">
+                    <h3 data-i18n="plan_1_name">Start</h3>
+                    <p class="price" data-i18n="plan_1_price">$49 / месяц</p>
+                    <p data-i18n="plan_1_desc">2 занятия в неделю, домашние задания и базовая поддержка.</p>
+                </article>
+                <article class="course-card featured">
+                    <h3 data-i18n="plan_2_name">Pro</h3>
+                    <p class="price" data-i18n="plan_2_price">$89 / месяц</p>
+                    <p data-i18n="plan_2_desc">3 занятия в неделю, разговорная практика, персональный трек прогресса.</p>
+                </article>
+                <article class="course-card">
+                    <h3 data-i18n="plan_3_name">Master</h3>
+                    <p class="price" data-i18n="plan_3_price">$149 / месяц</p>
+                    <p data-i18n="plan_3_desc">Индивидуальные занятия, полный контроль произношения и экзамен-подготовка.</p>
+                </article>
+                <article class="course-card">
+                    <h3 data-i18n="plan_4_name">Kids</h3>
+                    <p class="price" data-i18n="plan_4_price">$59 / месяц</p>
+                    <p data-i18n="plan_4_desc">Детская программа: интерактивные задания, игровой формат и контроль родителей.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="videos" class="panel">
+            <h2 data-i18n="videos_title">Короткие видео о курсах</h2>
             <div class="video-grid">
-                
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video src="assets/lesson1.mp4" controls preload="metadata"></video>
-                    </div>
-                    <div class="video-card-body">
-                        <h3>Урок 1: Арабский алфавит и звуки</h3>
-                        <p>Базовый разбор первых букв и особенностей произношения для новичков.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video src="assets/lesson2.mp4" controls preload="metadata"></video>
-                    </div>
-                    <div class="video-card-body">
-                        <h3>Урок 2: Первые фразы для диалога</h3>
-                        <p>Учимся здороваться, знакомиться и отвечать на простые вопросы.</p>
-                    </div>
-                </div>
-
+                <article class="video-card">
+                    <img src="assets/video-card-1.svg" alt="Видео о базовом курсе">
+                    <h3 data-i18n="video_1_title">Обзор программы для начинающих</h3>
+                </article>
+                <article class="video-card">
+                    <img src="assets/video-card-2.svg" alt="Видео о разговорной практике">
+                    <h3 data-i18n="video_2_title">Как проходит разговорная практика</h3>
+                </article>
             </div>
         </section>
 
-        <section id="reviews">
-            <h2>Отзывы учеников</h2>
-            <div class="reviews">
-                <div class="review-card">
-                    <p>«Долго не могла понять логику произношения, но благодаря Моне всё разложилось по полочкам за пару занятий!»</p>
-                    <div class="review-author">— Амина К.</div>
-                </div>
-                <div class="review-card">
-                    <p>«Прекрасная подача материала, видео-уроки короткие и емкие. Огромное спасибо за курс!»</p>
-                    <div class="review-author">— Даниял М.</div>
-                </div>
-            </div>
+        <section id="reviews" class="panel">
+            <h2 data-i18n="reviews_title">Отзывы</h2>
+            <div class="reviews-placeholder" data-i18n="reviews_placeholder">Добавьте отзывы студентов в этот блок.</div>
         </section>
-
-    </div>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Курсы арабского языка от Тичера Моны Мостафа. Все права защищены.</p>
+        <p data-i18n="footer_text">© 2026 Mona Mostafa. Все права защищены.</p>
     </footer>
 
     <script src="script.js"></script>
