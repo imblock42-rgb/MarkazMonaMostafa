@@ -8,43 +8,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="site-header">
-        <a class="brand" href="#top" aria-label="Markaz al-Mona">
-            <img src="assets/Logo.jpg" alt="Markaz al-Mona">
-            <span>Markaz al-Mona</span>
-        </a>
-        <div class="lang-switch" aria-label="Language">
-            <button class="lang-button is-active" type="button" data-lang="ru">RU</button>
-            <button class="lang-button" type="button" data-lang="ar">AR</button>
-        </div>
-        <button class="theme-toggle" type="button" aria-label="Переключить тему">
-            <img class="theme-icon theme-icon-moon" src="assets/11768146.png" alt="">
-            <img class="theme-icon theme-icon-sun" src="assets/2698240.png" alt="">
-        </button>
-        <button class="menu-button" type="button" aria-label="Открыть меню">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav class="nav-links" aria-label="Навигация">
-            <a href="#about" data-i18n="nav_about">О центре</a>
-            <a href="#formats" data-i18n="nav_pricing">Тарифы</a>
-            <a href="#lessons" data-i18n="nav_lessons">Уроки</a>
-            <a href="blog.html" data-i18n="nav_blog">Блог</a>
-            <a href="#contacts" data-i18n="nav_contact">Связь</a>
-        </nav>
-    </header>
-
-    <main id="top">
-        <section class="hero section-panel reveal">
-            <div class="hero-inner">
-                <p class="eyebrow" data-i18n="hero_eyebrow">Центр изучения арабского языка</p>
-                <h1>MARKAZ AL-MONA</h1>
-                <p class="lead" data-i18n="hero_lead">Профессиональное обучение арабскому языку в закрытой Telegram-среде с постоянной обратной связью.</p>
-                <div class="hero-actions">
-                    <a class="button primary" href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank" rel="noopener" data-i18n="hero_cta">Записаться через бот</a>
-                    <a class="button ghost" href="#contacts" data-i18n="hero_question">Задать вопрос</a>
-                </div>
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="#hero" class="brand">
+                <img src="assets/Logo.jpg" alt="Mona Mostafa Logo">
+                <span data-i18n="brand">Mona Mostafa</span>
+            </a>
+            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu">☰</button>
+            <div class="nav-links" >
+                <a href="#about" data-i18n="nav_about">О нас</a>
+                <a href="#blog" data-i18n="nav_blog">Блог</a>
+                <a href="#courses" data-i18n="nav_courses">Курсы</a>
+                <a href="#reviews" data-i18n="nav_reviews">Отзывы</a>
             </div>
         </section>
 
