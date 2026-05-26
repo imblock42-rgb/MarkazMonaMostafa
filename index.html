@@ -1,115 +1,272 @@
 <!DOCTYPE html>
-<html lang="ru" dir="ltr">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mona Mostafa Courses</title>
+    <title>Markaz al-Mona</title>
+    <link rel="icon" href="assets/Logo.jpg" type="image/png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="nav-inner">
-            <a href="#hero" class="brand">
-                <img src="assets/Logo.jpg" alt="Mona Mostafa Logo">
-                <span data-i18n="brand">Mona Mostafa</span>
-            </a>
-            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu">☰</button>
-            <div class="nav-links" >
-                <a href="#about" data-i18n="nav_about">О нас</a>
-                <a href="#blog" data-i18n="nav_blog">Блог</a>
-                <a href="#courses" data-i18n="nav_courses">Курсы</a>
-                <a href="#reviews" data-i18n="nav_reviews">Отзывы</a>
-            </div>
-            <div class="nav-controls">
-                <select id="languageSelect" aria-label="Language" placeholder="Language">
-                    <option value="ru">RU</option>
-                    <option value="en">EN</option>
-                    <option value="ar">AR</option>
-                </select>
-                <button id="themeToggle" type="button" aria-label="Toggle Theme" data-i18n="theme_button">Тема</button>
-            </div>
+    <header class="site-header">
+        <a class="brand" href="#top" aria-label="Markaz al-Mona">
+            <img src="assets/Logo.jpg" alt="Markaz al-Mona">
+            <span>Markaz al-Mona</span>
+        </a>
+        <div class="lang-switch" aria-label="Language">
+            <button class="lang-button is-active" type="button" data-lang="ru">RU</button>
+            <button class="lang-button" type="button" data-lang="ar">AR</button>
         </div>
-    </nav>
-
-    <header id="hero" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 data-i18n="hero_title">Профессиональные курсы арабского языка</h1>
-            <p data-i18n="hero_text">Системное обучение, живые занятия и практический результат для взрослых и детей.</p>
-        </div>
+        <button class="theme-toggle" type="button" aria-label="Переключить тему">
+            <img class="theme-icon theme-icon-moon" src="assets/11768146.png" alt="">
+            <img class="theme-icon theme-icon-sun" src="assets/2698240.png" alt="">
+        </button>
+        <button class="menu-button" type="button" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-links" aria-label="Навигация">
+            <a href="#about" data-i18n="nav_about">О центре</a>
+            <a href="#formats" data-i18n="nav_pricing">Тарифы</a>
+            <a href="#lessons" data-i18n="nav_lessons">Уроки</a>
+            <a href="#contacts" data-i18n="nav_contact">Связь</a>
+        </nav>
     </header>
 
-    <main class="container">
-        <section id="about" class="panel">
-            <h2 data-i18n="about_title">О нас</h2>
-            <p data-i18n="about_text">Школа Mona Mostafa помогает студентам уверенно говорить, читать и понимать арабский язык с нуля и до продвинутого уровня.</p>
+    <main id="top">
+        <section class="hero section-panel reveal">
+            <div class="hero-inner">
+                <p class="eyebrow" data-i18n="hero_eyebrow">Центр изучения арабского языка</p>
+                <h1>MARKAZ AL-MONA</h1>
+                <p class="lead" data-i18n="hero_lead">Профессиональное обучение арабскому языку в закрытой Telegram-среде с постоянной обратной связью.</p>
+                <div class="hero-actions">
+                    <a class="button primary" href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank" rel="noopener" data-i18n="hero_cta">Записаться через бот</a>
+                    <a class="button ghost" href="#contacts" data-i18n="hero_question">Задать вопрос</a>
+                </div>
+            </div>
         </section>
 
-        <section id="blog" class="panel">
-            <h2 data-i18n="blog_title">Блог</h2>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <p class="meta" data-i18n="blog_date_1">24 мая 2026</p>
-                    <h3 data-i18n="blog_head_1">Как быстро запомнить арабский алфавит</h3>
-                    <p data-i18n="blog_body_1">Проверенные методы повторения, которые экономят время и дают стабильный прогресс.</p>
+        <section id="about" class="section-panel light-panel reveal">
+            <div class="section-title">
+                <span data-i18n="about_label">О центре</span>
+                <h2 data-i18n="about_title">Системное обучение без лишнего шума</h2>
+            </div>
+            <div class="split-content">
+                <div>
+                    <p data-i18n="about_p1">Markaz al-Mona помогает ученикам спокойно и последовательно идти к владению арабским языком: от первых правил до уверенной практики.</p>
+                    <p data-i18n="about_p2">Обучение строится вокруг понятной программы, проверок домашних заданий и живого контакта с преподавателем.</p>
+                </div>
+                <ul class="feature-list">
+                    <li data-i18n="about_f1">Индивидуальный подход к уровню ученика</li>
+                    <li data-i18n="about_f2">Закрытая учебная среда в Telegram</li>
+                    <li data-i18n="about_f3">Регулярная проверка и обратная связь</li>
+                    <li data-i18n="about_f4">Упор на грамматику, чтение и речь</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section-panel quote-section reveal">
+            <blockquote data-i18n="quote_text">“Не сравнивайте свой путь в изучении арабского языка с другими. У каждого свой темп и свои возможности.”</blockquote>
+            <p>Teacher Mona Mostafa</p>
+        </section>
+
+        <section id="mentor" class="section-panel mentor-section reveal">
+            <div class="section-title">
+                <span data-i18n="mentor_label">Наставник</span>
+                <h2>Teacher Mona Mostafa</h2>
+            </div>
+            <div class="mentor-grid">
+                <div class="mentor-photo">
+                    <img src="assets/Logo.jpg" alt="Teacher Mona Mostafa">
+                </div>
+                <div>
+                    <p data-i18n="mentor_p1">Преподаватель арабского языка для неносителей с многолетним опытом.</p>
+                    <p data-i18n="mentor_p2">Специализируется на классическом арабском языке, грамматике и разговорной практике. Объясняет сложные темы понятным языком и ведет ученика по шагам.</p>
+                    <div class="mini-stats">
+                        <article>
+                            <strong>10+</strong>
+                            <span data-i18n="stat_years">лет опыта</span>
+                        </article>
+                        <article>
+                            <strong>500+</strong>
+                            <span data-i18n="stat_students">учеников</span>
+                        </article>
+                        <article>
+                            <strong>2558</strong>
+                            <span data-i18n="stat_subscribers">подписчиков</span>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-panel reveal">
+            <div class="section-title">
+                <span data-i18n="benefits_label">Преимущества</span>
+                <h2 data-i18n="benefits_title">Почему выбирают нас</h2>
+            </div>
+            <div class="reason-grid">
+                <article>
+                    <strong>01</strong>
+                    <h3 data-i18n="benefit_1_title">Премиальность</h3>
+                    <p data-i18n="benefit_1_text">Закрытое сообщество учеников, которые пришли за результатом.</p>
                 </article>
-                <article class="blog-card">
-                    <p class="meta" data-i18n="blog_date_2">18 мая 2026</p>
-                    <h3 data-i18n="blog_head_2">5 ошибок начинающих в произношении</h3>
-                    <p data-i18n="blog_body_2">Разбираем типичные ошибки и показываем, как исправлять их уже на первом месяце обучения.</p>
+                <article>
+                    <strong>02</strong>
+                    <h3 data-i18n="benefit_2_title">Академичность</h3>
+                    <p data-i18n="benefit_2_text">Глубокое изучение правил, чтения и структуры арабского языка.</p>
+                </article>
+                <article>
+                    <strong>03</strong>
+                    <h3 data-i18n="benefit_3_title">Обратная связь</h3>
+                    <p data-i18n="benefit_3_text">Преподаватель видит ваш прогресс и помогает исправлять ошибки.</p>
                 </article>
             </div>
         </section>
 
-        <section id="courses" class="panel">
-            <h2 data-i18n="courses_title">Тарифы на курсы</h2>
-            <div class="course-grid">
-                <article class="course-card">
-                    <h3 data-i18n="plan_1_name">Start</h3>
-                    <p class="price" data-i18n="plan_1_price">$49 / месяц</p>
-                    <p data-i18n="plan_1_desc">2 занятия в неделю, домашние задания и базовая поддержка.</p>
+        <section class="section-panel telegram-section reveal">
+            <div class="section-title">
+                <span>Telegram</span>
+                <h2 data-i18n="telegram_title">Учитесь там, где удобно</h2>
+            </div>
+            <div class="telegram-grid">
+                <div>
+                    <h3 data-i18n="telegram_h3">Все обучение в одном месте</h3>
+                    <p data-i18n="telegram_p1">Уроки, задания, проверка домашних работ и сообщения преподавателя проходят в привычном интерфейсе Telegram.</p>
+                    <p data-i18n="telegram_p2">Не нужно разбираться в сложных платформах: достаточно телефона и желания заниматься регулярно.</p>
+                </div>
+                <div class="telegram-card">
+                    <img src="assets/image.png" alt="Telegram">
+                    <span data-i18n="telegram_card">Канал, задания и связь</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-panel journey-section reveal">
+            <div class="section-title">
+                <span data-i18n="process_label">Процесс</span>
+                <h2 data-i18n="process_title">Путь ученика</h2>
+            </div>
+            <div class="journey-grid">
+                <article>
+                    <span>1</span>
+                    <h3 data-i18n="step_1_title">Заявка</h3>
+                    <p data-i18n="step_1_text">Вы оставляете сообщение через бот или Telegram.</p>
                 </article>
-                <article class="course-card featured">
-                    <h3 data-i18n="plan_2_name">Pro</h3>
-                    <p class="price" data-i18n="plan_2_price">$89 / месяц</p>
-                    <p data-i18n="plan_2_desc">3 занятия в неделю, разговорная практика, персональный трек прогресса.</p>
+                <article>
+                    <span>2</span>
+                    <h3 data-i18n="step_2_title">Диагностика</h3>
+                    <p data-i18n="step_2_text">Определяем уровень и подходящий формат обучения.</p>
                 </article>
-                <article class="course-card">
-                    <h3 data-i18n="plan_3_name">Master</h3>
-                    <p class="price" data-i18n="plan_3_price">$149 / месяц</p>
-                    <p data-i18n="plan_3_desc">Индивидуальные занятия, полный контроль произношения и экзамен-подготовка.</p>
+                <article>
+                    <span>3</span>
+                    <h3 data-i18n="step_3_title">Старт</h3>
+                    <p data-i18n="step_3_text">Подключаем вас к группе или индивидуальному маршруту.</p>
                 </article>
-                <article class="course-card">
-                    <h3 data-i18n="plan_4_name">Kids</h3>
-                    <p class="price" data-i18n="plan_4_price">$59 / месяц</p>
-                    <p data-i18n="plan_4_desc">Детская программа: интерактивные задания, игровой формат и контроль родителей.</p>
+                <article>
+                    <span>4</span>
+                    <h3 data-i18n="step_4_title">Результат</h3>
+                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратную связь.</p>
                 </article>
             </div>
         </section>
 
-        <section id="videos" class="panel">
-            <h2 data-i18n="videos_title">Короткие видео о курсах</h2>
-            <div class="video-grid">
-                <article class="video-card">
-                    <img src="assets/video-card-1.svg" alt="Видео о базовом курсе">
-                    <h3 data-i18n="video_1_title">Обзор программы для начинающих</h3>
+        <section id="formats" class="section-panel formats-section reveal">
+            <div class="section-title">
+                <span data-i18n="pricing_label">Тарифы</span>
+                <h2 data-i18n="pricing_title">Выберите формат обучения</h2>
+            </div>
+            <div class="format-cards">
+                <article>
+                    <div class="tariff-topline" data-i18n="group_label">Групповой курс</div>
+                    <h3 data-i18n="group_title">В закрытой группе</h3>
+                    <p data-i18n="group_text">Подходит тем, кому важны структура, общий темп и учебная атмосфера.</p>
+                    <ul>
+                        <li data-i18n="group_f1">Медийский курс</li>
+                        <li data-i18n="group_f2">Разговорная практика</li>
+                        <li data-i18n="group_f3">Проверка ДЗ в общем чате</li>
+                    </ul>
+                    <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=group_course" target="_blank" rel="noopener" data-i18n="group_button">Выбрать групповой курс</a>
                 </article>
-                <article class="video-card">
-                    <img src="assets/video-card-2.svg" alt="Видео о разговорной практике">
-                    <h3 data-i18n="video_2_title">Как проходит разговорная практика</h3>
+                <article class="featured-format">
+                    <div class="tariff-topline" data-i18n="individual_label">Индивидуальный курс</div>
+                    <h3 data-i18n="individual_title">Личный маршрут</h3>
+                    <p data-i18n="individual_text">Подходит ученикам, которым нужен личный темп и точная работа над ошибками.</p>
+                    <ul>
+                        <li data-i18n="individual_f1">Личная проверка учителем</li>
+                        <li data-i18n="individual_f2">Акцент на слабые места</li>
+                        <li data-i18n="individual_f3">Премиальный формат сопровождения</li>
+                    </ul>
+                    <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=individual_course" target="_blank" rel="noopener" data-i18n="individual_button">Выбрать индивидуальный курс</a>
                 </article>
             </div>
         </section>
 
-        <section id="reviews" class="panel">
-            <h2 data-i18n="reviews_title">Отзывы</h2>
-            <div class="reviews-placeholder" data-i18n="reviews_placeholder">Добавьте отзывы студентов в этот блок.</div>
+        <section id="lessons" class="section-panel lessons-section reveal">
+            <div class="section-title">
+                <span data-i18n="lessons_label">Как проходят уроки</span>
+                <h2 data-i18n="lessons_title">Telegram, Zoom и понятная практика</h2>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-board">
+                    <img src="assets/Gemini_Generated_Image_li1vulli1vulli1v.png" alt="Доска Markaz Al-mona">
+                </div>
+                <div class="lesson-flow">
+                    <article>
+                        <span>01</span>
+                        <h3 data-i18n="lesson_1_title">Материалы в Telegram</h3>
+                        <p data-i18n="lesson_1_text">Уроки, задания и напоминания находятся в одном учебном пространстве.</p>
+                    </article>
+                    <article>
+                        <span>02</span>
+                        <h3 data-i18n="lesson_2_title">Созвоны в Zoom</h3>
+                        <p data-i18n="lesson_2_text">Разбираем темы голосом, тренируем произношение и отвечаем на вопросы.</p>
+                    </article>
+                    <article>
+                        <span>03</span>
+                        <h3 data-i18n="lesson_3_title">Проверка и закрепление</h3>
+                        <p data-i18n="lesson_3_text">Вы сдаете домашние задания и получаете понятную обратную связь.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="section-panel contacts-section reveal">
+            <div class="section-title centered">
+                <span data-i18n="contact_label">Связь</span>
+                <h2 data-i18n="contact_title">Куда написать</h2>
+                <p data-i18n="contact_text">Выберите удобный способ: бот для записи, канал для новостей или Instagram для знакомства с центром.</p>
+            </div>
+            <div class="contact-box">
+                <a href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank" rel="noopener">
+                    <img src="assets/png-clipart-telegram-bot-api-chatbot-internet-bot-application-programming-interface-others-miscellaneous-blue-thumbnail.png" alt="">
+                    <div>
+                        <span data-i18n="contact_bot_title">Записаться на обучение</span>
+                        <small data-i18n="contact_bot_text">Бот в Telegram</small>
+                    </div>
+                    <b data-i18n="contact_open">Открыть</b>
+                </a>
+                <a href="https://t.me/ArabicMarkaz_Mona" target="_blank" rel="noopener">
+                    <img src="assets/image.png" alt="">
+                    <div>
+                        <span data-i18n="contact_channel_title">Перейти в канал</span>
+                        <small data-i18n="contact_channel_text">Новости и материалы Markaz al-Mona · 2558 подписчиков</small>
+                    </div>
+                    <b data-i18n="contact_go">Перейти</b>
+                </a>
+                <a href="https://www.instagram.com/monaschoolarbic/" target="_blank" rel="noopener">
+                    <img src="assets/images.jpg" alt="">
+                    <div>
+                        <span data-i18n="contact_inst_title">Посмотреть Instagram</span>
+                        <small data-i18n="contact_inst_text">Публикации и визуальные материалы</small>
+                    </div>
+                    <b data-i18n="contact_view">Смотреть</b>
+                </a>
+            </div>
+            <p class="tagline" data-i18n="tagline">Markaz al-Mona: Ваш путь к истинному арабскому</p>
         </section>
     </main>
-
-    <footer>
-        <p data-i18n="footer_text">© 2026 Mona Mostafa. Все права защищены.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
