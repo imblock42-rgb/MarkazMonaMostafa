@@ -188,8 +188,8 @@ body.dark-theme .lang-switch {
     border: 1px solid var(--line);
     border-radius: 7px;
     background: var(--paper);
-    padding: 10px;
-    font-size: 20px;
+    padding: 0;
+    font-size: 22px;
     color: var(--emerald);
     cursor: pointer;
     align-items: center;
@@ -320,6 +320,7 @@ main {
 
 .hero-inner {
     max-width: 920px;
+    margin: 0 auto;
 }
 
 .light-panel .split-content,
