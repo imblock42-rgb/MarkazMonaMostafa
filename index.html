@@ -8,22 +8,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header class="top-nav">
         <div class="nav-inner">
-            <a href="#hero" class="brand">
+            <a href="#about" class="brand">
                 <img src="assets/Logo.jpg" alt="Mona Mostafa Logo">
                 <span data-i18n="brand">Mona Mostafa</span>
             </a>
             
             <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu">☰</button>
             
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="#about" data-i18n="nav_about">О нас</a>
                 <a href="blog.html" data-i18n="nav_blog">Блог</a>
-                <a href="#courses" data-i18n="nav_courses">Курсы</a>
-                <a href="#reviews" data-i18n="nav_reviews">Отзывы</a>
+                <a href="#formats" data-i18n="nav_courses">Курсы</a>
+                <a href="#lessons" data-i18n="nav_reviews">Отзывы</a>
             </div>
-        </div> </header> <main> <section id="about" class="section-panel light-panel reveal"> <div class="section-title">
+        </div> 
+    </header> 
+
+    <main> 
         <section id="about" class="section-panel light-panel reveal">
             <div class="section-title">
                 <span data-i18n="about_label">О центре</span>
@@ -247,5 +251,14 @@
     </main>
 
     <script src="script.js"></script>
+    <script>
+        // Небольшой скрипт для работы мобильного бургер-меню
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('is-open');
+        });
+    </script>
 </body>
 </html>
