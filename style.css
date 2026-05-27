@@ -938,3 +938,72 @@ body.dark-theme .lesson-flow article {
         grid-column: 2;
     }
 }
+/* Контейнер шапки */
+.top-nav {
+    position: fixed; /* или absolute, в зависимости от твоей задумки */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* укажи свой цвет фона */
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* Внутренний контейнер, который задает центрирование и отступы */
+.nav-inner {
+    max-width: 1200px;       /* максимальная ширина сайта */
+    margin: 0 auto;          /* центрируем шапку по центру экрана */
+    padding: 15px 20px;      /* отступы внутри шапки сверху/снизу и по бокам */
+    display: flex;
+    align-items: center;     /* ровняем логотип и ссылки строго по вертикали */
+    justify-content: space-between; /* логотип уходит влево, ссылки — вправо */
+}
+
+/* Логотип и название */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;               /* расстояние между логотипом и текстом Mona Mostafa */
+    text-decoration: none;
+}
+
+.brand img {
+    height: 40px;            /* задай нужную высоту логотипа */
+    width: auto;
+    border-radius: 50%;
+}
+
+/* Блок со ссылками на десктопе */
+.nav-links {
+    display: flex;
+    gap: 20px;               /* расстояние между самими ссылками */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;             /* твой цвет текста */
+    font-weight: 500;
+    white-space: nowrap;     /* запрещаем тексту ссылок переноситься на новую строку */
+}
+
+/* Кнопка бургера (скрыта на компьютерах, показывается на мобилках) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Медиа-запрос для мобильных устройств (например, меньше 768px) */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;      /* показываем бургер на мобилках */
+    }
+
+    /* Ссылки прячем или перестраиваем в мобильное меню */
+    .nav-links {
+        display: none;       /* здесь обычно пишется логика для раскрывающегося меню */
+        /* Если у тебя в JS прописано переключение класса, например .nav-links.active { display: flex; }, добавь его сюда */
+    }
+}
