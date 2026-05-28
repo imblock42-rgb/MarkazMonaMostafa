@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz al-Mona</title>
     <link rel="icon" href="assets/Logo.jpg" type="image/png">
-    <link rel="stylesheet" href="nabors.css">
     <link rel="stylesheet" href="style.css">
-     <link rel="script" href="nabors.js">
+    <link rel="stylesheet" href="nabors.css"> <!-- Стили для слайдера наборов -->
 </head>
 <body>
-     <header class="site-header">
+
+    <header class="site-header">
         <a class="brand" href="index.html" aria-label="Markaz al-Mona">
             <img src="assets/Logo.jpg" alt="Markaz al-Mona">
             <span>Markaz al-Mona</span>
@@ -37,41 +37,52 @@
             <a href="nabors.html" data-i18n="nav_blog">Наборы</a>
         </nav>
     </header>
-  <section class="nabors-section">
-  <div class="nabors-container">
-    <p class="nabors-subtitle">КУРСЫ</p>
-    <h2 class="nabors-title">АКТУАЛЬНЫЕ НАБОРЫ</h2>
-    
-    <div class="slider-viewport">
-      <div class="slider-track">
-        
-        <div class="nabor-card">
-          <img src="assets/nabor-1.jpg" alt="Мединский курс 1 том" class="nabor-img">
+
+    <!-- СЕКЦИЯ С НАБОРАМИ (СЛАЙДЕР) -->
+    <section class="nabors-section">
+        <div class="nabors-container">
+            <p class="nabors-subtitle">КУРСЫ</p>
+            <h2 class="nabors-title">АКТУАЛЬНЫЕ НАБОРЫ</h2>
+            
+            <!-- Окно просмотра слайдера -->
+            <div class="slider-viewport">
+                <div class="slider-track">
+                    
+                    <!-- Карточка 1 (Мединский курс) -->
+                    <div class="nabor-card">
+                        <img src="assets/photo_2026-05-28_15-16-08.jpg" alt="Мединский курс 1 том" class="nabor-img">
+                    </div>
+
+                    <!-- Карточка 2 (Байна Ядайк) -->
+                    <div class="nabor-card">
+                        <img src="assets/photo_2026-05-28_15-16-08.jpg" alt="Байна Ядайк" class="nabor-img">
+                    </div>
+
+                    <!-- Карточка 3 (Котру Нада) -->
+                    <div class="nabor-card">
+                        <img src="assets/photo_2026-05-28_15-16-08.jpg" alt="Котру Нада" class="nabor-img">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Элементы управления (Стрелки и точки) -->
+            <div class="slider-controls">
+                <button class="slider-arrow prev-btn" aria-label="Назад">&#8592;</button>
+                <div class="slider-dots"></div>
+                <button class="slider-arrow next-btn" aria-label="Вперед">&#8594;</button>
+            </div>
+
+            <!-- Главная кнопка отправки в Telegram -->
+            <div class="nabors-action">
+                <a href="https://t.me/ArabicMarkaz_Mona/4288" target="_blank" class="nabor-main-btn">Записаться на курс</a>
+            </div>
+
         </div>
+    </section>
 
-        <div class="nabor-card">
-          <img src="assets/nabor-2.jpg" alt="Байна Ядайк" class="nabor-img">
-        </div>
-
-        <div class="nabor-card">
-          <img src="assets/nabor-3.jpg" alt="Котру Нада" class="nabor-img">
-        </div>
-
-      </div>
-    </div>
-
-    <div class="slider-controls">
-      <button class="slider-arrow prev-btn" aria-label="Назад">&#8592;</button>
-      <div class="slider-dots"></div>
-      <button class="slider-arrow next-btn" aria-label="Вперед">&#8594;</button>
-    </div>
-
-    <div class="nabors-action">
-      <a href="https://t.me/ArabicMarkaz_Mona/4288" target="_blank" class="nabor-main-btn">Записаться на курс</a>
-    </div>
-
-  </div>
-</section>
+    <!-- Подключаем скрипты в самом конце body, чтобы всё работало корректно -->
+    <script src="nabors.js"></script>
+    <script src="script.js"></script> 
 </body>
 </html>
-
