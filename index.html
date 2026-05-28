@@ -9,23 +9,33 @@
 </head>
 <body>
 
-    <header class="top-nav">
-        <div class="nav-inner">
-            <a href="#about" class="brand">
-                <img src="assets/Logo.jpg" alt="Mona Mostafa Logo">
-                <span data-i18n="brand">Mona Mostafa</span>
-            </a>
-            
-            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu">☰</button>
-            
-            <div class="nav-links" id="navLinks">
-                <a href="#about" data-i18n="nav_about">О нас</a>
-                <a href="blog.html" data-i18n="nav_blog">Блог</a>
-                <a href="#formats" data-i18n="nav_courses">Курсы</a>
-                <a href="#lessons" data-i18n="nav_reviews">Отзывы</a>
-            </div>
-        </div> 
-    </header> 
+   <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Markaz al-Mona">
+            <img src="assets/Logo.jpg" alt="Markaz al-Mona">
+            <span>Markaz al-Mona</span>
+        </a>
+        <div class="lang-switch" aria-label="Language">
+            <button class="lang-button is-active" type="button" data-lang="ru">RU</button>
+            <button class="lang-button" type="button" data-lang="ar">AR</button>
+        </div>
+        <button class="theme-toggle" type="button" aria-label="Переключить тему">
+            <img class="theme-icon theme-icon-moon" src="assets/11768146.png" alt="">
+            <img class="theme-icon theme-icon-sun" src="assets/2698240.png" alt="">
+        </button>
+        <button class="menu-button" type="button" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-links" aria-label="Навигация">
+            <a href="index.html#about" data-i18n="nav_about">О центре</a>
+            <a href="index.html#formats" data-i18n="nav_pricing">Тарифы</a>
+            <a href="index.html#lessons" data-i18n="nav_lessons">Уроки</a>
+            <a href="blog.html" data-i18n="nav_blog">Блог</a>
+            <a href="index.html#contacts" data-i18n="nav_contact">Связь</a>
+            <a href="nabors.html" data-i18n="nav_blog">Наборы</a>
+        </nav>
+    </header>
 
     <main> 
         <section id="about" class="section-panel light-panel reveal">
