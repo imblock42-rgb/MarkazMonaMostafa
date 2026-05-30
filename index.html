@@ -32,6 +32,7 @@
     </nav>
   </div>
 </header>
+
     <main> 
         <section id="about" class="section-panel light-panel reveal">
             <div class="section-title">
@@ -154,7 +155,7 @@
                 <article>
                     <span>4</span>
                     <h3 data-i18n="step_4_title">Результат</h3>
-                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратную связь.</p>
+                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратная связь.</p>
                 </article>
             </div>
         </section>
@@ -255,22 +256,30 @@
         </section>
     </main>
 
-<script src="script.js"></script>
-    <script>
-        // Единый рабочий скрипт для мобильного меню
-        const menuButton = document.querySelector('.menu-button');
-        const navLinks = document.querySelector('.nav-links');
+    <script src="script.js"></script>
 
-        // Проверяем, существуют ли элементы на странице, чтобы не было ошибок в консоли
-        if (menuButton && navLinks) {
-            menuButton.addEventListener('click', () => {
-                // Открываем/закрываем меню
-                navLinks.classList.toggle('active');
-                
-                // Анимируем кнопку бургера (превращаем в крестик)
-                menuButton.classList.toggle('open'); 
-            });
-        }
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerButton = document.getElementById('burgerButton');
+            const navMenu = document.getElementById('navMenu');
+
+            if (burgerButton && navMenu) {
+                // Открытие / закрытие по клику на бургер
+                burgerButton.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    burgerButton.classList.toggle('open'); 
+                });
+
+                // Автоматическое закрытие меню при клике на любую ссылку
+                const navLinks = navMenu.querySelectorAll('.nav__link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        burgerButton.classList.remove('open');
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
