@@ -77,5 +77,17 @@
     <!-- Подключаем скрипты в самом конце body, чтобы всё работало корректно -->
     <script src="nabors.js"></script>
     <script src="script.js"></script> 
+    <script>
+    const menuButton = document.querySelector('.menu-button');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuButton.addEventListener('click', () => {
+        // Переключаем класс active для открытия меню
+        navLinks.classList.toggle('active');
+        
+        // Переключаем класс для анимации самого бургера (крестика), если она у вас есть
+        menuButton.classList.toggle('open'); 
+    });
+</script>
 </body>
 </html>
