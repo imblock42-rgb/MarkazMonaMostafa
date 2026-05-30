@@ -1545,3 +1545,11 @@ body.dark-theme .nabor-card {
         transform: none;
     }
 }
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* скрыто по умолчанию на мобилках */
+  }
+  .nav-links.active {
+    display: flex; /* показывается при клике */
+  }
+}
