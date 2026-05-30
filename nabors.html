@@ -77,20 +77,30 @@
         </div>
     </section>
 
-    <!-- Подключаем скрипты в самом конце body, чтобы всё работало корректно -->
-    <script src="nabors.js"></script>
-    <script src="script.js"></script> 
-    <script>
-    const menuButton = document.querySelector('.menu-button');
-    const navLinks = document.querySelector('.nav-links');
+ <script src="script.js"></script>
 
-    menuButton.addEventListener('click', () => {
-        // Переключаем класс active для открытия меню
-        navLinks.classList.toggle('active');
-        
-        // Переключаем класс для анимации самого бургера (крестика), если она у вас есть
-        menuButton.classList.toggle('open'); 
-    });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerButton = document.getElementById('burgerButton');
+            const navMenu = document.getElementById('navMenu');
+
+            if (burgerButton && navMenu) {
+                // Открытие / закрытие по клику на бургер
+                burgerButton.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    burgerButton.classList.toggle('open'); 
+                });
+
+                // Автоматическое закрытие меню при клике на любую ссылку
+                const navLinks = navMenu.querySelectorAll('.nav__link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        burgerButton.classList.remove('open');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
