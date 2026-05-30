@@ -39,12 +39,13 @@ html {
     scroll-padding-top: 96px;
 }
 
+/* ИСПРАВЛЕНО: Теперь градиент фона жестко привязан к переменным темы, белый цвет не вылезет */
 body {
     margin: 0;
     color: var(--ink);
     background:
         radial-gradient(circle at 12% 8%, rgba(201, 165, 48, 0.15), transparent 24rem),
-        linear-gradient(180deg, #fbf8f1 0%, var(--page) 54%, #eee7db 100%);
+        linear-gradient(180deg, var(--paper) 0%, var(--page) 54%, var(--page) 100%);
     font-family: var(--sans);
     transition: background 260ms ease, color 260ms ease;
 }
@@ -190,7 +191,7 @@ body.dark-theme .lang-switch {
     border: 1px solid var(--line);
     border-radius: 7px;
     background: var(--paper);
-    padding: 10px 9px;
+    padding: 11px 9px;
     cursor: pointer;
     flex-direction: column;
     justify-content: space-between;
@@ -203,7 +204,7 @@ body.dark-theme .lang-switch {
     display: block;
     width: 100%;
     height: 2px;
-    background-color: var(--emerald);
+    background-color: var(--ink);
     border-radius: 2px;
     transition: all 260ms ease;
 }
@@ -321,7 +322,14 @@ main {
     color: #f7f1e7;
     background:
         radial-gradient(circle at 85% 85%, rgba(201, 165, 48, 0.15), transparent 10rem),
-        linear-gradient(115deg, var(--emerald) 0%, #10282c 100%);
+        linear-gradient(115deg, #173236 0%, #10282c 100%);
+}
+
+body.dark-theme .hero,
+body.dark-theme .quote-section {
+    background:
+        radial-gradient(circle at 85% 85%, rgba(214, 182, 74, 0.12), transparent 10rem),
+        linear-gradient(115deg, #08191d 0%, #051012 100%);
 }
 
 .hero {
@@ -410,9 +418,13 @@ main {
 }
 
 .button.primary {
-    color: var(--emerald);
+    color: #173236;
     background: var(--gold);
     box-shadow: 0 14px 30px rgba(201, 165, 48, 0.2);
+}
+
+body.dark-theme .button.primary {
+    color: #08191d;
 }
 
 .button.ghost {
@@ -523,7 +535,7 @@ body.dark-theme .contact-box a {
     width: min(300px, 72vw);
     aspect-ratio: 1;
     padding: 0.65rem;
-    background: #fff;
+    background: var(--paper);
     border: 1px solid var(--gold-line);
     border-radius: 50%;
     box-shadow: 0 18px 40px rgba(23, 50, 54, 0.12);
@@ -628,9 +640,13 @@ body.dark-theme .contact-box a {
     text-align: center;
     background:
         linear-gradient(135deg, rgba(23, 50, 54, 0.96), rgba(32, 67, 71, 0.92)),
-        var(--emerald);
+        #173236;
     border-radius: 12px;
     box-shadow: 0 22px 48px rgba(23, 50, 54, 0.16);
+}
+
+body.dark-theme .telegram-card {
+    background: linear-gradient(135deg, #11282d, #08191d);
 }
 
 .telegram-card img {
@@ -1320,7 +1336,7 @@ body.dark-theme .nabor-card {
     color: #fff;
 }
 
-/* --- МЕДИА-ЗАПРОСЫ (АДАПТИВ) --- */
+/* --- МЕДИА-ЗАПРОСЫ (ИСПРАВЛЕННЫЙ АДАПТИВ) --- */
 @media (max-width: 900px) {
     .nav-inner {
         gap: 0.65rem;
@@ -1328,10 +1344,10 @@ body.dark-theme .nabor-card {
 
     /* Включаем кнопку-бургер */
     .menu-toggle {
-        display: flex;
+        display: flex !important;
     }
 
-    /* Прячем ссылки в выпадающее мобильное меню */
+    /* ИСПРАВЛЕНО: Ссылки теперь корректно накладываются поверх контента и имеют фон текущей темы */
     .nav-links {
         display: none;
         flex-direction: column;
@@ -1342,22 +1358,26 @@ body.dark-theme .nabor-card {
         top: 100%;
         left: 0;
         background: var(--paper);
-        padding: 0 1rem;
+        padding: 0.5rem 1.5rem 1.5rem 1.5rem;
         border-bottom: 1px solid var(--line);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        z-index: 9999;
     }
 
     /* Когда шапке добавлен класс .is-open, меню плавно открывается */
     .top-nav.is-open .nav-links {
-        display: flex;
+        display: flex !important;
     }
 
     .nav-links a {
-        padding: 0.9rem 0;
+        padding: 1.1rem 0;
         border-top: 1px solid var(--line);
+        color: var(--ink); /* ИСПРАВЛЕНО: Цвет ссылок на мобилках теперь читаемый */
+        width: 100%;
+        display: block;
     }
 
-    /* Анимация бургера при открытии меню (класс .is-open вешается на .top-nav) */
+    /* Анимация бургера при открытии меню */
     .top-nav.is-open .burger-bar:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
