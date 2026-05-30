@@ -39,7 +39,6 @@ html {
     scroll-padding-top: 96px;
 }
 
-/* ИСПРАВЛЕНО: Теперь градиент фона жестко привязан к переменным темы, белый цвет не вылезет */
 body {
     margin: 0;
     color: var(--ink);
@@ -183,7 +182,7 @@ body.dark-theme .lang-switch {
     transform-origin: left;
 }
 
-/* Кнопка бургера (унифицированная) */
+/* Кнопка бургера (Модифицированная для стабильности) */
 .menu-toggle {
     display: none; /* Скрыта на ПК */
     width: 42px;
@@ -191,7 +190,7 @@ body.dark-theme .lang-switch {
     border: 1px solid var(--line);
     border-radius: 7px;
     background: var(--paper);
-    padding: 11px 9px;
+    padding: 12px 10px;
     cursor: pointer;
     flex-direction: column;
     justify-content: space-between;
@@ -206,7 +205,8 @@ body.dark-theme .lang-switch {
     height: 2px;
     background-color: var(--ink);
     border-radius: 2px;
-    transition: all 260ms ease;
+    flex-shrink: 0; /* Запрещаем браузеру сплющивать полоски */
+    transition: transform 260ms ease, opacity 260ms ease;
 }
 
 .theme-toggle {
@@ -1336,7 +1336,7 @@ body.dark-theme .nabor-card {
     color: #fff;
 }
 
-/* --- МЕДИА-ЗАПРОСЫ (ИСПРАВЛЕННЫЙ АДАПТИВ) --- */
+/* --- МЕДИА-ЗАПРОСЫ (СТАБИЛИЗИРОВАННЫЙ АДАПТИВ) --- */
 @media (max-width: 900px) {
     .nav-inner {
         gap: 0.65rem;
@@ -1347,7 +1347,7 @@ body.dark-theme .nabor-card {
         display: flex !important;
     }
 
-    /* ИСПРАВЛЕНО: Ссылки теперь корректно накладываются поверх контента и имеют фон текущей темы */
+    /* Ссылки накладываются поверх контента, используя цвета текущей темы */
     .nav-links {
         display: none;
         flex-direction: column;
@@ -1364,28 +1364,29 @@ body.dark-theme .nabor-card {
         z-index: 9999;
     }
 
-    /* Когда шапке добавлен класс .is-open, меню плавно открывается */
+    /* Показ меню */
     .top-nav.is-open .nav-links {
         display: flex !important;
     }
 
     .nav-links a {
-        padding: 1.1rem 0;
+        padding: 1.1rem 0.5rem; /* Добавлены безопасные боковые отступы */
         border-top: 1px solid var(--line);
-        color: var(--ink); /* ИСПРАВЛЕНО: Цвет ссылок на мобилках теперь читаемый */
+        color: var(--ink); 
         width: 100%;
         display: block;
     }
 
-    /* Анимация бургера при открытии меню */
+    /* Магическое превращение в крестик (X) без деформаций */
     .top-nav.is-open .burger-bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(6px) rotate(45deg);
     }
     .top-nav.is-open .burger-bar:nth-child(2) {
         opacity: 0;
+        transform: scaleX(0);
     }
     .top-nav.is-open .burger-bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-6px) rotate(-45deg);
     }
 
     .split-content,
