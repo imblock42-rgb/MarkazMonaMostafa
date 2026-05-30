@@ -255,27 +255,22 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
     <script>
-        // Небольшой скрипт для работы мобильного бургер-меню
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+        // Единый рабочий скрипт для мобильного меню
+        const menuButton = document.querySelector('.menu-button');
+        const navLinks = document.querySelector('.nav-links');
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('is-open');
-        });
+        // Проверяем, существуют ли элементы на странице, чтобы не было ошибок в консоли
+        if (menuButton && navLinks) {
+            menuButton.addEventListener('click', () => {
+                // Открываем/закрываем меню
+                navLinks.classList.toggle('active');
+                
+                // Анимируем кнопку бургера (превращаем в крестик)
+                menuButton.classList.toggle('open'); 
+            });
+        }
     </script>
-    <script>
-    const menuButton = document.querySelector('.menu-button');
-    const navLinks = document.querySelector('.nav-links');
-
-    menuButton.addEventListener('click', () => {
-        // Переключаем класс active для открытия меню
-        navLinks.classList.toggle('active');
-        
-        // Переключаем класс для анимации самого бургера (крестика), если она у вас есть
-        menuButton.classList.toggle('open'); 
-    });
-</script>
 </body>
 </html>
