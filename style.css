@@ -59,6 +59,7 @@ a {
     color: inherit;
 }
 
+/* --- ШАПКА И НАВИГАЦИЯ --- */
 .top-nav {
     position: sticky;
     top: 0;
@@ -181,19 +182,30 @@ body.dark-theme .lang-switch {
     transform-origin: left;
 }
 
+/* Кнопка бургера (унифицированная) */
 .menu-toggle {
-    display: none;
+    display: none; /* Скрыта на ПК */
     width: 42px;
     height: 42px;
     border: 1px solid var(--line);
     border-radius: 7px;
     background: var(--paper);
-    padding: 0;
-    font-size: 22px;
-    color: var(--emerald);
+    padding: 10px 9px;
     cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    z-index: 1005;
+}
+
+/* Полоски внутри бургера */
+.burger-bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--emerald);
+    border-radius: 2px;
+    transition: all 260ms ease;
 }
 
 .theme-toggle {
@@ -1308,15 +1320,18 @@ body.dark-theme .nabor-card {
     color: #fff;
 }
 
+/* --- МЕДИА-ЗАПРОСЫ (АДАПТИВ) --- */
 @media (max-width: 900px) {
     .nav-inner {
         gap: 0.65rem;
     }
 
+    /* Включаем кнопку-бургер */
     .menu-toggle {
         display: flex;
     }
 
+    /* Прячем ссылки в выпадающее мобильное меню */
     .nav-links {
         display: none;
         flex-direction: column;
@@ -1327,10 +1342,12 @@ body.dark-theme .nabor-card {
         top: 100%;
         left: 0;
         background: var(--paper);
-        padding: 1rem;
+        padding: 0 1rem;
         border-bottom: 1px solid var(--line);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
     }
 
+    /* Когда шапке добавлен класс .is-open, меню плавно открывается */
     .top-nav.is-open .nav-links {
         display: flex;
     }
@@ -1338,6 +1355,17 @@ body.dark-theme .nabor-card {
     .nav-links a {
         padding: 0.9rem 0;
         border-top: 1px solid var(--line);
+    }
+
+    /* Анимация бургера при открытии меню (класс .is-open вешается на .top-nav) */
+    .top-nav.is-open .burger-bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .top-nav.is-open .burger-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .top-nav.is-open .burger-bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .split-content,
@@ -1494,73 +1522,5 @@ body.dark-theme .nabor-card {
     .reveal {
         opacity: 1;
         transform: none;
-    }
-}
-/* Базовые стили для шапки сайта */
-.site-header {
-    display: flex;
-    justify-content: space-between; /* Логотип слева, кнопка/ссылки справа */
-    align-items: center;           /* Центрирование по вертикали */
-    padding: 15px 20px;            /* Внутренние отступы шапки */
-    position: relative;            /* Чтобы мобильное меню позиционировалось правильно */
-    background-color: #0b1a1e;     /* Цвет твоей шапки */
-}
-
-/* Стили для кнопки бургера */
-.menu-button {
-    display: none; /* По умолчанию скрыта на ПК */
-    background: none;
-    border: none;
-    cursor: pointer;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 28px;   /* Оптимальная ширина */
-    height: 20px;  /* Оптимальная высота, чтобы полоски распределились красиво */
-    padding: 0;
-    z-index: 1001;
-}
-
-/* Полоски внутри бургера */
-.burger-bar {
-    width: 100%;
-    height: 2px;                  /* Делаем полоски чуть тоньше и аккуратнее */
-    background-color: #fff;       /* Белый цвет полосок */
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-/* Адаптив для мобилок */
-@media (max-width: 768px) {
-    .menu-button {
-        display: flex; /* Показываем кнопку на телефонах */
-    }
-
-    .nav-links {
-        display: none; 
-        position: absolute;
-        top: 100%;      /* Открывается ровно под шапкой */
-        left: 0;
-        width: 100%;
-        background-color: #0b1a1e; 
-        flex-direction: column;
-        padding: 20px 0;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        z-index: 1000;
-    }
-
-    /* Когда меню открыто */
-    .site-header.is-open .nav-links {
-        display: flex;
-    }
-
-    /* Анимация превращения в крестик */
-    .site-header.is-open .burger-bar:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-    }
-    .site-header.is-open .burger-bar:nth-child(2) {
-        opacity: 0;
-    }
-    .site-header.is-open .burger-bar:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
     }
 }
