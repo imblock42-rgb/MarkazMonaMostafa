@@ -9,28 +9,28 @@
 </head>
 <body>
 
-<header class="site-header">
-    <a class="brand" href="index.html">
-        <img src="assets/Logo.jpg" alt="Markaz al-Mona">
-        <span>MARKAZ AL-MONA</span>
+<header class="header">
+  <div class="header__container">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Markaz Al-Mona" class="logo__img">
+      <span class="logo__text">MARKAZ AL-MONA</span>
     </a>
-    
-    <input type="checkbox" id="menu-toggle" class="menu-toggle-input">
 
-    <nav class="nav-links">
-        <a href="#about">О ЦЕНТРЕ</a>
-        <a href="#tariffs">ТАРИФЫ</a>
-        <a href="#lessons">УРОКИ</a>
-        <a href="#blog">БЛОГ</a>
-        <a href="#contacts">СВЯЗЬ</a>
-        <a href="#sets">НАБОРЫ</a>
+    <button class="burger-menu" aria-label="Открыть меню" id="burgerButton">
+      <span class="burger-menu__line"></span>
+    </button>
+
+    <nav class="nav" id="navMenu">
+      <ul class="nav__list">
+        <li><a href="#" class="nav__link">О ЦЕНТРЕ</a></li>
+        <li><a href="#" class="nav__link">ТАРИФЫ</a></li>
+        <li><a href="#" class="nav__link">УРОКИ</a></li>
+        <li><a href="#" class="nav__link">БЛОГ</a></li>
+        <li><a href="#" class="nav__link">СВЯЗЬ</a></li>
+        <li><a href="#" class="nav__link">НАБОРЫ</a></li>
+      </ul>
     </nav>
-
-    <label for="menu-toggle" class="menu-button" aria-label="Открыть меню">
-        <span class="burger-bar"></span>
-        <span class="burger-bar"></span>
-        <span class="burger-bar"></span>
-    </label>
+  </div>
 </header>
     <main> 
         <section id="about" class="section-panel light-panel reveal">
