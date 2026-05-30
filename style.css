@@ -1496,3 +1496,71 @@ body.dark-theme .nabor-card {
         transform: none;
     }
 }
+/* Базовые стили для шапки сайта */
+.site-header {
+    display: flex;
+    justify-content: space-between; /* Логотип слева, кнопка/ссылки справа */
+    align-items: center;           /* Центрирование по вертикали */
+    padding: 15px 20px;            /* Внутренние отступы шапки */
+    position: relative;            /* Чтобы мобильное меню позиционировалось правильно */
+    background-color: #0b1a1e;     /* Цвет твоей шапки */
+}
+
+/* Стили для кнопки бургера */
+.menu-button {
+    display: none; /* По умолчанию скрыта на ПК */
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;   /* Оптимальная ширина */
+    height: 20px;  /* Оптимальная высота, чтобы полоски распределились красиво */
+    padding: 0;
+    z-index: 1001;
+}
+
+/* Полоски внутри бургера */
+.burger-bar {
+    width: 100%;
+    height: 2px;                  /* Делаем полоски чуть тоньше и аккуратнее */
+    background-color: #fff;       /* Белый цвет полосок */
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Адаптив для мобилок */
+@media (max-width: 768px) {
+    .menu-button {
+        display: flex; /* Показываем кнопку на телефонах */
+    }
+
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 100%;      /* Открывается ровно под шапкой */
+        left: 0;
+        width: 100%;
+        background-color: #0b1a1e; 
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    /* Когда меню открыто */
+    .site-header.is-open .nav-links {
+        display: flex;
+    }
+
+    /* Анимация превращения в крестик */
+    .site-header.is-open .burger-bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .site-header.is-open .burger-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .site-header.is-open .burger-bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
