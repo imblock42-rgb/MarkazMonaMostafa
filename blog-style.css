@@ -1,7 +1,7 @@
 /* Blog Page Specific Styles */
 
 .blog-hero {
-    color: #f7f1e7;
+    color: #262626;
     background:
         radial-gradient(circle at 85% 85%, rgba(201, 165, 48, 0.15), transparent 10rem),
         linear-gradient(115deg, var(--emerald) 0%, #10282c 100%);
