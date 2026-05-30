@@ -205,7 +205,7 @@ body.dark-theme .lang-switch {
     height: 2px;
     background-color: var(--ink);
     border-radius: 2px;
-    flex-shrink: 0; /* Запрещаем браузеру сплющивать полоски */
+    flex-shrink: 0;
     transition: transform 260ms ease, opacity 260ms ease;
 }
 
@@ -1364,13 +1364,13 @@ body.dark-theme .nabor-card {
         z-index: 9999;
     }
 
-    /* Показ меню */
+    /* Показ меню при активации родительского блока nav */
     .top-nav.is-open .nav-links {
         display: flex !important;
     }
 
     .nav-links a {
-        padding: 1.1rem 0.5rem; /* Добавлены безопасные боковые отступы */
+        padding: 1.1rem 0.5rem;
         border-top: 1px solid var(--line);
         color: var(--ink); 
         width: 100%;
@@ -1544,12 +1544,4 @@ body.dark-theme .nabor-card {
         opacity: 1;
         transform: none;
     }
-}
-@media (max-width: 768px) {
-  .nav-links {
-    display: none; /* скрыто по умолчанию на мобилках */
-  }
-  .nav-links.active {
-    display: flex; /* показывается при клике */
-  }
 }
