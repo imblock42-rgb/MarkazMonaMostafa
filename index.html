@@ -262,6 +262,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const burgerButton = document.getElementById('burgerButton');
             const navMenu = document.getElementById('navMenu');
+            const header = document.querySelector('.header');
 
             if (burgerButton && navMenu) {
                 // Открытие / закрытие по клику на бургер
@@ -270,10 +271,33 @@
                     burgerButton.classList.toggle('open'); 
                 });
 
-                // Автоматическое закрытие меню при клике на любую ссылку
+                // Обработка кликов на ссылки для плавного скролла
                 const navLinks = navMenu.querySelectorAll('.nav__link');
                 navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
+                    link.addEventListener('click', (e) => {
+                        const href = link.getAttribute('href');
+
+                        // Проверяем, содержит ли ссылка хэш (якорь на секцию)
+                        if (href.includes('#')) {
+                            const hash = href.substring(href.indexOf('#'));
+                            const targetSection = document.querySelector(hash);
+
+                            // Если мы на главной странице и секция существует, делаем плавный скролл
+                            if (targetSection) {
+                                e.preventDefault(); // Отменяем мгновенный скачок
+
+                                // Высчитываем высоту шапки сайта, чтобы заголовок не залез под неё
+                                const headerHeight = header ? header.offsetHeight : 70;
+                                const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+
+                        // Закрываем мобильное меню при клике
                         navMenu.classList.remove('active');
                         burgerButton.classList.remove('open');
                     });
