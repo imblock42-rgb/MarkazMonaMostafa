@@ -39,8 +39,17 @@
 
 .slider-track {
   display: flex;
-  transition: transform 0.4s ease-out;
   gap: 24px;
+  /* Включаем плавный горизонтальный скролл и магнитную фиксацию карточек */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  /* Полностью скрываем полосу прокрутки, чтобы она не портила вид */
+  scrollbar-width: none; /* Firefox */
+}
+
+.slider-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Карточки с изображениями */
@@ -52,6 +61,7 @@
   overflow: hidden; /* Чтобы картинка не вылезала за скругленные края */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: center; /* Карточка ровно встает по центру экрана при листании */
 }
 
 .nabor-card:hover {
@@ -101,7 +111,8 @@
   gap: 8px;
 }
 
-.dot {
+/* Класс изменен на .slider-dot для точной связи с JavaScript */
+.slider-dot {
   width: 8px;
   height: 8px;
   background: rgba(26, 49, 56, 0.2);
@@ -110,7 +121,7 @@
   transition: all 0.2s ease;
 }
 
-.dot.active {
+.slider-dot.active {
   background: #B39459;
   transform: scale(1.2);
 }
@@ -148,8 +159,15 @@
 }
 
 @media (max-width: 650px) {
+  /* Разрешаем элементам выходить за рамки viewport для мягкого свайпа */
+  .slider-viewport {
+    overflow: visible; 
+  }
+  
   .nabor-card {
-    flex: 0 0 100%; /* 1 картинка на смартфонах */
+    /* Меняем на 85%, чтобы карточка не ломалась на весь экран, 
+       а пользователь видел край следующей и понимал, что можно листать */
+    flex: 0 0 85%; 
   }
   .nabors-title {
     font-size: 28px;
