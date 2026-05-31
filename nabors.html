@@ -39,7 +39,7 @@
             <h2 class="nabors-title">АКТУАЛЬНЫЕ НАБОРЫ</h2>
             
             <div class="slider-viewport">
-                <div class="slider-track" id="sliderTrack">
+                <div class="slider-track">
                     
                     <div class="nabor-card">
                         <img src="assets/image10.jpg.png" alt="Мединский курс 1 том" class="nabor-img">
@@ -57,9 +57,9 @@
             </div>
 
             <div class="slider-controls">
-                <button class="slider-arrow prev-btn" id="prevBtn" aria-label="Назад">&#8592;</button>
-                <div class="slider-dots" id="sliderDots"></div>
-                <button class="slider-arrow next-btn" id="nextBtn" aria-label="Вперед">&#8594;</button>
+                <button class="slider-arrow prev-btn" aria-label="Назад">&#8592;</button>
+                <div class="slider-dots"></div>
+                <button class="slider-arrow next-btn" aria-label="Вперед">&#8594;</button>
             </div>
 
             <div class="nabors-action">
@@ -69,11 +69,10 @@
         </div>
     </section>
 
- <script src="script.js"></script>
-
-    <script>
+    <script src="script.js"></script>
+    <script src="nabors.js"></script> <script>
+        // Код управления мобильным меню (бургер) оставляем здесь
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Логика мобильного меню (Бургер) ---
             const burgerButton = document.getElementById('burgerButton');
             const navMenu = document.getElementById('navMenu');
 
@@ -88,64 +87,6 @@
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         burgerButton.classList.remove('open');
-                    });
-                });
-            }
-
-            // --- Логика работы слайдера ---
-            const track = document.getElementById('sliderTrack');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const dotsContainer = document.getElementById('sliderDots');
-            const cards = document.querySelectorAll('.nabor-card');
-
-            if (track && prevBtn && nextBtn && cards.length > 0) {
-                
-                // Функция определения шага прокрутки (ширина одной карточки + отступ)
-                const getScrollStep = () => {
-                    const cardWidth = cards[0].offsetWidth;
-                    const gap = parseInt(window.getComputedStyle(track).gap) || 0;
-                    return cardWidth + gap;
-                };
-
-                // Клик на стрелку "Вперед"
-                nextBtn.addEventListener('click', () => {
-                    track.scrollBy({
-                        left: getScrollStep(),
-                        behavior: 'smooth'
-                    });
-                });
-
-                // Клик на стрелку "Назад"
-                prevBtn.addEventListener('click', () => {
-                    track.scrollBy({
-                        left: -getScrollStep(),
-                        behavior: 'smooth'
-                    });
-                });
-
-                // Генерация динамических точек под слайдером (опционально)
-                cards.forEach((_, index) => {
-                    const dot = document.createElement('div');
-                    dot.classList.add('slider-dot');
-                    if (index === 0) dot.classList.add('active');
-                    if (dotsContainer) dotsContainer.appendChild(dot);
-                });
-
-                // Переключение активной точки при скролле (для красоты)
-                track.addEventListener('scroll', () => {
-                    const dots = document.querySelectorAll('.slider-dot');
-                    if (dots.length === 0) return;
-                    
-                    const step = getScrollStep();
-                    const activeIndex = Math.round(track.scrollLeft / step);
-                    
-                    dots.forEach((dot, idx) => {
-                        if (idx === activeIndex) {
-                            dot.classList.add('active');
-                        } else {
-                            dot.classList.remove('active');
-                        }
                     });
                 });
             }
