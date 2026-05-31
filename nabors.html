@@ -6,8 +6,7 @@
     <title>Markaz al-Mona</title>
     <link rel="icon" href="assets/Logo.jpg" type="image/png">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="nabors.css"> <!-- Стили для слайдера наборов -->
-</head>
+    <link rel="stylesheet" href="nabors.css"> </head>
 <body>
 
 <header class="header">
@@ -34,27 +33,22 @@
   </div>
 </header>
 
-    <!-- СЕКЦИЯ С НАБОРАМИ (СЛАЙДЕР) -->
     <section class="nabors-section">
         <div class="nabors-container">
             <p class="nabors-subtitle">КУРСЫ</p>
             <h2 class="nabors-title">АКТУАЛЬНЫЕ НАБОРЫ</h2>
             
-            <!-- Окно просмотра слайдера -->
             <div class="slider-viewport">
-                <div class="slider-track">
+                <div class="slider-track" id="sliderTrack">
                     
-                    <!-- Карточка 1 (Мединский курс) -->
                     <div class="nabor-card">
                         <img src="assets/image10.jpg.png" alt="Мединский курс 1 том" class="nabor-img">
                     </div>
 
-                    <!-- Карточка 2 (Байна Ядайк) -->
                     <div class="nabor-card">
                         <img src="assets/image11.jpg.png" alt="Байна Ядайк" class="nabor-img">
                     </div>
 
-                    <!-- Карточка 3 (Котру Нада) -->
                     <div class="nabor-card">
                         <img src="assets/image12.jpg.png" alt="Котру Нада" class="nabor-img">
                     </div>
@@ -62,14 +56,12 @@
                 </div>
             </div>
 
-            <!-- Элементы управления (Стрелки и точки) -->
             <div class="slider-controls">
-                <button class="slider-arrow prev-btn" aria-label="Назад">&#8592;</button>
-                <div class="slider-dots"></div>
-                <button class="slider-arrow next-btn" aria-label="Вперед">&#8594;</button>
+                <button class="slider-arrow prev-btn" id="prevBtn" aria-label="Назад">&#8592;</button>
+                <div class="slider-dots" id="sliderDots"></div>
+                <button class="slider-arrow next-btn" id="nextBtn" aria-label="Вперед">&#8594;</button>
             </div>
 
-            <!-- Главная кнопка отправки в Telegram -->
             <div class="nabors-action">
                 <a href="https://t.me/ArabicMarkaz_Mona/4288" target="_blank" class="nabor-main-btn">Записаться на курс</a>
             </div>
@@ -81,22 +73,79 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Логика мобильного меню (Бургер) ---
             const burgerButton = document.getElementById('burgerButton');
             const navMenu = document.getElementById('navMenu');
 
             if (burgerButton && navMenu) {
-                // Открытие / закрытие по клику на бургер
                 burgerButton.addEventListener('click', () => {
                     navMenu.classList.toggle('active');
                     burgerButton.classList.toggle('open'); 
                 });
 
-                // Автоматическое закрытие меню при клике на любую ссылку
                 const navLinks = navMenu.querySelectorAll('.nav__link');
                 navLinks.forEach(link => {
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         burgerButton.classList.remove('open');
+                    });
+                });
+            }
+
+            // --- Логика работы слайдера ---
+            const track = document.getElementById('sliderTrack');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('sliderDots');
+            const cards = document.querySelectorAll('.nabor-card');
+
+            if (track && prevBtn && nextBtn && cards.length > 0) {
+                
+                // Функция определения шага прокрутки (ширина одной карточки + отступ)
+                const getScrollStep = () => {
+                    const cardWidth = cards[0].offsetWidth;
+                    const gap = parseInt(window.getComputedStyle(track).gap) || 0;
+                    return cardWidth + gap;
+                };
+
+                // Клик на стрелку "Вперед"
+                nextBtn.addEventListener('click', () => {
+                    track.scrollBy({
+                        left: getScrollStep(),
+                        behavior: 'smooth'
+                    });
+                });
+
+                // Клик на стрелку "Назад"
+                prevBtn.addEventListener('click', () => {
+                    track.scrollBy({
+                        left: -getScrollStep(),
+                        behavior: 'smooth'
+                    });
+                });
+
+                // Генерация динамических точек под слайдером (опционально)
+                cards.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('slider-dot');
+                    if (index === 0) dot.classList.add('active');
+                    if (dotsContainer) dotsContainer.appendChild(dot);
+                });
+
+                // Переключение активной точки при скролле (для красоты)
+                track.addEventListener('scroll', () => {
+                    const dots = document.querySelectorAll('.slider-dot');
+                    if (dots.length === 0) return;
+                    
+                    const step = getScrollStep();
+                    const activeIndex = Math.round(track.scrollLeft / step);
+                    
+                    dots.forEach((dot, idx) => {
+                        if (idx === activeIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
                     });
                 });
             }
