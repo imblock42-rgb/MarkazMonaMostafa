@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Создаем динамические точки навигации
   function createDots() {
+    if (!dotsContainer) return;
     dotsContainer.innerHTML = '';
     const maxDots = getMaxIndex() + 1;
     
@@ -37,9 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Функция обновления позиции слайдера
   function updateSlider() {
+    if (!track || cards.length === 0) return;
+    
     const maxIndex = getMaxIndex();
     if (currentIndex > maxIndex) currentIndex = maxIndex;
 
+    // Рассчитываем точную текущую ширину карточки на экране
     const cardWidth = cards[0].getBoundingClientRect().width;
     const gap = parseInt(window.getComputedStyle(track).gap) || 0;
     
@@ -54,48 +58,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // События кнопок управления
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex < getMaxIndex()) {
-      currentIndex++;
-    } else {
-      currentIndex = 0; // Зацикливание (возврат к началу)
-    }
-    updateSlider();
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < getMaxIndex()) {
+        currentIndex++;
+      } else {
+        currentIndex = 0; // Зацикливание (возврат к началу)
+      }
+      updateSlider();
+    });
+  }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-    } else {
-      currentIndex = getMaxIndex(); // Переход к концу
-    }
-    updateSlider();
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = getMaxIndex(); // Переход к концу
+      }
+      updateSlider();
+    });
+  }
 
   // Поддержка свайпов на мобильных устройствах
   let startX = 0;
   let isDragging = false;
 
-  track.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-  });
+  if (track) {
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
 
-  track.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX - endX;
+    track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
 
-    if (Math.abs(diff) > 50) { // Минимальная дистанция свайпа
-      if (diff > 0 && currentIndex < getMaxIndex()) {
-        currentIndex++;
-      } else if (diff < 0 && currentIndex > 0) {
-        currentIndex--;
+      if (Math.abs(diff) > 50) { // Минимальная дистанция свайпа
+        if (diff > 0 && currentIndex < getMaxIndex()) {
+          currentIndex++;
+        } else if (diff < 0 && currentIndex > 0) {
+          currentIndex--;
+        }
+        updateSlider();
       }
-      updateSlider();
-    }
-    isDragging = false;
-  });
+      isDragging = false;
+    });
+  }
 
   // Пересчет при изменении размеров экрана
   window.addEventListener('resize', () => {
@@ -103,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSlider();
   });
 
-  // Инициализация
+  // Инициализация слайдера
   createDots();
   updateSlider();
 });
