@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
             contact_bot_text: "Бот в Telegram",
             contact_open: "Открыть",
             contact_channel_title: "Перейти в канал",
-            contact_channel_text: "Новости и материалы Markaz al-Mona · 2558 подписчиков",
+            contact_channel_text: "Новости и материалы Markaz al-Mona · 2564 подписчиков",
             contact_go: "Перейти",
             contact_inst_title: "Посмотреть Instagram",
             contact_inst_text: "Публикации и визуальные материалы",
