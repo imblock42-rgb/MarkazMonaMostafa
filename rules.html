@@ -1,1 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учебные правила - Markaz al-Mona</title>
+    <link rel="icon" href="assets/Logo.jpg" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для страницы правил, чтобы всё выглядело аккуратно */
+        .rules-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .rule-card {
+            background: #fff;
+            border-left: 4px solid var(--accent-color, #8c6239); /* Фирменный цвет марказа */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .rule-card h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+        }
+        .quran-verse {
+            background-color: #fcf9f5;
+            border: 1px dashed #e6dbcf;
+            padding: 15px;
+            text-align: center;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .arabic-text {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            direction: rtl;
+        }
+        .warning-box {
+            background-color: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-left: 4px solid #e53e3e;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+            color: #c53030;
+        }
+        .warning-box h3 {
+            margin-top: 0;
+            color: #9b2c2c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rules-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: var(--accent-color, #8c6239);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+  <div class="header__container">
+    <a href="index.html" class="logo">
+      <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
+      <span class="logo__text">MARKAZ AL-MONA</span>
+    </a>
 
+    <button class="burger-menu" aria-label="Открыть меню" id="burgerButton">
+      <span class="burger-menu__line"></span>
+    </button>
+
+    <nav class="nav" id="navMenu">
+      <ul class="nav__list">
+        <li><a href="index.html#about" class="nav__link">О ЦЕНТРЕ</a></li>
+        <li><a href="index.html#formats" class="nav__link">ТАРИФЫ</a></li>
+        <li><a href="index.html#lessons" class="nav__link">УРОКИ</a></li>
+        <li><a href="blog.html" class="nav__link">БЛОГ</a></li>
+        <li><a href="index.html#contacts" class="nav__link">СВЯЗЬ</a></li>
+        <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <main id="top" style="margin-top: 110px;"> 
+        <section class="light-panel" style="text-align: center; padding: 30px 20px; margin-bottom: 30px;">
+            <h1 style="font-size: 2rem; margin-bottom: 10px;">Договор на обучение и учебные правила</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Пожалуйста, внимательно ознакомьтесь с правилами нашего марказа перед началом занятий.</p>
+        </section>
+
+        <div class="rules-container">
+            
+            <!-- БЛОК 1: ДОГОВОР -->
+            <div class="rule-card">
+                <h2>📝 Устный договор</h2>
+                <p>Записываясь на курс, вы заключаете <strong>устный договор</strong> с марказом о прохождении обучения. Помните, что Аллах — свидетель каждой вещи.</p>
+                
+                <div class="quran-verse">
+                    <span class="arabic-text">{ يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ }</span>
+                    <strong>«О те, которые уверовали! Будьте верны договорам...»</strong> <small>[Сура аль-Маида, 1]</small>
+                </div>
+
+                <p>🌿 <strong>Ахляк и уважение:</strong> Проявляйте искреннее уважение к преподавателю и другим студенткам. Помните, что наш Пророк ﷺ был обладателем великого нрава:</p>
+                <div class="quran-verse" style="margin-top: 10px;">
+                    <span class="arabic-text">{وَإِنَّكَ لَعَلَى خُلُقٍ عَظِيمٍ}</span>
+                    <strong>«Воистину, твой нрав превосходен»</strong> <small>[Сура аль-Калям, 4]</small>
+                </div>
+            </div>
+
+            <!-- БЛОК 2: ПОСЕЩЕНИЕ И ВЫХОД -->
+            <div class="rule-card">
+                <h2>📋 Посещение занятий и дисциплина</h2>
+                <p>Если вы записались на курс, вы берете на себя ответственность <strong>пройти его до конца</strong>. Не допускается покидать группу посреди процесса (через 2 недели, месяц или за месяц до окончания).</p>
+                
+                <p><strong>Почему это важно?</strong><br>
+                Преждевременный уход студентов доставляет неудобства вашим однокурсницам и учителю. Центру приходится делать донаборы, и вместо полной концентрации на учебе, внимание группы рассеивается на уходящих и приходящих учениц.</p>
+                
+                <p>⚠️ <strong>Вынужденное прекращение:</strong> Если у вас возникли уважительные и веские причины, по которым вы не можете продолжать учебу, вы обязаны <strong>официально оповестить администратора и учителя</strong>. Покидать группу молча и украдкой строго запрещено.</p>
+            </div>
+
+            <!-- БЛОК 3: ОПЛАТА -->
+            <div class="rule-card">
+                <h2>💳 Правила оплаты</h2>
+                <ul class="post-list">
+                    <li>Оплата за обучение вносится <strong>до начала занятий</strong> в установленном марказом размере.</li>
+                    <li>Оплате подлежат <strong>все уроки курса</strong>, включая те, которые студентка пропустила по личным причинам.</li>
+                    <li>Доступ к записям предыдущих (пропущенных) уроков оплачивается отдельно.</li>
+                </ul>
+            </div>
+
+            <!-- БЛОК 4: ДОМАШНЕЕ ЗАДАНИЕ -->
+            <div class="rule-card">
+                <h2>✍️ Выполнение домашних заданий</h2>
+                <p>Выполнение домашних заданий является <strong>обязательным условием</strong> обучения! Сдавать работы необходимо строго вовремя.</p>
+                
+                <p><strong>Требования к оформлению:</strong></p>
+                <ul class="post-list">
+                    <li>Пишите яркой, разборчивой ручкой.</li>
+                    <li>Делайте фотографии при хорошем освещении и следите, чтобы они не были перевернуты боком.</li>
+                    <li>При желании домашнее задание можно набирать в печатном виде.</li>
+                </ul>
+                <p><em>Если вы не успели выполнить задание к сроку — обязательно предупредите учителя и отправьте работу сразу после урока.</em></p>
+            </div>
+
+            <!-- БЛОК 5: СОВЕТЫ СТУДЕНТАМ -->
+            <div class="rule-card">
+                <h2>💡 Как сделать обучение эффективным?</h2>
+                <ul class="post-list">
+                    <li><strong>Пополняйте словарный запас:</strong> регулярно заучивайте новые слова, записывайте их и прорабатывайте учебные диалоги.</li>
+                    <li><strong>Уважайте время группы:</strong> приходите на урок полностью готовыми. Думайте об однокурсницах, которые тоже хотят ответить, и об учителе, которому нужно время на объяснение нового материала.</li>
+                    <li><strong>Повторяйте дома:</strong> если вы выполнили домашнее задание, прочитайте его дома минимум 10 раз. На уроке вы должны читать бегло, а не разбирать текст впервые — это экономит драгоценное время урока. ⌚</li>
+                </ul>
+            </div>
+
+            <!-- БЛОК 6: ВАЖНЫЕ ОРГ. МОМЕНТЫ -->
+            <div class="rule-card">
+                <h2>⚙️ Организационные моменты</h2>
+                <ul class="post-list">
+                    <li><strong>Посещаемость:</strong> Каждая студентка должна отметиться в чате за 15 минут до начала урока.</li>
+                    <li><strong>Аманат (сохранность):</strong> Все учебные материалы, аудио и видео, присылаемые в группу — это аманат центра. Пересылать их третьим лицам запрещено.</li>
+                    <li><strong>Отображение в Zoom:</strong> Напишите свое имя в приложении Zoom на английском или арабском языке. Оно должно строго совпадать с вашим именем в Telegram.</li>
+                    <li><strong>Вопросы:</strong> Никогда не стесняйтесь задавать вопросы, если вам что-то непонятно. Мы всегда рады помочь! ❤️</li>
+                </ul>
+            </div>
+
+            <!-- СТРОГОЕ ПРЕДУПРЕЖДЕНИЕ ОБ ОТЧИСЛЕНИИ -->
+            <div class="warning-box">
+                <h3>🚫 Внимание: Правило отчисления</h3>
+                <p>Студентка, пропустившая <strong>3 урока подряд без веской (подтвержденной) причины или справки от врача</strong>, отчисляется из марказа автоматически <strong>без объяснения причин и без возврата денежных средств</strong>.</p>
+            </div>
+
+            <!-- ПОЖЕЛАНИЕ В КОНЦЕ -->
+            <div class="rules-footer">
+                Будьте терпеливы, усердны в требовании знаний, и всё обязательно получится. إن شاء الله<br>
+                <span style="display:block; margin-top: 10px; font-weight: normal; color: #555;">زادنا الله علما نافعا 💙</span>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Скрипт для работы мобильного меню (бургер)
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerButton = document.getElementById('burgerButton');
+            const navMenu = document.getElementById('navMenu');
+
+            if (burgerButton && navMenu) {
+                burgerButton.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    burgerButton.classList.toggle('open'); 
+                });
+            }
+        });
+    </script>
+</body>
+</html>
