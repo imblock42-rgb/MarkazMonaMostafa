@@ -3,9 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Блог - Markaz al-Mona</title>
-    <link rel="icon" href="assets/Logo.jpg" type="image/png">
-    <link rel="stylesheet" href="style.css"> 
+    <title>Markaz al-Mona</title>
+    <link rel="icon" href="assets/Logo.jng" type="img/.jpg">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Стили для интеграции переключателя языков Google */
+        .lang-switcher-container {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+        
+        /* Скрываем стандартный текст Google "Select Language" */
+        .goog-te-gadget {
+            color: transparent !important;
+            font-size: 0 !important;
+        }
+        
+        /* Стилизуем сам выпадающий список, чтобы он подходил под дизайн */
+        .goog-te-gadget .goog-te-combo {
+            padding: 4px 8px;
+            border: 1px solid #e6dbcf;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .goog-te-gadget .goog-te-combo:hover {
+            border-color: var(--accent-color, #8c6239);
+        }
+
+        /* Прячем верхнюю панель Google фрейма, которая появляется после перевода */
+        body {
+            top: 0 !important;
+        }
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        .goog-tooltip {
+            display: none !important;
+        }
+        .goog-tooltip:hover {
+            display: none !important;
+        }
+        .goog-text-highlight {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        /* Элемент перевода внутри мобильного меню */
+        .nav__list .mobile-lang {
+            display: none;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 991px) {
+            /* Скрываем переключатель из десктопной шапки на мобилках */
+            .header__container > .lang-switcher-container {
+                display: none;
+            }
+            /* Показываем переключатель внутри открывающегося бургер-меню */
+            .nav__list .mobile-lang {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -29,11 +98,17 @@
         <li><a href="index.html#contacts" class="nav__link">СВЯЗЬ</a></li>
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
+        <li class="mobile-lang">
+            <div id="google_translate_element_mobile"></div>
+        </li>
       </ul>
     </nav>
+
+    <div class="lang-switcher-container">
+        <div id="google_translate_element_desktop"></div>
+    </div>
   </div>
 </header>
-
     <main id="top" style="margin-top: 90px;"> 
         <section class="blog-hero light-panel">
             <div class="hero-inner" style="padding: 40px 0; text-align: center;">
