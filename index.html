@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz al-Mona</title>
-    <link rel="icon" href="assets/Logo.jng" type=img/.jpg>
+    <link rel="icon" href="assets/Logo.jng" type="img/.jpg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -60,6 +60,7 @@
             <p>Teacher Mona Mostafa</p>
         </section>
 
+        <!-- ОБНОВЛЕННАЯ СЕКЦИЯ С УСТАЗОЙ И КНИГАМИ -->
         <section id="mentor" class="section-panel mentor-section reveal">
             <div class="section-title">
                 <span data-i18n="mentor_label">Устаза</span>
@@ -72,7 +73,7 @@
                 <div>
                     <p data-i18n="mentor_p1">Преподаватель арабского языка для неносителей с многолетним опытом Более 10 лет.</p>
                     <p data-i18n="mentor_p2">Специализируется на классическом арабском языке, грамматике и разговорной практике. Объясняет сложные темы понятным языком и ведет ученика по шагам.</p>
-                    <div class="mini-stats">
+                    <div class="mini-stats" style="margin-bottom: 25px;">
                         <article>
                             <strong>10+</strong>
                             <span data-i18n="stat_years">лет опыта</span>
@@ -85,6 +86,24 @@
                             <strong>2564</strong>
                             <span data-i18n="stat_subscribers">подписчиков</span>
                         </article>
+                    </div>
+
+                    <!-- НОВЫЙ БЛОК: КНИГИ УСТАЗЫ -->
+                    <div class="mentor-books" style="background: #fdfbf7; border-left: 3px solid var(--accent-color, #8c6239); padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+                        <p style="margin-top: 0; font-weight: 600; color: #333;">😊 Книги, которые преподаёт устаза Муна постоянно, а также она может преподавать и любые другие книги:</p>
+                        <span style="display: block; margin-bottom: 8px; font-weight: bold; color: var(--accent-color, #8c6239);">أسماء الكتب:</span>
+                        <ul class="post-list" style="list-style: none; padding-left: 0; margin-bottom: 0; direction: rtl; text-align: right;">
+                            <li style="margin-bottom: 6px;">📊كتب المدينة كلّها</li>
+                            <li style="margin-bottom: 6px;">📊كتب العربية بين يديك كلها</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابن عثيمين</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الصرف الكافي</li>
+                            <li style="margin-bottom: 6px;">📊كتاب القراءة الراشدة</li>
+                            <li style="margin-bottom: 6px;">📊كتاب قطر الندى بشرح ابن هشام</li>
+                            <li style="margin-bottom: 6px;">📊كتاب البلاغة المُيَسَّرة</li>
+                            <li style="margin-bottom: 6px;">📊كتاب ألفية بن مالك بشرح ابن عقيل</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الممتاز</li>
+                            <li style="margin-bottom: 0;">📊 النحو الواضح</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -266,28 +285,23 @@
             const header = document.querySelector('.header');
 
             if (burgerButton && navMenu) {
-                // Открытие / закрытие по клику на бургер
                 burgerButton.addEventListener('click', () => {
                     navMenu.classList.toggle('active');
                     burgerButton.classList.toggle('open'); 
                 });
 
-                // Обработка кликов на ссылки для плавного скролла
                 const navLinks = navMenu.querySelectorAll('.nav__link');
                 navLinks.forEach(link => {
                     link.addEventListener('click', (e) => {
                         const href = link.getAttribute('href');
 
-                        // Проверяем, содержит ли ссылка хэш (якорь на секцию)
                         if (href.includes('#')) {
                             const hash = href.substring(href.indexOf('#'));
                             const targetSection = document.querySelector(hash);
 
-                            // Если мы на главной странице и секция существует, делаем плавный скролл
                             if (targetSection) {
-                                e.preventDefault(); // Отменяем мгновенный скачок
+                                e.preventDefault();
 
-                                // Высчитываем высоту шапки сайта, чтобы заголовок не залез под неё
                                 const headerHeight = header ? header.offsetHeight : 70;
                                 const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
@@ -298,7 +312,6 @@
                             }
                         }
 
-                        // Закрываем мобильное меню при клике
                         navMenu.classList.remove('active');
                         burgerButton.classList.remove('open');
                     });
