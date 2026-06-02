@@ -74,7 +74,7 @@
         }
 
         /* ==========================================================================
-           СТРОГИЕ СТИЛИ СЛАЙДЕРА И СИСТЕМЫ ПЕРЕЛИСТЫВАНИЯ ФОТОК
+           СТИЛИ СЛАЙДЕРА
            ========================================================================== */
         .nabors-section {
             padding: 40px 20px;
@@ -103,26 +103,27 @@
             font-weight: 700;
         }
 
-        /* Окно просмотра: показывает ТОЛЬКО ОДНУ фотку, остальные прячет в ряд */
+        /* Окно просмотра: строго показывает только одну картинку */
         .slider-viewport {
             overflow: hidden;
             width: 100%;
-            max-width: 380px; /* Ограничение под размер карточки из макета */
+            max-width: 380px; 
             margin: 0 auto 25px auto;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        /* Длинная лента, в которой фотки стоят в одну линию друг за другом */
+        /* Лента, которая сдвигается с помощью JavaScript */
         .slider-track {
             display: flex;
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             width: 100%;
         }
 
-        /* Контейнер для каждой фотки курса */
+        /* Контейнер для слайда */
         .nabor-card {
             min-width: 100%;
+            max-width: 100%;
             box-sizing: border-box;
             background: #fff;
             display: flex;
@@ -130,7 +131,7 @@
             align-items: center;
         }
 
-        /* Сами фотки наборов */
+        /* Картинка */
         .nabor-img {
             width: 100%;
             height: auto;
@@ -138,7 +139,7 @@
             object-fit: contain;
         }
 
-        /* Блок со стрелочками перелистывания */
+        /* Блок управления со стрелками и точками */
         .slider-controls {
             display: flex;
             align-items: center;
@@ -147,7 +148,7 @@
             margin-bottom: 30px;
         }
 
-        /* Круглые аккуратные стрелочки как на твоем скриншоте */
+        /* Круглые стрелочки */
         .slider-arrow {
             background: #fff;
             border: 1px solid #dcd1c4;
@@ -162,6 +163,7 @@
             justify-content: center;
             transition: all 0.2s ease;
             outline: none;
+            user-select: none;
         }
 
         .slider-arrow:hover {
@@ -170,10 +172,11 @@
             background-color: #faf8f5;
         }
 
-        /* Контейнер для точек под стрелочками (если понадобятся) */
+        /* Индикаторы-точки */
         .slider-dots {
             display: flex;
             gap: 8px;
+            align-items: center;
         }
 
         .slider-dot {
@@ -189,14 +192,14 @@
             background-color: #8c6239;
         }
 
-        /* Золотистая кнопка записи из твоего макета */
+        /* Золотистая кнопка действия */
         .nabors-action {
             margin-top: 10px;
         }
 
         .nabor-main-btn {
             display: inline-block;
-            background-color: #bfa36a; /* Благородный золотистый цвет кнопки с макета */
+            background-color: #bfa36a; 
             color: #fff;
             padding: 14px 45px;
             border-radius: 30px;
@@ -300,13 +303,14 @@
             const track = document.getElementById('sliderTrack');
             const cards = document.querySelectorAll('.nabor-card');
             const prevButton = document.getElementById('prevBtn');
-            const自动Button = document.getElementById('nextBtn');
+            const nextButton = document.getElementById('nextBtn');
             const dotsContainer = document.getElementById('sliderDots');
             
             let currentIndex = 0;
             const totalSlides = cards.length;
 
-            // 1. Создаем круглые точки под фотками автоматически
+            // 1. Очищаем контейнер точек (на случай дублирования) и создаем их заново
+            dotsContainer.innerHTML = '';
             for (let i = 0; i < totalSlides; i++) {
                 const dot = document.createElement('div');
                 dot.classList.add('slider-dot');
@@ -319,20 +323,20 @@
 
             const dots = document.querySelectorAll('.slider-dot');
 
-            // 2. Функция безопасного переключения на нужную фотку
+            // 2. Функция переключения слайдов
             function goToSlide(index) {
                 if (index < 0) {
-                    currentIndex = totalSlides - 1; // Возврат на последнюю
+                    currentIndex = totalSlides - 1; // Если ушли влево за край — включаем последний
                 } else if (index >= totalSlides) {
-                    currentIndex = 0; // Возврат на первую
+                    currentIndex = 0; // Если ушли вправо за край — возвращаемся на первый
                 } else {
                     currentIndex = index;
                 }
                 
-                // Сдвигаем трек с фотками влево ровно на нужный процент
+                // Передвигаем ленту строго на нужный коэффициент процентов
                 track.style.transform = `translateX(-${currentIndex * 100}%)`;
                 
-                // Обновляем активную точку
+                // Переключаем активный класс у точек под картинками
                 dots.forEach((dot, i) => {
                     if (i === currentIndex) {
                         dot.classList.add('active');
@@ -342,23 +346,36 @@
                 });
             }
 
-            // 3. Навешиваем клики на стрелочки перелистывания
-            自动Button.addEventListener('click', () => {
-                goToSlide(currentIndex + 1);
-            });
+            // 3. Жесткая привязка событий клика к кнопкам-стрелкам
+            if (nextButton) {
+                nextButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    goToSlide(currentIndex + 1);
+                });
+            }
 
-            prevButton.addEventListener('click', () => {
-                goToSlide(currentIndex - 1);
-            });
+            if (prevButton) {
+                prevButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    goToSlide(currentIndex - 1);
+                });
+            }
 
-            // Добавляем поддержку свайпов пальцем для телефонов
+            // 4. Поддержка свайпов пальцем для смартфонов
             let startX = 0;
-            track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+            track.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+
             track.addEventListener('touchend', e => {
                 const endX = e.changedTouches[0].clientX;
-                if (startX - endX > 50) goToSlide(currentIndex + 1); // Свайп влево
-                if (endX - startX > 50) goToSlide(currentIndex - 1); // Свайп вправо
-            });
+                if (startX - endX > 50) {
+                    goToSlide(currentIndex + 1); // Свайпнули влево -> следующий слайд
+                }
+                if (endX - startX > 50) {
+                    goToSlide(currentIndex - 1); // Свайпнули вправо -> предыдущий слайд
+                }
+            }, { passive: true });
         });
     </script>
     
