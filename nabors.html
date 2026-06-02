@@ -53,11 +53,9 @@
         }
 
         @media (max-width: 991px) {
-            /* Скрываем переключатель из шапки на мобилках */
             .header__container > .lang-switcher {
                 display: none;
             }
-            /* Показываем переключатель внутри открытого бургер-меню */
             .nav__list .mobile-lang-wrapper {
                 display: block;
             }
@@ -76,7 +74,7 @@
         }
 
         /* ==========================================================================
-           ВОЗВРАЩАЕМ СТИЛИ СЛАЙДЕРА И НАБОРОВ (ТО, ЧТО ПРОПАЛО)
+           СТРОГИЕ СТИЛИ СЛАЙДЕРА И СИСТЕМЫ ПЕРЕЛИСТЫВАНИЯ ФОТОК
            ========================================================================== */
         .nabors-section {
             padding: 40px 20px;
@@ -93,7 +91,7 @@
         .nabors-subtitle {
             font-size: 0.9rem;
             letter-spacing: 2px;
-            color: var(--accent-color, #8c6239);
+            color: #8c6239;
             margin-bottom: 5px;
             font-weight: bold;
         }
@@ -102,26 +100,27 @@
             font-size: 2rem;
             margin-bottom: 30px;
             color: #333;
+            font-weight: 700;
         }
 
-        /* Оболочка слайдера (скрывает вылезающие карточки) */
+        /* Окно просмотра: показывает ТОЛЬКО ОДНУ фотку, остальные прячет в ряд */
         .slider-viewport {
             overflow: hidden;
             width: 100%;
+            max-width: 380px; /* Ограничение под размер карточки из макета */
             margin: 0 auto 25px auto;
-            max-width: 380px; /* Ограничиваем ширину под одну карточку, как на макетах */
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        /* Дорожка слайдера, которая двигается через JS */
+        /* Длинная лента, в которой фотки стоят в одну линию друг за другом */
         .slider-track {
             display: flex;
-            transition: transform 0.4s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             width: 100%;
         }
 
-        /* Сама карточка набора */
+        /* Контейнер для каждой фотки курса */
         .nabor-card {
             min-width: 100%;
             box-sizing: border-box;
@@ -131,54 +130,55 @@
             align-items: center;
         }
 
-        /* Адаптивные изображения внутри карточек */
+        /* Сами фотки наборов */
         .nabor-img {
             width: 100%;
             height: auto;
             display: block;
             object-fit: contain;
-            max-height: 500px; /* Чтобы картинка не была бесконечно огромной */
         }
 
-        /* Элементы управления слайдером */
+        /* Блок со стрелочками перелистывания */
         .slider-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 30px;
         }
 
+        /* Круглые аккуратные стрелочки как на твоем скриншоте */
         .slider-arrow {
             background: #fff;
-            border: 1px solid #e6dbcf;
+            border: 1px solid #dcd1c4;
             color: #333;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            outline: none;
         }
 
         .slider-arrow:hover {
-            background-color: var(--accent-color, #8c6239);
-            border-color: var(--accent-color, #8c6239);
-            color: #fff;
+            border-color: #8c6239;
+            color: #8c6239;
+            background-color: #faf8f5;
         }
 
+        /* Контейнер для точек под стрелочками (если понадобятся) */
         .slider-dots {
             display: flex;
             gap: 8px;
         }
 
-        /* Стилизация точек слайдера (если создаются скриптом) */
         .slider-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background-color: #e6dbcf;
             cursor: pointer;
@@ -186,29 +186,31 @@
         }
 
         .slider-dot.active {
-            background-color: var(--accent-color, #8c6239);
+            background-color: #8c6239;
         }
 
-        /* Кнопка записи */
+        /* Золотистая кнопка записи из твоего макета */
         .nabors-action {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .nabor-main-btn {
             display: inline-block;
-            background-color: var(--accent-color, #8c6239);
+            background-color: #bfa36a; /* Благородный золотистый цвет кнопки с макета */
             color: #fff;
-            padding: 14px 35px;
-            border-radius: 50px;
+            padding: 14px 45px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 10px rgba(140, 98, 57, 0.3);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(191, 163, 106, 0.2);
         }
 
         .nabor-main-btn:hover {
-            background-color: #734e2c;
-            transform: translateY(-2px);
+            background-color: #ab8f57;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(191, 163, 106, 0.3);
         }
     </style>
 </head>
@@ -235,7 +237,6 @@
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
         
-        <!-- НА ТЕЛЕФОНЕ: Появится в самом низу мобильного меню -->
         <li class="mobile-lang-wrapper">
             <div class="lang-switcher">
                 <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
@@ -246,7 +247,6 @@
       </ul>
     </nav>
 
-    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
     <div class="lang-switcher">
         <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
         <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
@@ -255,17 +255,15 @@
   </div>
 </header>
 
-    <!-- Скрытый контейнер, необходимый для работы скрипта Google -->
     <div id="google_translate_element"></div>
 
-    <!-- Изменили отступ со 40px на 120px, чтобы контент не залезал под фиксированную шапку -->
-    <section class="nabors-section" style="margin-top: 120px;">
+    <section class="nabors-section" style="margin-top: 110px;">
         <div class="nabors-container">
             <p class="nabors-subtitle">КУРСЫ</p>
             <h2 class="nabors-title">АКТУАЛЬНЫЕ НАБОРЫ</h2>
             
             <div class="slider-viewport">
-                <div class="slider-track">
+                <div class="slider-track" id="sliderTrack">
                     
                     <div class="nabor-card">
                         <img src="assets/image10.jpg.png" alt="Мединский курс 1 том" class="nabor-img">
@@ -283,9 +281,9 @@
             </div>
 
             <div class="slider-controls">
-                <button class="slider-arrow prev-btn" aria-label="Назад">&#8592;</button>
-                <div class="slider-dots"></div>
-                <button class="slider-arrow next-btn" aria-label="Вперед">&#8594;</button>
+                <button class="slider-arrow" id="prevBtn" aria-label="Назад">&#8592;</button>
+                <div class="slider-dots" id="sliderDots"></div>
+                <button class="slider-arrow" id="nextBtn" aria-label="Вперед">&#8594;</button>
             </div>
 
             <div class="nabors-action">
@@ -296,9 +294,74 @@
     </section>
 
     <script src="script.js"></script>
-    <script src="nabors.js"></script> 
     
-    <!-- СКРИПТЫ УПРАВЛЕНИЯ ПЕРЕВОДОМ GOOGLE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('sliderTrack');
+            const cards = document.querySelectorAll('.nabor-card');
+            const prevButton = document.getElementById('prevBtn');
+            const自动Button = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('sliderDots');
+            
+            let currentIndex = 0;
+            const totalSlides = cards.length;
+
+            // 1. Создаем круглые точки под фотками автоматически
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('slider-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                });
+                dotsContainer.appendChild(dot);
+            }
+
+            const dots = document.querySelectorAll('.slider-dot');
+
+            // 2. Функция безопасного переключения на нужную фотку
+            function goToSlide(index) {
+                if (index < 0) {
+                    currentIndex = totalSlides - 1; // Возврат на последнюю
+                } else if (index >= totalSlides) {
+                    currentIndex = 0; // Возврат на первую
+                } else {
+                    currentIndex = index;
+                }
+                
+                // Сдвигаем трек с фотками влево ровно на нужный процент
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Обновляем активную точку
+                dots.forEach((dot, i) => {
+                    if (i === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // 3. Навешиваем клики на стрелочки перелистывания
+            自动Button.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+            });
+
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+            });
+
+            // Добавляем поддержку свайпов пальцем для телефонов
+            let startX = 0;
+            track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+            track.addEventListener('touchend', e => {
+                const endX = e.changedTouches[0].clientX;
+                if (startX - endX > 50) goToSlide(currentIndex + 1); // Свайп влево
+                if (endX - startX > 50) goToSlide(currentIndex - 1); // Свайп вправо
+            });
+        });
+    </script>
+    
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -314,7 +377,6 @@
                 googleSelect.value = langCode;
                 googleSelect.dispatchEvent(new Event('change'));
                 
-                // Синхронное переключение активного класса на кнопках (ПК и Мобильные)
                 document.querySelectorAll('.lang-btn').forEach(btn => {
                     if(btn.getAttribute('onclick').includes(`'${langCode}'`)) {
                         btn.classList.add('is-active');
