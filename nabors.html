@@ -74,6 +74,142 @@
         body {
             top: 0 !important;
         }
+
+        /* ==========================================================================
+           ВОЗВРАЩАЕМ СТИЛИ СЛАЙДЕРА И НАБОРОВ (ТО, ЧТО ПРОПАЛО)
+           ========================================================================== */
+        .nabors-section {
+            padding: 40px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .nabors-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .nabors-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--accent-color, #8c6239);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .nabors-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* Оболочка слайдера (скрывает вылезающие карточки) */
+        .slider-viewport {
+            overflow: hidden;
+            width: 100%;
+            margin: 0 auto 25px auto;
+            max-width: 380px; /* Ограничиваем ширину под одну карточку, как на макетах */
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Дорожка слайдера, которая двигается через JS */
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            width: 100%;
+        }
+
+        /* Сама карточка набора */
+        .nabor-card {
+            min-width: 100%;
+            box-sizing: border-box;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Адаптивные изображения внутри карточек */
+        .nabor-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            max-height: 500px; /* Чтобы картинка не была бесконечно огромной */
+        }
+
+        /* Элементы управления слайдером */
+        .slider-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slider-arrow {
+            background: #fff;
+            border: 1px solid #e6dbcf;
+            color: #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .slider-arrow:hover {
+            background-color: var(--accent-color, #8c6239);
+            border-color: var(--accent-color, #8c6239);
+            color: #fff;
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Стилизация точек слайдера (если создаются скриптом) */
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #e6dbcf;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .slider-dot.active {
+            background-color: var(--accent-color, #8c6239);
+        }
+
+        /* Кнопка записи */
+        .nabors-action {
+            margin-top: 20px;
+        }
+
+        .nabor-main-btn {
+            display: inline-block;
+            background-color: var(--accent-color, #8c6239);
+            color: #fff;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(140, 98, 57, 0.3);
+        }
+
+        .nabor-main-btn:hover {
+            background-color: #734e2c;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -122,7 +258,8 @@
     <!-- Скрытый контейнер, необходимый для работы скрипта Google -->
     <div id="google_translate_element"></div>
 
-    <section class="nabors-section" style="margin-top: 40px;">
+    <!-- Изменили отступ со 40px на 120px, чтобы контент не залезал под фиксированную шапку -->
+    <section class="nabors-section" style="margin-top: 120px;">
         <div class="nabors-container">
             <p class="nabors-subtitle">КУРСЫ</p>
             <h2 class="nabors-title">АКТУАЛЬНЫЕ НАБОРЫ</h2>
