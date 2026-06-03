@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz al-Mona</title>
-    <link rel="icon" href="assets/Logo.jng" type="img/.jpg">
+    <link class="icon" href="assets/Logo.jng" type="img/.jpg">
     <link rel="stylesheet" href="style.css">
     <style>
         /* Стильный кастомный переключатель языков */
@@ -69,6 +69,47 @@
         }
         body {
             top: 0 !important;
+        }
+
+        /* Дополнительные стили для видео и сетки из нескольких фото */
+        .post-media-container {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .post-video {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background-color: #000;
+            display: block;
+        }
+
+        /* Сетка для отображения двух фото в одном посте */
+        .post-images-grid {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .post-images-grid img {
+            width: 50%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 576px) {
+            .post-images-grid {
+                flex-direction: column;
+            }
+            .post-images-grid img {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -170,13 +211,22 @@
                 </article>
 
                 <article class="blog-post" data-post-id="0">
-                    <div class="post-image">
-                        <img src="assets/image_b35eff.jpg" alt="Мединский курс 1 том" onerror="this.src='assets/Logo.jpg'">
-                    </div>
                     <div class="post-content">
                         <div class="post-header">
                             <h2>Курс по книге «Мединский курс» (1 том)</h2>
                             <span class="post-date">Новый набор</span>
+                        </div>
+                        
+                        <div class="post-images-grid">
+                            <img src="assets/image_e61539.png" alt="Мединский курс фото 2" onerror="this.src='assets/Logo.jpg'">
+                            <img src="assets/image_e61807.png" alt="Мединский курс фото 3" onerror="this.src='assets/Logo.jpg'">
+                        </div>
+
+                        <div class="post-media-container">
+                            <video class="post-video" controls preload="metadata">
+                                <source src="assets/video1.mp4" type="video/mp4">
+                                Ваш браузер не поддерживает воспроизведение видео.
+                            </video>
                         </div>
                         
                         <p class="post-intro"><strong>Мечтаете понимать арабский язык и читать классические тексты в оригиналe? 📚</strong></p>
@@ -213,11 +263,17 @@
                             <a href="https://t.me/ArabicMarkaz_Mona/4320" target="_blank" class="button">Записаться на курс</a>
                         </div>
                     </div>
+                    <div class="post-footer">
+                        <button class="like-button" data-post-id="0" aria-label="Нравится">
+                            <span class="heart-icon">♥</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </article>
 
                 <article class="blog-post" data-post-id="1">
                     <div class="post-image">
-                        <img src="assets/photo_2026-05-26_12-44-28.jpg" alt="День Арафа" onerror="this.src='assets/Logo.jpg'">
+                        <img src="assets/image_e61500.png" alt="День Арафа фото 1" onerror="this.src='assets/Logo.jpg'">
                     </div>
                     <div class="post-content">
                         <div class="post-header">
@@ -225,8 +281,15 @@
                             <span class="post-date">9 июля</span>
                         </div>
                         
+                        <div class="post-media-container">
+                            <video class="post-video" controls preload="metadata">
+                                <source src="assets/video2.mp4" type="video/mp4">
+                                Ваш браузер не поддерживает воспроизведение видео.
+                            </video>
+                        </div>
+                        
                         <p class="post-intro"><strong>День Арафа — один из самых великих дней в году...</strong></p>
-                        <p>Этот день, когда Аллах освобождает множество людей от Огня, принимает два и прощает грехи прошлого и будущего года.</p>
+                        <p>Этот день, когда Аллах освобождает множество людей от Огня, принимает дуа и прощает грехи прошлого и будущего года.</p>
                         
                         <div class="post-highlight">
                             <p><strong>Пророк ﷺ сказал, что пост в День Арафа становится причиной прощения грехов прошлого и будущего года ✨</strong></p>
@@ -240,6 +303,12 @@
                             <li>помните Аллаха</li>
                             <li>просите у Него всё, что есть в сердце 💖</li>
                         </ul>
+                    </div>
+                    <div class="post-footer">
+                        <button class="like-button" data-post-id="1" aria-label="Нравится">
+                            <span class="heart-icon">♥</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
                 </article>
 
@@ -261,7 +330,7 @@
                                 <h4 style="color: var(--accent-color); margin-bottom: 10px;">Эмоции (1)</h4>
                                 <ul class="post-list">
                                     <li><strong>تؤنز</strong> (напряжение)</li>
-                                    <li><strong>شؤق</strong> (тоска)</li>
+                                    <li><strong>شؤqueue</strong> (тоска)</li>
                                     <li><strong>حُб</strong> (любовь)</li>
                                     <li><strong>كراهة</strong> (ненависть)</li>
                                     <li><strong>غيرة</strong> (ревность)</li>
@@ -278,6 +347,12 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                    <div class="post-footer">
+                        <button class="like-button" data-post-id="2" aria-label="Нравится">
+                            <span class="heart-icon">♥</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
                 </article>
 
@@ -319,6 +394,12 @@
                         <div class="post-action-container" style="margin-top: 20px;">
                             <a href="https://t.me/MarkazMonaBot" target="_blank" class="button">Связаться в Telegram</a>
                         </div>
+                    </div>
+                    <div class="post-footer">
+                        <button class="like-button" data-post-id="3" aria-label="Нравится">
+                            <span class="heart-icon">♥</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
                 </article>
             </div>
