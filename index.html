@@ -281,6 +281,7 @@
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
         
+        <!-- НА ТЕЛЕФОНЕ: Кнопка внутри бургер-меню -->
         <li class="mobile-only-auth">
           <a href="login.html" class="nav__link auth-btn-mobile" id="mobileAuthBtn" style="color: #bc9c65; font-weight: 700;">ВОЙТИ</a>
         </li>
@@ -295,6 +296,7 @@
       </ul>
     </nav>
 
+    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
     <div class="header__right-actions">
         <a href="login.html" class="auth-btn-desktop" id="desktopAuthBtn">Войти</a>
         
@@ -307,6 +309,7 @@
   </div>
 </header>
 
+    <!-- Скрытый контейнер, необходимый для работы скрипта Google -->
     <div id="google_translate_element"></div>
 
     <main> 
@@ -367,8 +370,8 @@
                         <span style="display: block; margin-bottom: 8px; font-weight: bold; color: var(--accent-color, #8c6239);">أسماء الكتب:</span>
                         <ul class="post-list" style="list-style: none; padding-left: 0; margin-bottom: 0; direction: rtl; text-align: right;">
                             <li style="margin-bottom: 6px;">📊كتب المدينة كلّها</li>
-                            <li style="margin-bottom: 6px;">📊كتب العربية بين يديك كلها</li>
-                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابн عثيمين</li>
+                            <li style="margin-bottom: 6px;">📊كتب العربية между يديك كلها</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابن عثيمين</li>
                             <li style="margin-bottom: 6px;">📊كتاب الصرف الكافي</li>
                             <li style="margin-bottom: 6px;">📊كتاب القراءة الراشدة</li>
                             <li style="margin-bottom: 6px;">📊كتاب قطر الندى بشرح ابن هشام</li>
@@ -448,7 +451,7 @@
                 <article>
                     <span>4</span>
                     <h3 data-i18n="step_4_title">Результат</h3>
-                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратная связь.</p>
+                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратную связь.</p>
                 </article>
             </div>
         </section>
@@ -497,7 +500,7 @@
                     <article>
                         <span>01</span>
                         <h3 data-i18n="lesson_1_title">Материалы в Telegram</h3>
-                        <p data-i18n="lesson_1_text">Уроки, задания and напоминания находятся в одном учебном пространстве.</p>
+                        <p data-i18n="lesson_1_text">Уроки, задания и напоминания находятся в одном учебном пространстве.</p>
                     </article>
                     <article>
                         <span>02</span>
@@ -549,6 +552,7 @@
         </section>
     </main>
 
+    <!-- ТУТ НАЧИНАЕТСЯ ФУТЕР С ИСПРАВЛЕННОЙ ФОРМОЙ (ФИКС ОШИБКИ 405) -->
     <footer class="footer">
         <div class="footer__container">
             <div class="footer__info">
@@ -562,10 +566,12 @@
             </div>
             <div class="footer__form-wrapper">
                 <h3 class="footer__form-title" data-i18n="footer_form_title">Остались вопросы?</h3>
-                <form id="feedbackForm" class="footer__form">
+                <!-- Добавлена блокировка нативной отправки HTML-формы -->
+                <form id="feedbackForm" class="footer__form" onsubmit="return false;">
                     <input type="text" id="formName" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
                     <input type="email" id="formEmail" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
-                    <button type="submit" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
+                    <!-- Тип изменен на button для исключения конфликтов -->
+                    <button type="button" id="submitFormBtn" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
                 </form>
             </div>
         </div>
@@ -577,6 +583,7 @@
     <script src="script.js"></script>
     <script src="login.js"></script>
 
+    <!-- СОВРЕМЕННЫЙ СКРИПТ УПРАВЛЕНИЯ ПЕРЕВОДОМ GOOGLE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -645,14 +652,23 @@
                 });
             }
 
-            // --- СКРИПТ СОХРАНЕНИЯ ДАННЫХ В JSON ФАЙЛ ---
+            // --- НАДЕЖНЫЙ СКРИПТ СОХРАНЕНИЯ ДАННЫХ В JSON ФАЙЛ БЕЗ ОШИБКИ 405 ---
+            const submitBtn = document.getElementById('submitFormBtn');
             const feedbackForm = document.getElementById('feedbackForm');
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', (e) => {
-                    e.preventDefault(); // Предотвращаем стандартную перезагрузку страницы
 
-                    const nameValue = document.getElementById('formName').value;
-                    const emailValue = document.getElementById('formEmail').value;
+            if (submitBtn && feedbackForm) {
+                submitBtn.addEventListener('click', () => {
+                    const nameInput = document.getElementById('formName');
+                    const emailInput = document.getElementById('formEmail');
+
+                    // Проверяем валидность заполнения полей перед скачиванием
+                    if (!nameInput.checkValidity() || !emailInput.checkValidity()) {
+                        feedbackForm.reportValidity(); // Показывает красивое стандартное предупреждение браузера ("Заполните это поле")
+                        return;
+                    }
+
+                    const nameValue = nameInput.value;
+                    const emailValue = emailInput.value;
 
                     // Создаем объект с данными формы
                     const formData = {
@@ -677,9 +693,9 @@
                     downloadLink.click();
                     document.body.removeChild(downloadLink);
 
-                    // Очищаем форму и выводим красивое уведомление
+                    // Очищаем форму и выводим уведомление
                     feedbackForm.reset();
-                    alert('Данные успешно подготовлены и сохранены в файл feedback.json!');
+                    alert('Данные успешно сохранены в файл feedback.json!');
                 });
             }
         });
