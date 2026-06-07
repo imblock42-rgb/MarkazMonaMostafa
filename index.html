@@ -95,7 +95,10 @@
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
         
-        <!-- НА ТЕЛЕФОНЕ: Появится здесь, в самом низу меню -->
+        <li class="mobile-auth-wrapper">
+          <a href="login.html" class="auth-btn-header" id="mobileAuthBtn">ВОЙТИ</a>
+        </li>
+        
         <li class="mobile-lang-wrapper">
             <div class="lang-switcher">
                 <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
@@ -106,11 +109,14 @@
       </ul>
     </nav>
 
-    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
-    <div class="lang-switcher">
-        <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
-        <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
-        <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+    <div class="header__right-actions" style="display: flex; align-items: center; gap: 20px;">
+        <a href="login.html" class="auth-btn-header" id="desktopAuthBtn" style="color: #bc9c65; text-decoration: none; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.3s;">Войти</a>
+        
+        <div class="lang-switcher">
+            <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
+            <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        </div>
     </div>
   </div>
 </header>
