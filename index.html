@@ -102,6 +102,129 @@
         body {
             top: 0 !important;
         }
+
+        /* --- СТИЛИ ДЛЯ НОВОГО ФУТЕРА --- */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 60px 20px 30px;
+            font-family: inherit;
+        }
+
+        .footer__container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer__info .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer__info .logo__img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .footer__info .logo__text {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .footer__text {
+            color: #b0b0b0;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 400px;
+        }
+
+        .footer__form-title {
+            font-size: 20px;
+            color: #bc9c65;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer__form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer__input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #262626;
+            border: 1px solid #3d3d3d;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .footer__input:focus {
+            outline: none;
+            border-color: #bc9c65;
+            box-shadow: 0 0 0 3px rgba(188, 156, 101, 0.15);
+        }
+
+        .footer__input::placeholder {
+            color: #757575;
+        }
+
+        .footer__submit-btn {
+            background-color: var(--accent-color, #8c6239);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer__submit-btn:hover {
+            background-color: #a07244;
+        }
+
+        .footer__submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .footer__bottom {
+            max-width: 1100px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #2d2d2d;
+            text-align: center;
+            font-size: 13px;
+            color: #666666;
+        }
+
+        @media (max-width: 768px) {
+            .footer__container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer {
+                padding: 40px 20px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -397,6 +520,32 @@
             <p class="tagline" data-i18n="tagline">Markaz al-Mona: Ваш путь к истинному арабскому</p>
         </section>
     </main>
+
+    <!-- ТУТ НАЧИНАЕТСЯ НОВЫЙ ФУТЕР С ФОРМОЙ ОБРАТНОЙ СВЯЗИ -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__info">
+                <a href="index.html" class="logo">
+                    <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
+                    <span class="logo__text">MARKAZ AL-MONA</span>
+                </a>
+                <p class="footer__text" data-i18n="footer_description">
+                    Присоединяйтесь к нашему центру и начните уверенный путь в изучении классического арабского языка под руководством опытного наставника.
+                </p>
+            </div>
+            <div class="footer__form-wrapper">
+                <h3 class="footer__form-title" data-i18n="footer_form_title">Остались вопросы?</h3>
+                <form action="#" method="POST" class="footer__form">
+                    <input type="text" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
+                    <input type="email" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
+                    <button type="submit" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2026 Markaz al-Mona. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
     <!-- ПОДКЛЮЧАЕМ НАШ ФАЙЛ АВТОРИЗАЦИИ -->
