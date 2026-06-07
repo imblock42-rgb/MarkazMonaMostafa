@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация | Markaz Al-Mona</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Стили идентичны login.html для сохранения консистентности */
+    .auth-body {
+      background-color: #fcfcfc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+    }
+    .auth-card {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      border-top: 4px solid #bc9c65;
+    }
+    .auth-card h2 {
+      color: #111111;
+      font-size: 24px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .auth-card p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .form-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus {
+      border-color: #bc9c65;
+      outline: none;
+    }
+    .auth-btn {
+      width: 100%;
+      background: #111111;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    .auth-btn:hover {
+      background: #bc9c65;
+    }
+    .auth-switch {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .auth-switch a {
+      color: #bc9c65;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .auth-switch a:hover {
+      text-decoration: underline;
+    }
+    .error-msg {
+      color: #e74c3c;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    .success-msg {
+      color: #2ecc71;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    .back-to-main {
+      display: inline-block;
+      margin-top: 20px;
+      color: #999;
+      text-decoration: none;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body class="auth-body">
+
+  <div class="auth-card">
+    <a href="index.html">
+      <img src="assets/Logo.jpg" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 15px;">
+    </a>
+    <h2>Регистрация</h2>
+    <p>Создайте аккаунт для доступа к обучению</p>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="regUsername">Имя пользователя (Логин)</label>
+        <input type="text" id="regUsername" required placeholder="Придумайте логин">
+      </div>
+      <div class="form-group">
+        <label for="regPassword">Пароль</label>
+        <input type="password" id="regPassword" required placeholder="Минимум 6 символов">
+      </div>
+      
+      <div class="error-msg" id="regError">Это имя пользователя уже занято!</div>
+      <div class="success-msg" id="regSuccess">Регистрация успешна! Перенаправление...</div>
+      
+      <button type="submit" class="auth-btn">Зарегистрироваться</button>
+    </form>
+
+    <div class="auth-switch">
+      Уже есть аккаунт? <a href="login.html">Войти</a>
+    </div>
+    <a href="index.html" class="back-to-main">← На главную</a>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
