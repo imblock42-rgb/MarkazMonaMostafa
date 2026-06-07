@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz al-Mona</title>
-    <link rel="icon" href="assets/Logo.jng" type="img/.jpg">
+    <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css">
     <style>
         /* Стильный кастомный переключатель языков */
@@ -38,6 +38,28 @@
             color: #fff;
         }
 
+        /* Кнопка "Войти" на десктопе */
+        .auth-btn-desktop {
+            color: #bc9c65;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .auth-btn-desktop:hover {
+            color: #111111;
+        }
+
+        /* Контейнер для десктопных кнопок справа */
+        .header__right-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         /* Адаптив для мобильного меню */
         .nav__list .mobile-lang-wrapper {
             display: none;
@@ -47,17 +69,27 @@
             width: 100%;
         }
 
+        /* По умолчанию на ПК скрываем мобильную кнопку авторизации */
+        .mobile-only-auth {
+            display: none !important;
+        }
+
         .mobile-lang-wrapper .lang-switcher {
             margin-left: 0;
             justify-content: flex-start;
         }
 
         @media (max-width: 991px) {
-            /* Скрываем переключатель из шапки на мобилках */
-            .header__container > .lang-switcher {
-                display: none;
+            /* Скрываем переключатель и десктопную кнопку авторизации из шапки на мобилках */
+            .header__container > .lang-switcher,
+            .header__right-actions {
+                display: none !important;
             }
-            /* Показываем переключатель внутри открытого бургер-меню */
+            
+            /* Показываем кнопку "Войти" и переключатель внутри открытого бургер-меню */
+            .mobile-only-auth {
+                display: block !important;
+            }
             .nav__list .mobile-lang-wrapper {
                 display: block;
             }
@@ -95,6 +127,7 @@
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
         
+        <!-- НА ТЕЛЕФОНЕ: Кнопка внутри бургер-меню -->
         <li class="mobile-only-auth">
           <a href="login.html" class="nav__link auth-btn-mobile" id="mobileAuthBtn" style="color: #bc9c65; font-weight: 700;">ВОЙТИ</a>
         </li>
@@ -109,6 +142,7 @@
       </ul>
     </nav>
 
+    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
     <div class="header__right-actions">
         <a href="login.html" class="auth-btn-desktop" id="desktopAuthBtn">Войти</a>
         
@@ -183,7 +217,7 @@
                         <ul class="post-list" style="list-style: none; padding-left: 0; margin-bottom: 0; direction: rtl; text-align: right;">
                             <li style="margin-bottom: 6px;">📊كتب المدينة كلّها</li>
                             <li style="margin-bottom: 6px;">📊كتب العربية بين يديك كلها</li>
-                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابن عثيمين</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابн عثيمين</li>
                             <li style="margin-bottom: 6px;">📊كتاب الصرف الكافي</li>
                             <li style="margin-bottom: 6px;">📊كتاب القراءة الراشدة</li>
                             <li style="margin-bottom: 6px;">📊كتاب قطر الندى بشرح ابن هشام</li>
@@ -365,6 +399,8 @@
     </main>
 
     <script src="script.js"></script>
+    <!-- ПОДКЛЮЧАЕМ НАШ ФАЙЛ АВТОРИЗАЦИИ -->
+    <script src="login.js"></script>
 
     <!-- СОВРЕМЕННЫЙ СКРИПТ УПРАВЛЕНИЯ ПЕРЕВОДОМ GOOGLE -->
     <script type="text/javascript">
@@ -380,10 +416,8 @@
             const googleSelect = document.querySelector('.goog-te-combo');
             if (googleSelect) {
                 googleSelect.value = langCode;
-                // Имитируем выбор пользователем для триггера перевода Google
                 googleSelect.dispatchEvent(new Event('change'));
                 
-                // Обновляем визуальное состояние кнопок (подсвечиваем активную)
                 document.querySelectorAll('.lang-btn').forEach(btn => {
                     if(btn.getAttribute('onclick').includes(`'${langCode}'`)) {
                         btn.classList.add('is-active');
