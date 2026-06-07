@@ -7,12 +7,49 @@
     <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* --- ИСПРАВЛЕННЫЕ И УЛУЧШЕННЫЕ СТИЛИ ШАПКИ --- */
+        .header {
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Выстраивает логотип, меню и кнопку "Войти" строго по местам */
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        /* Контейнер для десктопных кнопок справа (теперь он всегда защищен от исчезновения) */
+        .header__right-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
         /* Стильный кастомный переключатель языков */
         .lang-switcher {
             display: flex;
             gap: 8px;
             align-items: center;
-            margin-left: 15px;
         }
 
         .lang-btn {
@@ -47,17 +84,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             transition: color 0.3s ease;
+            white-space: nowrap; /* Не дает тексту переноситься или сжиматься */
         }
 
         .auth-btn-desktop:hover {
             color: #111111;
-        }
-
-        /* Контейнер для десктопных кнопок справа */
-        .header__right-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
 
         /* Адаптив для мобильного меню */
@@ -80,13 +111,12 @@
         }
 
         @media (max-width: 991px) {
-            /* Скрываем переключатель и десктопную кнопку авторизации из шапки на мобилках */
-            .header__container > .lang-switcher,
+            /* Скрываем десктопный блок действий только на мобильных экранах */
             .header__right-actions {
                 display: none !important;
             }
             
-            /* Показываем кнопку "Войти" и переключатель внутри открытого бургер-меню */
+            /* Показываем кнопку "Войти" и переключатель внутри открытого бугер-меню */
             .mobile-only-auth {
                 display: block !important;
             }
@@ -103,12 +133,13 @@
             top: 0 !important;
         }
 
-        /* --- СТИЛИ ДЛЯ НОВОГО ФУТЕРА --- */
+        /* --- СТИЛИ ДЛЯ ФУТЕРA --- */
         .footer {
             background-color: #1a1a1a;
             color: #ffffff;
             padding: 60px 20px 30px;
             font-family: inherit;
+            margin-top: 60px;
         }
 
         .footer__container {
@@ -250,7 +281,6 @@
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
         
-        <!-- НА ТЕЛЕФОНЕ: Кнопка внутри бургер-меню -->
         <li class="mobile-only-auth">
           <a href="login.html" class="nav__link auth-btn-mobile" id="mobileAuthBtn" style="color: #bc9c65; font-weight: 700;">ВОЙТИ</a>
         </li>
@@ -265,7 +295,6 @@
       </ul>
     </nav>
 
-    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
     <div class="header__right-actions">
         <a href="login.html" class="auth-btn-desktop" id="desktopAuthBtn">Войти</a>
         
@@ -278,7 +307,6 @@
   </div>
 </header>
 
-    <!-- Скрытый контейнер, необходимый для работы скрипта Google -->
     <div id="google_translate_element"></div>
 
     <main> 
@@ -469,7 +497,7 @@
                     <article>
                         <span>01</span>
                         <h3 data-i18n="lesson_1_title">Материалы в Telegram</h3>
-                        <p data-i18n="lesson_1_text">Уроки, задания и напоминания находятся в одном учебном пространстве.</p>
+                        <p data-i18n="lesson_1_text">Уроки, задания and напоминания находятся в одном учебном пространстве.</p>
                     </article>
                     <article>
                         <span>02</span>
@@ -521,7 +549,6 @@
         </section>
     </main>
 
-    <!-- ТУТ НАЧИНАЕТСЯ НОВЫЙ ФУТЕР С ФОРМОЙ ОБРАТНОЙ СВЯЗИ -->
     <footer class="footer">
         <div class="footer__container">
             <div class="footer__info">
@@ -535,9 +562,9 @@
             </div>
             <div class="footer__form-wrapper">
                 <h3 class="footer__form-title" data-i18n="footer_form_title">Остались вопросы?</h3>
-                <form action="#" method="POST" class="footer__form">
-                    <input type="text" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
-                    <input type="email" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
+                <form id="feedbackForm" class="footer__form">
+                    <input type="text" id="formName" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
+                    <input type="email" id="formEmail" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
                     <button type="submit" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
                 </form>
             </div>
@@ -548,10 +575,8 @@
     </footer>
 
     <script src="script.js"></script>
-    <!-- ПОДКЛЮЧАЕМ НАШ ФАЙЛ АВТОРИЗАЦИИ -->
     <script src="login.js"></script>
 
-    <!-- СОВРЕМЕННЫЙ СКРИПТ УПРАВЛЕНИЯ ПЕРЕВОДОМ GOOGLE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -581,6 +606,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Скрипт бургер-меню и плавной прокрутки
             const burgerButton = document.getElementById('burgerButton');
             const navMenu = document.getElementById('navMenu');
             const header = document.querySelector('.header');
@@ -616,6 +642,44 @@
                         navMenu.classList.remove('active');
                         burgerButton.classList.remove('open');
                     });
+                });
+            }
+
+            // --- СКРИПТ СОХРАНЕНИЯ ДАННЫХ В JSON ФАЙЛ ---
+            const feedbackForm = document.getElementById('feedbackForm');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', (e) => {
+                    e.preventDefault(); // Предотвращаем стандартную перезагрузку страницы
+
+                    const nameValue = document.getElementById('formName').value;
+                    const emailValue = document.getElementById('formEmail').value;
+
+                    // Создаем объект с данными формы
+                    const formData = {
+                        name: nameValue,
+                        email: emailValue,
+                        date: new Date().toISOString()
+                    };
+
+                    // Конвертируем объект в строку JSON
+                    const jsonString = JSON.stringify(formData, null, 4);
+
+                    // Создаем Blob элемент (виртуальный файл в памяти браузера)
+                    const blob = new Blob([jsonString], { type: 'application/json' });
+                    
+                    // Создаем временную ссылку на скачивание
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = URL.createObjectURL(blob);
+                    downloadLink.download = 'feedback.json'; // Имя файла при сохранении
+
+                    // Добавляем ссылку в документ, симулируем клик и удаляем её
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+
+                    // Очищаем форму и выводим красивое уведомление
+                    feedbackForm.reset();
+                    alert('Данные успешно подготовлены и сохранены в файл feedback.json!');
                 });
             }
         });
