@@ -1,56 +1,704 @@
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const submitBtn = document.getElementById('submitFormBtn');
-    const feedbackForm = document.getElementById('feedbackForm');
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markaz al-Mona</title>
+    <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- ИСПРАВЛЕННЫЕ И УЛУЧШЕННЫЕ СТИЛИ ШАПКИ --- */
+        .header {
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
 
-    if (submitBtn && feedbackForm) {
-        submitBtn.addEventListener('click', async () => {
-            const nameInput = document.getElementById('formName');
-            const emailInput = document.getElementById('formEmail');
+        .header__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Выстраивает логотип, меню и кнопку "Войти" строго по местам */
+            gap: 20px;
+            box-sizing: border-box;
+        }
 
-            if (!nameInput.checkValidity() || !emailInput.checkValidity()) {
-                feedbackForm.reportValidity();
-                return;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        /* Контейнер для десктопных кнопок справа (теперь он всегда защищен от исчезновения) */
+        .header__right-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Стильный кастомный переключатель языков */
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid #e6dbcf;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent-color, #8c6239);
+            color: var(--accent-color, #8c6239);
+        }
+
+        .lang-btn.is-active {
+            background-color: var(--accent-color, #8c6239);
+            border-color: var(--accent-color, #8c6239);
+            color: #fff;
+        }
+
+        /* Кнопка "Войти" на десктопе */
+        .auth-btn-desktop {
+            color: #bc9c65;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            white-space: nowrap; /* Не дает тексту переноситься или сжиматься */
+        }
+
+        .auth-btn-desktop:hover {
+            color: #111111;
+        }
+
+        /* Адаптив для мобильного меню */
+        .nav__list .mobile-lang-wrapper {
+            display: none;
+            padding: 20px 0;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        /* По умолчанию на ПК скрываем мобильную кнопку авторизации */
+        .mobile-only-auth {
+            display: none !important;
+        }
+
+        .mobile-lang-wrapper .lang-switcher {
+            margin-left: 0;
+            justify-content: flex-start;
+        }
+
+        @media (max-width: 991px) {
+            /* Скрываем десктопный блок действий только на мобильных экранах */
+            .header__right-actions {
+                display: none !important;
+            }
+            
+            /* Показываем кнопку "Войти" и переключатель внутри открытого бугер-меню */
+            .mobile-only-auth {
+                display: block !important;
+            }
+            .nav__list .mobile-lang-wrapper {
+                display: block;
+            }
+        }
+
+        /* Скрываем сам некрасивый оригинальный виджет Google */
+        #google_translate_element, .skiptranslate, .goog-te-banner-frame {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+        }
+
+        /* --- СТИЛИ ДЛЯ ФУТЕРA --- */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 60px 20px 30px;
+            font-family: inherit;
+            margin-top: 60px;
+        }
+
+        .footer__container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer__info .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer__info .logo__img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .footer__info .logo__text {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .footer__text {
+            color: #b0b0b0;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 400px;
+        }
+
+        .footer__form-title {
+            font-size: 20px;
+            color: #bc9c65;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer__form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer__input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #262626;
+            border: 1px solid #3d3d3d;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .footer__input:focus {
+            outline: none;
+            border-color: #bc9c65;
+            box-shadow: 0 0 0 3px rgba(188, 156, 101, 0.15);
+        }
+
+        .footer__input::placeholder {
+            color: #757575;
+        }
+
+        .footer__submit-btn {
+            background-color: var(--accent-color, #8c6239);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer__submit-btn:hover {
+            background-color: #a07244;
+        }
+
+        .footer__submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .footer__bottom {
+            max-width: 1100px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #2d2d2d;
+            text-align: center;
+            font-size: 13px;
+            color: #666666;
+        }
+
+        @media (max-width: 768px) {
+            .footer__container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer {
+                padding: 40px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header__container">
+    <a href="index.html" class="logo">
+      <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
+      <span class="logo__text">MARKAZ AL-MONA</span>
+    </a>
+
+    <button class="burger-menu" aria-label="Открыть меню" id="burgerButton">
+      <span class="burger-menu__line"></span>
+    </button>
+
+    <nav class="nav" id="navMenu">
+      <ul class="nav__list">
+        <li><a href="index.html#about" class="nav__link">О ЦЕНТРЕ</a></li>
+        <li><a href="index.html#formats" class="nav__link">ТАРИФЫ</a></li>
+        <li><a href="index.html#lessons" class="nav__link">УРОКИ</a></li>
+        <li><a href="blog.html" class="nav__link">БЛОГ</a></li>
+        <li><a href="index.html#contacts" class="nav__link">СВЯЗЬ</a></li>
+        <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
+        <li><a href="rules.html" class="nav__link">Правила</a></li>
+        
+        <!-- НА ТЕЛЕФОНЕ: Кнопка внутри бургер-меню -->
+        <li class="mobile-only-auth">
+          <a href="login.html" class="nav__link auth-btn-mobile" id="mobileAuthBtn" style="color: #bc9c65; font-weight: 700;">ВОЙТИ</a>
+        </li>
+        
+        <li class="mobile-lang-wrapper">
+            <div class="lang-switcher">
+                <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
+                <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+                <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+            </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
+    <div class="header__right-actions">
+        <a href="login.html" class="auth-btn-desktop" id="desktopAuthBtn">Войти</a>
+        
+        <div class="lang-switcher">
+            <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
+            <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        </div>
+    </div>
+  </div>
+</header>
+
+    <!-- Скрытый контейнер, необходимый для работы скрипта Google -->
+    <div id="google_translate_element"></div>
+
+    <main> 
+        <section id="about" class="section-panel light-panel reveal">
+            <div class="section-title">
+                <span data-i18n="about_label">О центре</span>
+                <h2 data-i18n="about_title">Онлайн обучение</h2>
+            </div>
+            <div class="split-content">
+                <div>
+                    <p data-i18n="about_p1">Markaz al-Mona помогает ученикам спокойно и последовательно идти к владению арабским языком: от первых правил до уверенной практики.</p>
+                    <p data-i18n="about_p2">Обучение строится вокруг понятной программы, проверок домашних заданий и живого контакта с преподавателем.</p>
+                </div>
+                <ul class="feature-list">
+                    <li data-i18n="about_f1">Индивидуальный подход к уровню ученика</li>
+                    <li data-i18n="about_f2">Закрытая учебная среда в Telegram</li>
+                    <li data-i18n="about_f3">Регулярная проверка и обратная связь</li>
+                    <li data-i18n="about_f4">Упор на грамматику, чтение и речь</li>
+                    <li data-i18n="about_f5">Уроки в Zoom</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section-panel quote-section reveal">
+            <blockquote data-i18n="quote_text">“Не сравнивайте свой путь в изучении арабского языка с другими. У каждого свой темп и свои возможности.”</blockquote>
+            <p>Teacher Mona Mostafa</p>
+        </section>
+
+        <section id="mentor" class="section-panel mentor-section reveal">
+            <div class="section-title">
+                <span data-i18n="mentor_label">Устаза</span>
+                <h2>Teacher Mona Mostafa</h2>
+            </div>
+            <div class="mentor-grid">
+                <div class="mentor-photo">
+                    <img src="assets/Logo.jpg" alt="Teacher Mona Mostafa">
+                </div>
+                <div>
+                    <p data-i18n="mentor_p1">Преподаватель арабского языка для неносителей с многолетним опытом Более 10 лет.</p>
+                    <p data-i18n="mentor_p2">Специализируется на классическом арабском языке, грамматике и разговорной практике. Объясняет сложные темы понятным языком и ведет ученика по шагам.</p>
+                    <div class="mini-stats" style="margin-bottom: 25px;">
+                        <article>
+                            <strong>10+</strong>
+                            <span data-i18n="stat_years">лет опыта</span>
+                        </article>
+                        <article>
+                            <strong>500+</strong>
+                            <span data-i18n="stat_students">учеников</span>
+                        </article>
+                        <article>
+                            <strong>2564</strong>
+                            <span data-i18n="stat_subscribers">подписчиков</span>
+                        </article>
+                    </div>
+
+                    <div class="mentor-books" style="background: #fdfbf7; border-left: 3px solid var(--accent-color, #8c6239); padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+                        <p style="margin-top: 0; font-weight: 600; color: #333;">😊 Книги, которые преподаёт устаза Муна постоянно, а также она может преподавать и любые другие книги:</p>
+                        <span style="display: block; margin-bottom: 8px; font-weight: bold; color: var(--accent-color, #8c6239);">أسماء الكتب:</span>
+                        <ul class="post-list" style="list-style: none; padding-left: 0; margin-bottom: 0; direction: rtl; text-align: right;">
+                            <li style="margin-bottom: 6px;">📊كتب المدينة كلّها</li>
+                            <li style="margin-bottom: 6px;">📊كتب العربية между يديك كلها</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابن عثيمين</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الصرف الكافي</li>
+                            <li style="margin-bottom: 6px;">📊كتاب القراءة الراشدة</li>
+                            <li style="margin-bottom: 6px;">📊كتاب قطر الندى بشرح ابن هشام</li>
+                            <li style="margin-bottom: 6px;">📊كتاب البلاغة المُيَسَّرة</li>
+                            <li style="margin-bottom: 6px;">📊كتاب ألفية بن مالك بشرح ابن عقيل</li>
+                            <li style="margin-bottom: 6px;">📊كتاب الممتاز</li>
+                            <li style="margin-bottom: 0;">📊 النحو الواضح</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-panel reveal">
+            <div class="section-title">
+                <span data-i18n="benefits_label">Преимущества</span>
+                <h2 data-i18n="benefits_title">Почему выбирают нас</h2>
+            </div>
+            <div class="reason-grid">
+                <article>
+                    <strong>01</strong>
+                    <h3 data-i18n="benefit_1_title">Премиальность</h3>
+                    <p data-i18n="benefit_1_text">Закрытое сообщество учеников, которые пришли за результатом.</p>
+                </article>
+                <article>
+                    <strong>02</strong>
+                    <h3 data-i18n="benefit_2_title">Академичность</h3>
+                    <p data-i18n="benefit_2_text">Глубокое изучение правил, чтения и структуры арабского языка.</p>
+                </article>
+                <article>
+                    <strong>03</strong>
+                    <h3 data-i18n="benefit_3_title">Обратная связь</h3>
+                    <p data-i18n="benefit_3_text">Преподаватель видит ваш прогресс и помогает исправлять ошибки.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section-panel telegram-section reveal">
+            <div class="section-title">
+                <span>Telegram</span>
+                <h2 data-i18n="telegram_title">Учитесь там, где удобно</h2>
+            </div>
+            <div class="telegram-grid">
+                <div>
+                    <h3 data-i18n="telegram_h3">Все обучение в одном месте</h3>
+                    <p data-i18n="telegram_p1">Уроки, задания, проверка домашних работ и сообщения преподавателя проходят в привычном интерфейсе Telegram.</p>
+                    <p data-i18n="telegram_p2">Не нужно разбираться в сложных платформах: достаточно телефона и желания заниматься регулярно.</p>
+                </div>
+                <div class="telegram-card">
+                    <img src="assets/image.png" alt="Telegram">
+                    <span data-i18n="telegram_card">Канал, задания и связь</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-panel journey-section reveal">
+            <div class="section-title">
+                <span data-i18n="process_label">Процесс</span>
+                <h2 data-i18n="process_title">Путь ученика</h2>
+            </div>
+            <div class="journey-grid">
+                <article>
+                    <span>1</span>
+                    <h3 data-i18n="step_1_title">Заявка</h3>
+                    <p data-i18n="step_1_text">Вы оставляете сообщение через бот или Telegram.</p>
+                </article>
+                <article>
+                    <span>2</span>
+                    <h3 data-i18n="step_2_title">Диагностика</h3>
+                    <p data-i18n="step_2_text">Определяем уровень и подходящий формат обучения.</p>
+                </article>
+                <article>
+                    <span>3</span>
+                    <h3 data-i18n="step_3_title">Старт</h3>
+                    <p data-i18n="step_3_text">Подключаем вас к группе или индивидуальному маршруту.</p>
+                </article>
+                <article>
+                    <span>4</span>
+                    <h3 data-i18n="step_4_title">Результат</h3>
+                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратную связь.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="formats" class="section-panel formats-section reveal">
+            <div class="section-title">
+                <span data-i18n="pricing_label">Тарифы</span>
+                <h2 data-i18n="pricing_title">Выберите формат обучения</h2>
+            </div>
+            <div class="format-cards">
+                <article>
+                    <div class="tariff-topline" data-i18n="group_label">Групповой курс</div>
+                    <h3 data-i18n="group_title">В закрытой группе</h3>
+                    <p data-i18n="group_text">Подходит тем, кому важны структура, общий темп и учебная атмосфера.</p>
+                    <ul>
+                        <li data-i18n="group_f1">Медийский курс</li>
+                        <li data-i18n="group_f2">Разговорная практика</li>
+                        <li data-i18n="group_f3">Проверка ДЗ в общем чате</li>
+                    </ul>
+                    <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=group_course" target="_blank" rel="noopener" data-i18n="group_button">Выбрать групповой курс</a>
+                </article>
+                <article class="featured-format">
+                    <div class="tariff-topline" data-i18n="individual_label">Индивидуальный курс</div>
+                    <h3 data-i18n="individual_title">Личный маршрут</h3>
+                    <p data-i18n="individual_text">Подходит ученикам, которым нужен личный темп и точная работа над ошибками.</p>
+                    <ul>
+                        <li data-i18n="individual_f1">Личная проверка учителем</li>
+                        <li data-i18n="individual_f2">Акцент на слабые места</li>
+                        <li data-i18n="individual_f3">Премиальный формат сопровождения</li>
+                    </ul>
+                    <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=individual_course" target="_blank" rel="noopener" data-i18n="individual_button">Выбрать индивидуальный курс</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="lessons" class="section-panel lessons-section reveal">
+            <div class="section-title">
+                <span data-i18n="lessons_label">Как проходят уроки</span>
+                <h2 data-i18n="lessons_title">Telegram, Zoom и понятная практика</h2>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-board">
+                    <img src="assets/Gemini_Generated_Image_li1vulli1vulli1v.png" alt="Доска Markaz Al-mona">
+                </div>
+                <div class="lesson-flow">
+                    <article>
+                        <span>01</span>
+                        <h3 data-i18n="lesson_1_title">Материалы в Telegram</h3>
+                        <p data-i18n="lesson_1_text">Уроки, задания и напоминания находятся в одном учебном пространстве.</p>
+                    </article>
+                    <article>
+                        <span>02</span>
+                        <h3 data-i18n="lesson_2_title">Созвоны в Zoom</h3>
+                        <p data-i18n="lesson_2_text">Разбираем темы голосом, тренируем произношение и отвечаем на вопросы.</p>
+                    </article>
+                    <article>
+                        <span>03</span>
+                        <h3 data-i18n="lesson_3_title">Проверка и закрепление</h3>
+                        <p data-i18n="lesson_3_text">Вы сдаете домашние задания и получаете понятную обратную связь.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="section-panel contacts-section reveal">
+            <div class="section-title centered">
+                <span data-i18n="contact_label">Связь</span>
+                <h2 data-i18n="contact_title">Куда написать</h2>
+                <p data-i18n="contact_text">Выберите удобный способ: бот для записи, канал для новостей или Instagram для знакомства с центром.</p>
+            </div>
+            <div class="contact-box">
+                <a href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank" rel="noopener">
+                    <img src="assets/png-clipart-telegram-bot-api-chatbot-internet-bot-application-programming-interface-others-miscellaneous-blue-thumbnail.png" alt="">
+                    <div>
+                        <span data-i18n="contact_bot_title">Записаться на обучение</span>
+                        <small data-i18n="contact_bot_text">Бот в Telegram</small>
+                    </div>
+                    <b data-i18n="contact_open">Открыть</b>
+                </a>
+                <a href="https://t.me/ArabicMarkaz_Mona" target="_blank" rel="noopener">
+                    <img src="assets/image.png" alt="">
+                    <div>
+                        <span data-i18n="contact_channel_title">Перейти в канал</span>
+                        <small data-i18n="contact_channel_text">Новости и материалы Markaz al-Mona</small>
+                    </div>
+                    <b data-i18n="contact_go">Перейти</b>
+                </a>
+                <a href="https://www.instagram.com/monaschoolarbic/" target="_blank" rel="noopener">
+                    <img src="assets/images.jpg" alt="">
+                    <div>
+                        <span data-i18n="contact_inst_title">Посмотреть Instagram</span>
+                        <small data-i18n="contact_inst_text">Публикации и визуальные материалы</small>
+                    </div>
+                    <b data-i18n="contact_view">Смотреть</b>
+                </a>
+            </div>
+            <p class="tagline" data-i18n="tagline">Markaz al-Mona: Ваш путь к истинному арабскому</p>
+        </section>
+    </main>
+
+    <!-- ТУТ НАЧИНАЕТСЯ ФУТЕР С ИСПРАВЛЕННОЙ ФОРМОЙ (ФИКС ОШИБКИ 405) -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__info">
+                <a href="index.html" class="logo">
+                    <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
+                    <span class="logo__text">MARKAZ AL-MONA</span>
+                </a>
+                <p class="footer__text" data-i18n="footer_description">
+                    Присоединяйтесь к нашему центру и начните уверенный путь в изучении классического арабского языка под руководством опытного наставника.
+                </p>
+            </div>
+            <div class="footer__form-wrapper">
+                <h3 class="footer__form-title" data-i18n="footer_form_title">Остались вопросы?</h3>
+                <!-- Добавлена блокировка нативной отправки HTML-формы -->
+                <form id="feedbackForm" class="footer__form" onsubmit="return false;">
+                    <input type="text" id="formName" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
+                    <input type="email" id="formEmail" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
+                    <!-- Тип изменен на button для исключения конфликтов -->
+                    <button type="button" id="submitFormBtn" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2026 Markaz al-Mona. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="login.js"></script>
+
+    <!-- СОВРЕМЕННЫЙ СКРИПТ УПРАВЛЕНИЯ ПЕРЕВОДОМ GOOGLE -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'ru,ar,en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        function changeLanguage(langCode) {
+            const googleSelect = document.querySelector('.goog-te-combo');
+            if (googleSelect) {
+                googleSelect.value = langCode;
+                googleSelect.dispatchEvent(new Event('change'));
+                
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if(btn.getAttribute('onclick').includes(`'${langCode}'`)) {
+                        btn.classList.add('is-active');
+                    } else {
+                        btn.classList.remove('is-active');
+                    }
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Скрипт бургер-меню и плавной прокрутки
+            const burgerButton = document.getElementById('burgerButton');
+            const navMenu = document.getElementById('navMenu');
+            const header = document.querySelector('.header');
+
+            if (burgerButton && navMenu) {
+                burgerButton.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    burgerButton.classList.toggle('open'); 
+                });
+
+                const navLinks = navMenu.querySelectorAll('.nav__link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const href = link.getAttribute('href');
+
+                        if (href.includes('#')) {
+                            const hash = href.substring(href.indexOf('#'));
+                            const targetSection = document.querySelector(hash);
+
+                            if (targetSection) {
+                                e.preventDefault();
+
+                                const headerHeight = header ? header.offsetHeight : 70;
+                                const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+
+                        navMenu.classList.remove('active');
+                        burgerButton.classList.remove('open');
+                    });
+                });
             }
 
-            const BOT_TOKEN = 'PASTE_YOUR_TOKEN_HERE';
-            const CHAT_ID = 'PASTE_YOUR_CHAT_ID_HERE';
+            // --- НАДЕЖНЫЙ СКРИПТ СОХРАНЕНИЯ ДАННЫХ В JSON ФАЙЛ БЕЗ ОШИБКИ 405 ---
+            const submitBtn = document.getElementById('submitFormBtn');
+            const feedbackForm = document.getElementById('feedbackForm');
 
-            const text =
-`📩 Новая заявка с сайта
+            if (submitBtn && feedbackForm) {
+                submitBtn.addEventListener('click', () => {
+                    const nameInput = document.getElementById('formName');
+                    const emailInput = document.getElementById('formEmail');
 
-👤 Имя: ${nameInput.value}
-📧 Email: ${emailInput.value}`;
-
-            try {
-                const response = await fetch(
-                    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            chat_id: CHAT_ID,
-                            text: text
-                        })
+                    // Проверяем валидность заполнения полей перед скачиванием
+                    if (!nameInput.checkValidity() || !emailInput.checkValidity()) {
+                        feedbackForm.reportValidity(); // Показывает красивое стандартное предупреждение браузера ("Заполните это поле")
+                        return;
                     }
-                );
 
-                const result = await response.json();
+                    const nameValue = nameInput.value;
+                    const emailValue = emailInput.value;
 
-                if (result.ok) {
-                    alert('Заявка отправлена!');
+                    // Создаем объект с данными формы
+                    const formData = {
+                        name: nameValue,
+                        email: emailValue,
+                        date: new Date().toISOString()
+                    };
+
+                    // Конвертируем объект в строку JSON
+                    const jsonString = JSON.stringify(formData, null, 4);
+
+                    // Создаем Blob элемент (виртуальный файл в памяти браузера)
+                    const blob = new Blob([jsonString], { type: 'application/json' });
+                    
+                    // Создаем временную ссылку на скачивание
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = URL.createObjectURL(blob);
+                    downloadLink.download = 'feedback.json'; // Имя файла при сохранении
+
+                    // Добавляем ссылку в документ, симулируем клик и удаляем её
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+
+                    // Очищаем форму и выводим уведомление
                     feedbackForm.reset();
-                } else {
-                    alert('Ошибка отправки');
-                    console.error(result);
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Ошибка соединения');
+                    alert('Данные успешно сохранены в файл feedback.json!');
+                });
             }
         });
-    }
-});
-</script>
+    </script>
+</body>
+</html>
