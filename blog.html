@@ -38,7 +38,7 @@
             color: #fff;
         }
 
-        /* Адаптив для мобильного меню */
+        /* Адаптив для mobile-меню */
         .nav__list .mobile-lang-wrapper {
             display: none;
             padding: 20px 0;
@@ -53,17 +53,14 @@
         }
 
         @media (max-width: 991px) {
-            /* Скрываем переключатель из шапки на мобилках */
             .header__container > .lang-switcher {
                 display: none;
             }
-            /* Показываем переключатель внутри открытого бургер-меню */
             .nav__list .mobile-lang-wrapper {
                 display: block;
             }
         }
 
-        /* Скрываем сам некрасивый оригинальный виджет Google */
         #google_translate_element, .skiptranslate, .goog-te-banner-frame {
             display: none !important;
         }
@@ -71,7 +68,6 @@
             top: 0 !important;
         }
 
-        /* Дополнительные стили для видео и сетки из нескольких фото */
         .post-media-container {
             margin-top: 15px;
             margin-bottom: 15px;
@@ -87,7 +83,6 @@
             display: block;
         }
 
-        /* Сетка для отображения двух фото в одном посте */
         .post-images-grid {
             display: flex;
             gap: 10px;
@@ -167,14 +162,40 @@
 
         <section class="section-panel">
             <div class="blog-posts">
-                
-              <article class="blog-post" data-post-id="6">
+
+              <article class="blog-post" data-post-id="7">
                     <div class="post-image">
-                        <img src="assets/photo_bayna_yadayk.jpg" alt="Курс по книге Байна Ядайк" onerror="this.src='assets/Logo.jpg'">
+                        <img src="blog.png" alt="Названия месяцев по солнечному и лунному календарям" onerror="this.src='assets/Logo.jpg'">
                     </div>
                     <div class="post-content">
                         <div class="post-header">
-                            <h2>Курс по книге «БАЙНА ЯДАЙК» (2 том — 1 часть) 📚</h2>
+                            <h2>Названия месяцев по солнечному и лунному календарям ☀️🌑</h2>
+                            <span class="post-date">Урок арабского</span>
+                        </div>
+                        
+                        <p class="post-intro"><strong>Лексическая подборка для изучающих арабский язык. Полезные карточки с названиями месяцев.</strong></p>
+                        
+                        <p>Изучение месяцев в арабской культуре охватывает две параллельные системы: традиционные лунные месяцы (хиджра) и привычные солнечные григорианские названия месяцев. Сохраняйте себе для обогащения словарного запаса!</p>
+
+                        <div class="post-action-container" style="margin-top: 20px;">
+                            <a href="https://t.me/ArabicMarkaz_Mona/4336" target="_blank" class="button">Перейти к публикации в Telegram</a>
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        <button class="like-button" data-post-id="7" aria-label="Нравится">
+                            <span class="heart-icon">♥</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
+                </article>
+
+              <article class="blog-post" data-post-id="6">
+                    <div class="post-image">
+                        <img src="ggsel.png" alt="Курс по книге Байна Ядайк" onerror="this.src='assets/Logo.jpg'">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <h2>Курс по книге « can «БАЙНА ЯДАЙК» (2 том — 1 часть) 📚</h2>
                             <span class="post-date">Новый набор</span>
                         </div>
                         
@@ -251,7 +272,7 @@
                         
                         <p>🎓 Окончила Каирский университет, престижный факультет <strong>«دار العلوم» ("Дар аль-Улюм")</strong> по специальности арабский язык, литература и исламские науки.</p>
                         
-                        <p>✨ На протяжении 4 лет углубленно училась в марказе <strong>«العزيز بالله لأهل السنة» ("Аль-Азиз Биллях ли-Ахль ас-Сунna")</strong> по направлению арабский язык и «4 мазхаба», детально изучая акыду четырёх мазхабов. 🤎</p>
+                        <p>✨ На протяжении 4 лет углубленно училась в марказе <strong>«العزيز بالله لأهل السنة» ("Аль-Азиз Биллях ли-Ахль ас-Сунна")</strong> по направлению арабский язык и «4 мазхаба», детально изучая акыду четырёх мазхабов. 🤎</p>
                         
                         <div class="course-info" style="margin: 15px 0;">
                             <h3 style="margin-bottom: 10px; color: var(--accent-color);">Более 15 лет преподаёт арабский для иностранцев 🤎</h3>
@@ -285,8 +306,6 @@
                             <h2>Курс по книге «Мединский курс» (1 том)</h2>
                             <span class="post-date">Новый набор</span>
                         </div>
-                        
-                    
 
                         <div class="post-media-container">
                             <video class="post-video" controls preload="metadata">
@@ -453,8 +472,8 @@
                     </div>
                 </article>
             </div>
-            </section>
-            </main>
+        </section>
+    </main>
 
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -471,7 +490,6 @@
                 googleSelect.value = langCode;
                 googleSelect.dispatchEvent(new Event('change'));
                 
-                // Синхронно подсвечиваем активные кнопки и на ПК, и на мобилке
                 document.querySelectorAll('.lang-btn').forEach(btn => {
                     if(btn.getAttribute('onclick').includes(`'${langCode}'`)) {
                         btn.classList.add('is-active');
