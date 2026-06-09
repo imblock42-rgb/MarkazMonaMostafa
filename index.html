@@ -552,8 +552,7 @@
         </section>
     </main>
 
-    <!-- ТУТ НАЧИНАЕТСЯ ФУТЕР С ИСПРАВЛЕННОЙ ФОРМОЙ (ФИКС ОШИБКИ 405) -->
-    <footer class="footer">
+<footer class="footer">
         <div class="footer__container">
             <div class="footer__info">
                 <a href="index.html" class="logo">
@@ -566,11 +565,10 @@
             </div>
             <div class="footer__form-wrapper">
                 <h3 class="footer__form-title" data-i18n="footer_form_title">Остались вопросы?</h3>
-                <!-- Добавлена блокировка нативной отправки HTML-формы -->
                 <form id="feedbackForm" class="footer__form" onsubmit="return false;">
                     <input type="text" id="formName" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
                     <input type="email" id="formEmail" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
-                    <!-- Тип изменен на button для исключения конфликтов -->
+                    <textarea id="formQuestion" name="question" class="footer__input footer__textarea" placeholder="Ваш вопрос" required data-i18n-placeholder="footer_placeholder_question" rows="4"></textarea>
                     <button type="button" id="submitFormBtn" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
                 </form>
             </div>
@@ -580,10 +578,18 @@
         </div>
     </footer>
 
+    <style>
+        .footer__textarea {
+            resize: vertical; /* Разрешаем масштабировать только по высоте */
+            min-height: 80px;
+            max-height: 200px;
+            font-family: inherit; /* Чтобы шрифт внутри соответствовал остальным инпутам */
+        }
+    </style>
+
     <script src="script.js"></script>
     <script src="login.js"></script>
 
-    <!-- СОВРЕМЕННЫЙ СКРИПТ УПРАВЛЕНИЯ ПЕРЕВОДОМ GOOGLE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -661,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== ОТПРАВКА ФОРМЫ В TELEGRAM =====
+    // ===== ОТПРАВКА ФОРМЫ С ВОПРОСОМ В TELEGRAM =====
 
     const submitBtn = document.getElementById('submitFormBtn');
     const feedbackForm = document.getElementById('feedbackForm');
@@ -672,8 +678,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const nameInput = document.getElementById('formName');
             const emailInput = document.getElementById('formEmail');
+            const questionInput = document.getElementById('formQuestion');
 
-            if (!nameInput.checkValidity() || !emailInput.checkValidity()) {
+            // Добавлена валидация для поля вопроса
+            if (!nameInput.checkValidity() || !emailInput.checkValidity() || !questionInput.checkValidity()) {
                 feedbackForm.reportValidity();
                 return;
             }
@@ -683,12 +691,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const name = nameInput.value.trim();
             const email = emailInput.value.trim();
+            const question = questionInput.value.trim();
 
-            const text =
-`📩 Новая заявка с сайта
+            // Изменен шаблон сообщения — теперь включает поле вопроса
+            const text = 
+`📩 Новое сообщение с сайта
 
 👤 Имя: ${name}
 📧 Email: ${email}
+
+❓ Вопрос:
+${question}
 
 🕒 ${new Date().toLocaleString()}`;
 
@@ -711,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (result.ok) {
-                    alert('Заявка отправлена!');
+                    alert('Ваше сообщение отправлено!');
                     feedbackForm.reset();
                 } else {
                     console.error(result);
