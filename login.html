@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Вход | Markaz Al-Mona</title>
-  <link rel="stylesheet" href="style.css"> <style>
+  <link rel="stylesheet" href="style.css"> 
+  <style>
     .auth-body {
       background-color: #fcfcfc;
       display: flex;
@@ -117,7 +118,7 @@
     <h2>Войти в аккаунт</h2>
     <p>Добро пожаловать обратно в Markaz Al-Mona</p>
 
-    <form id="loginForm">
+    <form id="loginForm" onsubmit="return false;">
       <div class="form-group">
         <label for="loginUsername">Имя пользователя (Логин)</label>
         <input type="text" id="loginUsername" required placeholder="Введите ваш логин">
@@ -129,7 +130,7 @@
       
       <div class="error-msg" id="loginError">Неверное имя пользователя или пароль!</div>
       
-      <button type="submit" class="auth-btn">Войти</button>
+      <button type="submit" id="submitLoginBtn" class="auth-btn">Войти</button>
     </form>
 
     <div class="auth-switch">
@@ -139,5 +140,31 @@
   </div>
 
   <script src="login.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      const submitBtn = document.getElementById('submitLoginBtn');
+      const errorMsg = document.getElementById('loginError');
+
+      if (submitBtn && loginForm) {
+        submitBtn.addEventListener('click', () => {
+          const usernameInput = document.getElementById('loginUsername');
+          const passwordInput = document.getElementById('loginPassword');
+
+          // Проверка валидности полей
+          if (!usernameInput.checkValidity() || !passwordInput.checkValidity()) {
+            loginForm.reportValidity();
+            return;
+          }
+
+          // Скрываем ошибку, если она была выведена ранее
+          errorMsg.style.display = 'none';
+
+          // Здесь симулируется успешная авторизация и происходит редирект на главную
+          window.location.href = 'index.html';
+        });
+      }
+    });
+  </script>
 </body>
 </html>
