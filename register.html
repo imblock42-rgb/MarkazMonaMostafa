@@ -125,20 +125,20 @@
     <h2>Регистрация</h2>
     <p>Создайте аккаунт для доступа к обучению</p>
 
-    <form id="registerForm">
+    <form id="registerForm" onsubmit="return false;">
       <div class="form-group">
         <label for="regUsername">Имя пользователя (Логин)</label>
         <input type="text" id="regUsername" required placeholder="Придумайте логин">
       </div>
       <div class="form-group">
         <label for="regPassword">Пароль</label>
-        <input type="password" id="regPassword" required placeholder="Минимум 6 символов">
+        <input type="password" id="regPassword" required minlength="6" placeholder="Минимум 6 символов">
       </div>
       
       <div class="error-msg" id="regError">Это имя пользователя уже занято!</div>
       <div class="success-msg" id="regSuccess">Регистрация успешна! Перенаправление...</div>
       
-      <button type="submit" class="auth-btn">Зарегистрироваться</button>
+      <button type="submit" id="submitRegBtn" class="auth-btn">Зарегистрироваться</button>
     </form>
 
     <div class="auth-switch">
@@ -148,5 +148,35 @@
   </div>
 
   <script src="login.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const registerForm = document.getElementById('registerForm');
+      const submitBtn = document.getElementById('submitRegBtn');
+      const errorMsg = document.getElementById('regError');
+      const successMsg = document.getElementById('regSuccess');
+
+      if (submitBtn && registerForm) {
+        submitBtn.addEventListener('click', () => {
+          const usernameInput = document.getElementById('regUsername');
+          const passwordInput = document.getElementById('regPassword');
+
+          // Проверка на валидность заполнения и минимальную длину пароля (6 символов)
+          if (!usernameInput.checkValidity() || !passwordInput.checkValidity()) {
+            registerForm.reportValidity();
+            return;
+          }
+
+          // Убираем старые ошибки и активируем сообщение об успехе
+          errorMsg.style.display = 'none';
+          successMsg.style.display = 'block';
+
+          // Задержка в 1.5 секунды перед перенаправлением, чтобы пользователь успел увидеть сообщение
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
