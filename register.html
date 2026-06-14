@@ -114,6 +114,78 @@
       font-size: 13px;
     }
 
+    /* Стили для двух полей в одной строке (Имя и Фамилия) */
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .form-row .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* Стили для выбора пола с картинками */
+    .gender-selection {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .gender-option {
+      text-align: center;
+      cursor: pointer;
+    }
+    .gender-option img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 8px;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .gender-option input[type="radio"] {
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    /* Стили для радио-кнопок направления обучения и чекбокса */
+    .radio-group, .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .radio-label, .checkbox-label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      font-weight: normal;
+      text-transform: none;
+    }
+    .radio-label input, .checkbox-label input {
+      width: auto !important;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    /* Телефонная группа с выбором кода страны */
+    .phone-group {
+      display: flex;
+      gap: 8px;
+    }
+    .phone-group select {
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 15px;
+      background: #fff;
+      outline: none;
+    }
+
     /* Скрываем стандартный виджет Google, чтобы не портить дизайн */
     #google_translate_element, .skiptranslate, .goog-te-banner-frame {
         display: none !important;
@@ -133,19 +205,87 @@
     <p>Создайте аккаунт для доступа к обучению</p>
 
     <form id="registerForm" onsubmit="return false;">
+      
+      <label style="display: block; text-align: left; font-size: 12px; color: #333; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 600;">
+        Имя и Фамилия (на английском) *
+      </label>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" id="regFirstName" required placeholder="Имя">
+        </div>
+        <div class="form-group">
+          <input type="text" id="regLastName" required placeholder="Фамилия">
+        </div>
+      </div>
+
       <div class="form-group">
-        <label for="regUsername">Имя пользователя (Логин)</label>
+        <label for="regUsername">Имя пользователя (Логин) *</label>
         <input type="text" id="regUsername" required placeholder="Придумайте логин">
       </div>
+
       <div class="form-group">
-        <label for="regPassword">Пароль</label>
+        <label for="regPassword">Пароль *</label>
         <input type="password" id="regPassword" required minlength="6" placeholder="Минимум 6 символов">
+      </div>
+
+      <div class="form-group">
+        <label for="regEmail">Электронная почта *</label>
+        <input type="email" id="regEmail" required placeholder="example@mail.com">
+      </div>
+
+      <div class="form-group">
+        <label for="regPhone">Телефон (WhatsApp) *</label>
+        <div class="phone-group">
+          <select id="phoneCode">
+            <option value="+20">🇪🇬 +20</option>
+            <option value="+7">🇷🇺 +7</option>
+            <option value="+90">🇹🇷 +90</option>
+            </select>
+          <input type="tel" id="regPhone" required placeholder="010 01234567">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Пол *</label>
+        <div class="gender-selection">
+          <label class="gender-option">
+            <img src="assets/male-avatar.png" alt="Мужской" onerror="this.src='https://placehold.co/70x70?text=M'">
+            <input type="radio" name="gender" value="male" required> Мужской
+          </label>
+          <label class="gender-option">
+            <img src="assets/female-avatar.png" alt="Женский" onerror="this.src='https://placehold.co/70x70?text=F'">
+            <input type="radio" name="gender" value="female" required> Женский
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Что вы хотите изучать? *</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="course" value="arabic" required> Арабский язык
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="course" value="quran"> Священный Коран
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="course" value="kids"> Арабский язык для детей
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="createAccountCheckbox" checked required> Я хочу создать аккаунт
+          </label>
+        </div>
       </div>
        
       <div class="error-msg" id="regError">Это имя пользователя уже занято!</div>
       <div class="success-msg" id="regSuccess">Регистрация успешна! Перенаправление...</div>
        
-      <button type="submit" id="submitRegBtn" class="auth-btn">Зарегистрироваться</button>
+      <button type="submit" id="submitRegBtn" class="auth-btn">Пропустить пробный период и забронировать сейчас!</button>
     </form>
 
     <div class="auth-switch">
@@ -166,10 +306,8 @@
 
       if (submitBtn && registerForm) {
         submitBtn.addEventListener('click', () => {
-          const usernameInput = document.getElementById('regUsername');
-          const passwordInput = document.getElementById('regPassword');
-
-          if (!usernameInput.checkValidity() || !passwordInput.checkValidity()) {
+          // Проверяем валидность всей расширенной формы
+          if (!registerForm.checkValidity()) {
             registerForm.reportValidity();
             return;
           }
