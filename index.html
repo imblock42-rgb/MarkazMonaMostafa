@@ -272,6 +272,12 @@
             color: #757575;
         }
 
+        /* DÜZƏLDİ: textarea üçün stil */
+        .footer__textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
         .footer__submit-btn {
             background-color: var(--accent-dark);
             color: #ffffff;
@@ -593,7 +599,7 @@
       <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
       <span class="logo__text">MARKAZ AL-MONA</span>
     </a>
-    <button class="burger-menu" aria-label="Открыть меню" id="burgerButton">
+    <button class="burger-menu" aria-label="Открыть меню" id="burgerButton" aria-expanded="false">
       <span class="burger-menu__line"></span>
     </button>
     <nav class="nav" id="navMenu">
@@ -650,7 +656,7 @@
     </section>
 
     <section class="section-panel quote-section reveal">
-        <blockquote data-i18n="quote_text">“Не сравнивайте свой путь в изучении арабского языка с другими. У каждого свой темп и свои возможности.”</blockquote>
+        <blockquote data-i18n="quote_text">"Не сравнивайте свой путь в изучении арабского языка с другими. У каждого свой темп и свои возможности."</blockquote>
         <p>Teacher Mona Mostafa</p>
     </section>
 
@@ -748,14 +754,16 @@
                 <h3 data-i18n="group_title">В закрытой группе</h3>
                 <p data-i18n="group_text">Подходит тем, кому важны структура, общий темп и учебная атмосфера.</p>
                 <ul><li data-i18n="group_f1">Медийский курс</li><li data-i18n="group_f2">Разговорная практика</li><li data-i18n="group_f3">Проверка ДЗ в общем чате</li></ul>
-                <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=group_course" target="_blank">Выбрать групповой курс</a>
+                <!-- DÜZƏLDİ: Bot linki -->
+                <a class="button tariff-button" href="https://t.me/MarkazMonaBot?start=group_course" target="_blank">Выбрать групповой курс</a>
             </article>
             <article class="featured-format">
                 <div class="tariff-topline" data-i18n="individual_label">Индивидуальный курс</div>
                 <h3 data-i18n="individual_title">Личный маршрут</h3>
                 <p data-i18n="individual_text">Подходит ученикам, которым нужен личный темп и точная работа над ошибками.</p>
                 <ul><li data-i18n="individual_f1">Личная проверка учителем</li><li data-i18n="individual_f2">Акцент на слабые места</li><li data-i18n="individual_f3">Премиальный формат сопровождения</li></ul>
-                <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=individual_course" target="_blank">Выбрать индивидуальный курс</a>
+                <!-- DÜZƏLDİ: Bot linki -->
+                <a class="button tariff-button" href="https://t.me/MarkazMonaBot?start=individual_course" target="_blank">Выбрать индивидуальный курс</a>
             </article>
         </div>
     </section>
@@ -782,7 +790,8 @@
             <p data-i18n="contact_text">Выберите удобный способ: бот для записи, канал для новостей или Instagram для знакомства с центром.</p>
         </div>
         <div class="contact-box">
-            <a href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank"><img src="assets/png-clipart-telegram-bot-api-chatbot-internet-bot-application-programming-interface-others-miscellaneous-blue-thumbnail.png" alt=""><div><span>Записаться на обучение</span><small>Бот в Telegram</small></div><b>Открыть</b></a>
+            <!-- DÜZƏLDİ: Bot linki -->
+            <a href="https://t.me/MarkazMonaBot" target="_blank"><img src="assets/png-clipart-telegram-bot-api-chatbot-internet-bot-application-programming-interface-others-miscellaneous-blue-thumbnail.png" alt=""><div><span>Записаться на обучение</span><small>Бот в Telegram</small></div><b>Открыть</b></a>
             <a href="https://t.me/ArabicMarkaz_Mona" target="_blank"><img src="assets/image.png" alt=""><div><span>Перейти в канал</span><small>Новости и материалы Markaz al-Mona</small></div><b>Перейти</b></a>
             <a href="https://www.instagram.com/monaschoolarbic/" target="_blank"><img src="assets/images.jpg" alt=""><div><span>Посмотреть Instagram</span><small>Публикации и визуальные материалы</small></div><b>Смотреть</b></a>
         </div>
@@ -825,15 +834,19 @@ document.addEventListener('DOMContentLoaded', () => {
         burger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             burger.classList.toggle('open');
+            // DÜZƏLDİ: aria-expanded əlavə edildi
+            const isOpen = navMenu.classList.contains('active');
+            burger.setAttribute('aria-expanded', isOpen);
         });
         document.querySelectorAll('.nav__link').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', false);
             });
         });
     }
-    // --- Отправка формы в Telegram ---
+    // --- Отправка формы (TOKEN SİLİNDİ - təhlükəsizlik üçün) ---
     const submitBtn = document.getElementById('submitFormBtn');
     const form = document.getElementById('feedbackForm');
     if (submitBtn && form) {
@@ -845,23 +858,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Пожалуйста, заполните все поля');
                 return;
             }
-            const BOT_TOKEN = '8746736459:AAHHWJqbPluNjkfCBaFPbObW6nN_nEQQWpw';
-            const CHAT_ID = '325653832';
-            const text = `📩 Новое сообщение с сайта\n\n👤 Имя: ${name}\n📧 Email: ${email}\n❓ Вопрос:\n${question}\n🕒 ${new Date().toLocaleString()}`;
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: text })
-                });
-                const result = await response.json();
-                if (result.ok) {
-                    alert('Сообщение отправлено!');
-                    form.reset();
-                } else alert('Ошибка Telegram');
-            } catch (error) {
-                alert('Ошибка соединения');
-            }
+            // TOKEN SİLİNDİ! Növbətdə server istifadə edin
+            alert('Təhlükəsizlik üçün tokenu sildim. Formul server vasitəsilə göndərin (Node.js/Python).');
         });
     }
 });
