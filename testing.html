@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Арабский язык | Markaz al-Mona</title>
+    <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Глобальные переменные и сброс --- */
+        :root {
+            --bg-light: #fafafa;
+            --bg-dark: #121212;
+            --accent-gold: #bc9c65;
+            --accent-dark: #8c6239;
+            --text-dark: #222222;
+            --text-light: #f0f0f0;
+            --border-color: #eaeaea;
+            --card-bg: #ffffff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            direction: ltr;
+        }
+        /* --- ШАПКА (как в основном сайте) --- */
+        .header {
+            width: 100%;
+            background: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .logo__img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .logo__text {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #111;
+        }
+        .burger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .nav__list {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav__link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: #444;
+            transition: color 0.3s;
+        }
+        .nav__link:hover {
+            color: var(--accent-gold);
+        }
+        .header__right-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+        .auth-btn-desktop {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+        }
+        .lang-btn {
+            background: none;
+            border: 1px solid #e6dbcf;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.is-active {
+            background-color: var(--accent-dark);
+            border-color: var(--accent-dark);
+            color: #fff;
+        }
+        .mobile-only-auth, .mobile-lang-wrapper {
+            display: none;
+        }
+        @media (max-width: 991px) {
+            .burger-menu {
+                display: block;
+                z-index: 1001;
+            }
+            .nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 320px;
+                height: 100vh;
+                background: white;
+                box-shadow: -2px 0 15px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                padding: 80px 20px 40px;
+                z-index: 999;
+                flex-direction: column;
+            }
+            .nav.active {
+                right: 0;
+            }
+            .nav__list {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .header__right-actions {
+                display: none !important;
+            }
+            .mobile-only-auth {
+                display: block !important;
+                margin-top: 20px;
+            }
+            .mobile-lang-wrapper {
+                display: block;
+                margin-top: 30px;
+                border-top: 1px solid #eee;
+                padding-top: 20px;
+            }
+        }
+        /* --- Основной контент --- */
+        main {
+            margin-top: 80px;
+            padding: 20px 5% 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .test-header .gold-overline {
+            color: var(--accent-gold);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .test-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #111;
+        }
+        .test-header p {
+            font-size: 18px;
+            color: #555;
+            max-width: 700px;
+            margin: 15px auto 0;
+        }
+        /* Карточки уровней */
+        .level-block {
+            margin-bottom: 60px;
+        }
+        .level-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #1e1e1e;
+        }
+        .level-title::before {
+            content: '';
+            width: 6px;
+            height: 30px;
+            background: var(--accent-gold);
+            border-radius: 3px;
+        }
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .question-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .q-text {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e2a2e;
+            line-height: 1.4;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .option-item {
+            background: #fefefe;
+            border: 1px solid #e2e2e2;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-item.selected {
+            border-color: var(--accent-gold);
+            background: #fdf9f2;
+            box-shadow: 0 2px 6px rgba(188,156,101,0.1);
+        }
+        .option-item .letter {
+            font-weight: 800;
+            color: var(--accent-gold);
+            font-size: 18px;
+            min-width: 32px;
+        }
+        .option-item .arabic-answer {
+            font-family: 'Cairo', monospace;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        input[type="radio"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            margin: 0;
+            position: relative;
+            cursor: pointer;
+        }
+        input[type="radio"]:checked {
+            border-color: var(--accent-gold);
+            background-color: var(--accent-gold);
+            box-shadow: inset 0 0 0 3px white;
+        }
+        .result-area {
+            margin-top: 50px;
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+        .btn-check {
+            background: var(--accent-dark);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            margin-bottom: 25px;
+        }
+        .btn-check:hover {
+            background: #a07244;
+            transform: scale(1.02);
+        }
+        .result-box {
+            font-size: 20px;
+            line-height: 1.5;
+            background: #faf7f0;
+            padding: 20px;
+            border-radius: 20px;
+            display: inline-block;
+            width: 100%;
+        }
+        .result-level {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-gold);
+            margin-top: 12px;
+        }
+        .progress-bar {
+            height: 10px;
+            background: #e0d6c8;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent-gold);
+            transition: width 0.6s ease;
+        }
+        /* футер такой же как в основном сайте */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer__container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .footer__info .logo {
+            display: inline-flex;
+            color: #fff;
+        }
+        .footer__text {
+            color: #b0b0b0;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        .footer__socials {
+            max-width: 1100px;
+            margin: 40px auto 0;
+            border-top: 1px solid #2d2d2d;
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .footer__social-link img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .footer__bottom {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .footer__container {
+                grid-template-columns: 1fr;
+            }
+            .test-header h1 {
+                font-size: 32px;
+            }
+        }
+        .reveal {
+            animation: fadeUp 0.6s ease-out;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="header__container">
+        <a href="index.html" class="logo">
+            <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
+            <span class="logo__text">MARKAZ AL-MONA</span>
+        </a>
+        <button class="burger-menu" id="burgerButton" aria-label="Меню">
+            <span class="burger-menu__line"></span>
+        </button>
+        <nav class="nav" id="navMenu">
+            <ul class="nav__list">
+                <li><a href="index.html#about" class="nav__link">О ЦЕНТРЕ</a></li>
+                <li><a href="index.html#formats" class="nav__link">ТАРИФЫ</a></li>
+                <li><a href="index.html#lessons" class="nav__link">УРОКИ</a></li>
+                <li><a href="blog.html" class="nav__link">БЛОГ</a></li>
+                <li><a href="index.html#contacts" class="nav__link">СВЯЗЬ</a></li>
+                <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
+                <li><a href="rules.html" class="nav__link">Правила</a></li>
+                <li class="mobile-only-auth"><a href="login.html" class="nav__link" style="color:#bc9c65;">ВОЙТИ</a></li>
+                <li class="mobile-lang-wrapper"><div class="lang-switcher"><button class="lang-btn is-active">RU</button><button class="lang-btn">AR</button><button class="lang-btn">EN</button></div></li>
+            </ul>
+        </nav>
+        <div class="header__right-actions">
+            <a href="login.html" class="auth-btn-desktop">Войти</a>
+            <div class="lang-switcher">
+                <button class="lang-btn is-active">RU</button>
+                <button class="lang-btn">AR</button>
+                <button class="lang-btn">EN</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="test-header reveal">
+        <div class="gold-overline">اختبار تحديد المستوى</div>
+        <h1>Проверь свой арабский</h1>
+        <p>28 вопросов • 3 уровня • Узнай свой результат сразу после прохождения</p>
+    </div>
+
+    <form id="arabicTestForm">
+        <!-- НАЧАЛЬНЫЙ УРОВЕНЬ (9 вопросов, переведённых) -->
+        <div class="level-block reveal">
+            <div class="level-title">المستوى المبتدئ — Начальный уровень</div>
+            <div class="questions-grid" id="beginnerQuestions"></div>
+        </div>
+
+        <!-- СРЕДНИЙ УРОВЕНЬ (11 вопросов) -->
+        <div class="level-block reveal">
+            <div class="level-title">المستوى المتوسط — Средний уровень</div>
+            <div class="questions-grid" id="intermediateQuestions"></div>
+        </div>
+
+        <!-- ПРОДВИНУТЫЙ УРОВЕНЬ (8 вопросов) -->
+        <div class="level-block reveal">
+            <div class="level-title">المستوى المتقدم — Продвинутый уровень</div>
+            <div class="questions-grid" id="advancedQuestions"></div>
+        </div>
+    </form>
+
+    <div class="result-area reveal">
+        <button type="button" id="submitTest" class="btn-check">✨ Узнать результат ✨</button>
+        <div id="resultDisplay" class="result-box" style="display: none;">
+            <div id="scoreText"></div>
+            <div class="progress-bar"><div class="progress-fill" id="scoreFill"></div></div>
+            <div id="levelText" class="result-level"></div>
+            <p id="adviceMsg" style="margin-top: 15px; font-size: 16px;"></p>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer__container">
+        <div class="footer__info">
+            <a href="index.html" class="logo">
+                <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
+                <span class="logo__text">MARKAZ AL-MONA</span>
+            </a>
+            <p class="footer__text">Присоединяйтесь к нашему центру и начните уверенный путь в изучении классического арабского языка.</p>
+        </div>
+        <div class="footer__form-wrapper">
+            <h3 class="footer__form-title">Остались вопросы?</h3>
+            <p style="color:#b0b0b0; font-size:14px;">Свяжитесь с нами через Telegram-бота или соцсети</p>
+        </div>
+    </div>
+    <div class="footer__socials">
+        <a href="#" class="footer__social-link"><img src="assets/facebook.png" alt="FB"></a>
+        <a href="#" class="footer__social-link"><img src="assets/telegram.png" alt="TG"></a>
+        <a href="#" class="footer__social-link"><img src="assets/whatsapp.png" alt="WA"></a>
+        <a href="#" class="footer__social-link"><img src="assets/instagram.png" alt="IG"></a>
+    </div>
+    <div class="footer__bottom"><p>&copy; 2026 Markaz al-Mona. Все права защищены.</p></div>
+</footer>
+
+<script>
+// ---------- БАЗА ВОПРОСОВ (РУССКИЙ ТЕКСТ, АРАБСКИЕ ВАРИАНТЫ, ПРАВИЛЬНЫЙ ОТВЕТ) ----------
+const questionsData = {
+    beginner: [
+        { text: "Усердный ученик ...... в своей учёбе.", options: ["أ) ينجحُ", "ب) تنجحُ", "ج) ينجحون", "د) تنجحين"], correct: "a" },
+        { text: "Ахмед пошёл ...... школу утром.", options: ["أ) عن", "ب) في", "ج) إلى", "د) على"], correct: "c" },
+        { text: "Это ...... красивая.", options: ["أ) كتابٌ (книга)", "ب) شجرةٌ (дерево)", "ج) قلمان (две ручки)", "د) بيوتٌ (дома)"], correct: "b" },
+        { text: "Какое слово начинается с \"لام شمسية\" (солнечная буква лам)?", options: ["أ) الكتاب", "ب) الشمس", "ج) القمر", "د) المدرسة"], correct: "b" },
+        { text: "Слово с правильным написанием 'танвин фатх' (تنوين بالفتح):", options: ["أ) كتاباً", "ب) كتابن", "ج) كتابًاً", "د) كتابا"], correct: "a" },
+        { text: "Множественное число слова (نافذة) — окно:", options: ["أ) نافذات", "ب) نوافذ", "ج) أنفذ", "د) نفوذ"], correct: "b" },
+        { text: "Место, куда мы идём покупать лекарства, называется:", options: ["أ) المستشفى (больница)", "ب) الصيدلية (аптека)", "ج) المدرسة (школа)", "د) السوق (рынок)"], correct: "b" },
+        { text: "Правильное значение слова 'الوالدان':", options: ["أ) брат и сестра", "ب) отец и мать", "ج) дед и бабушка", "д) дядя и тётя"], correct: "b" },
+        { text: "Какое слово начинается с 'лам камария' (лунная лам)?", options: ["أ) الرجل", "ب) الثوب", "ج) الباب", "د) السيارة"], correct: "c" }
+    ],
+    intermediate: [
+        { text: "Поистине, ...... знания пользуются уважением среди людей.", options: ["أ) طالبيْ", "ب) طالبو", "ج) طالبين", "د) طالباتُ"], correct: "b" },
+        { text: "Вчера рабочий не ...... свою работу с совершенством.", options: ["أ) ينهي", "ب) ينهُ", "ج) ينهيَ", "د) ينهى"], correct: "c" },
+        { text: "Дождь чуть было не ...... .", options: ["أ) ينزلَ", "ب) أن ينزلَ", "ج) نازلٌ", "د) أن ينزلُ"], correct: "a" },
+        { text: "Я прочитал ...... книг в библиотеке.", options: ["أ) خمسةَ عشرَ", "ب) خمسَ عشرةَ", "ج) خمسةَ عشرِ", "د) خمسُ عشرَ"], correct: "a" },
+        { text: "Правильное двойственное число (муанна) слова (دعوى — иск, претензия):", options: ["أ) دعوتان", "ب) دعواتان", "ج) دعويان", "د) دعوين"], correct: "c" },
+        { text: "Я думал, что экзамен ...... .", options: ["أ) سهلاً", "ب) سهلٌ", "ج) سهلٍ", "د) سهلانِ"], correct: "a" },
+        { text: "Дождь всё ещё ...... обильно.", options: ["أ) يسقطُ", "ب) يسقطَ", "ج) يسقطِ", "د) ساقطٌ"], correct: "a" },
+        { text: "Мне понравился город ...... улицы.", options: ["أ) النظيفةِ", "ب) النظيفةُ", "ج) النظيفةَ", "د) نظيفةً"], correct: "b" },
+        { text: "Не ...... своё домашнее задание, о Мухаммад!", options: ["أ) تهملْ", "ب) تهملُ", "ج) تهملَ", "د) تهملي"], correct: "a" },
+        { text: "Директор наградил ...... отличников.", options: ["أ) المعلمانِ", "ب) المعلمينَ", "ج) المعلمون", "د) المعلماتُ"], correct: "b" },
+        { text: "Время дорого. Тип сказуемого (خبر) в этом предложении:", options: ["أ) مفرد (отдельное слово)", "ب) جملة فعلية (глагольное предложение)", "ج) جملة اسمية (именное)", "د) شبه جملة (полупредложение)"], correct: "d" }
+    ],
+    advanced: [
+        { text: "Остерегайся лени, ибо она ...... для устремлений.", options: ["أ) مَثْبطةٌ", "ب) مِثْبطةٌ", "ج) مَثْبَطةٌ", "د) مُثَبِّطٌ"], correct: "d" },
+        { text: "Дайте синтаксический разбор подчёркнутого слова: 'О справедливый, чей приговор, радуйся!' (يا عادلاً حُكمُهُ)", options: ["أ) فاعل لاسم الفاعل", "ب) مضاف إليه", "ج) خبر للمبتدأ", "د) مفعول به لاسم الفاعل"], correct: "b" },
+        { text: "Сколько ...... ты посетил в путешествии? (числительное كم الاستفهامية)", options: ["أ) بلدانٍ", "ب) بلداً", "ج) بلدٍ", "د) بلادٌ"], correct: "b" },
+        { text: "Какова словообразовательная модель (вес) глагола 'يَقِ' в предложении 'Верующий защищает себя'?", options: ["أ) يَفِ", "ب) يَعِ", "ج) يَعِلْ", "د) يَعِلَ"], correct: "a" },
+        { text: "Слово, в котором 'хамза средняя' (الهمزة المتوسطة) написана верно:", options: ["أ) فُجَأة", "ب) فجائة", "ج) فجأةً", "د) فُجْأة"], correct: "c" },
+        { text: "В каком предложении правильно расставлены знаки препинания?", options: ["أ) قال المعلم: ادرسوا بجد.", "ب) قال المعلم، ادرسوا بجد؟", "ج) قال المعلم! ادرسوا بجد.", "د) قال المعلم ادرسوا بجد،"], correct: "a" },
+        { text: "Синоним слова (شَغَف) в фразе 'читает со страстью':", options: ["أ) ملل (скука)", "ب) حب شديد (сильная любовь)", "ج) خوف (страх)", "د) سرعة (скорость)"], correct: "b" },
+        { text: "Антоним слова (يأس — отчаяние):", options: ["أ) أمل (надежда)", "ب) حزن (печаль)", "ج) ضعف (слабость)", "د) خوف (страх)"], correct: "a" }
+    ]
+};
+
+// Сопоставление ответов (a,b,c,d)
+function renderQuestions() {
+    renderLevel("beginnerQuestions", questionsData.beginner, "beginner");
+    renderLevel("intermediateQuestions", questionsData.intermediate, "intermediate");
+    renderLevel("advancedQuestions", questionsData.advanced, "advanced");
+}
+
+function renderLevel(containerId, questions, levelKey) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+    questions.forEach((q, idx) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        const qNumber = idx+1;
+        card.innerHTML = `
+            <div class="q-text">${qNumber}. ${q.text}</div>
+            <div class="options-grid">
+                ${q.options.map((opt, optIdx) => {
+                    const letter = String.fromCharCode(97+optIdx); // a,b,c,d
+                    return `
+                        <label class="option-item" data-opt="${letter}">
+                            <input type="radio" name="q_${levelKey}_${idx}" value="${letter}" style="margin-left:5px;">
+                            <span class="letter">${opt.charAt(0)}</span>
+                            <span class="arabic-answer">${opt.substring(2)}</span>
+                        </label>
+                    `;
+                }).join('')}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Подсчёт результатов
+function computeResults() {
+    let total = 0;
+    let correct = 0;
+    // начинающий
+    questionsData.beginner.forEach((q, idx) => {
+        total++;
+        const selected = document.querySelector(`input[name="q_beginner_${idx}"]:checked`);
+        if (selected && selected.value === q.correct) correct++;
+    });
+    // средний
+    questionsData.intermediate.forEach((q, idx) => {
+        total++;
+        const selected = document.querySelector(`input[name="q_intermediate_${idx}"]:checked`);
+        if (selected && selected.value === q.correct) correct++;
+    });
+    // продвинутый
+    questionsData.advanced.forEach((q, idx) => {
+        total++;
+        const selected = document.querySelector(`input[name="q_advanced_${idx}"]:checked`);
+        if (selected && selected.value === q.correct) correct++;
+    });
+    const percent = Math.round((correct / total) * 100);
+    let level = "";
+    let advice = "";
+    if (percent < 40) {
+        level = "Начинающий уровень";
+        advice = "Рекомендуем начать с группового курса или интенсивного введения в арабский язык. Не бойтесь ошибок — каждый шаг приближает к цели!";
+    } else if (percent < 70) {
+        level = "Средний уровень (B1)";
+        advice = "У вас хорошая база! Для прогресса стоит уделить внимание грамматике и разговорной практике. Индивидуальные уроки помогут подтянуть слабые места.";
+    } else {
+        level = "Продвинутый уровень (B2–C1)";
+        advice = "Отличный результат! Вы можете углублять знания через чтение классических текстов и занятия с носителем. Присоединяйтесь к продвинутой группе Markaz al-Mona.";
+    }
+    return { correct, total, percent, level, advice };
+}
+
+// Обработчик кнопки
+document.getElementById("submitTest").addEventListener("click", () => {
+    const { correct, total, percent, level, advice } = computeResults();
+    const resultDiv = document.getElementById("resultDisplay");
+    const scoreTextSpan = document.getElementById("scoreText");
+    const levelSpan = document.getElementById("levelText");
+    const adviceSpan = document.getElementById("adviceMsg");
+    const fillBar = document.getElementById("scoreFill");
+
+    scoreTextSpan.innerHTML = `✅ Правильных ответов: <strong>${correct} из ${total}</strong> (${percent}%)`;
+    levelSpan.innerHTML = level;
+    adviceSpan.innerHTML = advice;
+    fillBar.style.width = `${percent}%`;
+    resultDiv.style.display = "block";
+    // плавный скролл до результата
+    resultDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
+// Активация выбора по клику на всю карточку варианта + стилизация
+function attachOptionListeners() {
+    document.querySelectorAll('.option-item').forEach(item => {
+        const radio = item.querySelector('input[type="radio"]');
+        item.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'INPUT') {
+                radio.checked = true;
+            }
+            // сброс выделения у всех в группе
+            const name = radio.getAttribute('name');
+            document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                r.closest('.option-item')?.classList.remove('selected');
+            });
+            item.classList.add('selected');
+        });
+        if (radio) {
+            radio.addEventListener('change', () => {
+                if (radio.checked) {
+                    document.querySelectorAll(`input[name="${radio.name}"]`).forEach(r => {
+                        r.closest('.option-item')?.classList.remove('selected');
+                    });
+                    item.classList.add('selected');
+                }
+            });
+        }
+    });
+}
+
+// Бургер-меню
+document.addEventListener('DOMContentLoaded', () => {
+    renderQuestions();
+    attachOptionListeners();
+    const burger = document.getElementById('burgerButton');
+    const nav = document.getElementById('navMenu');
+    if (burger && nav) {
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            burger.classList.toggle('open');
+        });
+        const links = nav.querySelectorAll('.nav__link');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                burger.classList.remove('open');
+            });
+        });
+    }
+    // небольшая анимация для карточек
+});
+</script>
+</body>
+</html>
