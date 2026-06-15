@@ -7,6 +7,12 @@
     <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* --- ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ --- */
+        :root {
+            --accent-gold: #bc9c65;
+            --accent-dark: #8c6239;
+        }
+
         /* --- ИСПРАВЛЕННЫЕ И УЛУЧШЕННЫЕ СТИЛИ ШАПКИ --- */
         .header {
             width: 100%;
@@ -24,7 +30,7 @@
             padding: 15px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Выстраивает логотип, меню и кнопку "Войти" строго по местам */
+            justify-content: space-between;
             gap: 20px;
             box-sizing: border-box;
         }
@@ -37,7 +43,53 @@
             flex-shrink: 0;
         }
 
-        /* Контейнер для десктопных кнопок справа (теперь он всегда защищен от исчезновения) */
+        .logo__img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo__text {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #111;
+        }
+
+        .burger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav__list {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: #444;
+            transition: color 0.3s;
+        }
+
+        .nav__link:hover {
+            color: var(--accent-gold);
+        }
+
         .header__right-actions {
             display: flex;
             align-items: center;
@@ -45,7 +97,6 @@
             flex-shrink: 0;
         }
 
-        /* Стильный кастомный переключатель языков */
         .lang-switcher {
             display: flex;
             gap: 8px;
@@ -65,75 +116,81 @@
         }
 
         .lang-btn:hover {
-            border-color: var(--accent-color, #8c6239);
-            color: var(--accent-color, #8c6239);
+            border-color: var(--accent-dark);
+            color: var(--accent-dark);
         }
 
         .lang-btn.is-active {
-            background-color: var(--accent-color, #8c6239);
-            border-color: var(--accent-color, #8c6239);
+            background-color: var(--accent-dark);
+            border-color: var(--accent-dark);
             color: #fff;
         }
 
-        /* Кнопка "Войти" на десктопе */
         .auth-btn-desktop {
-            color: #bc9c65;
+            color: var(--accent-gold);
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             transition: color 0.3s ease;
-            white-space: nowrap; /* Не дает тексту переноситься или сжиматься */
+            white-space: nowrap;
         }
 
         .auth-btn-desktop:hover {
             color: #111111;
         }
 
-        /* Адаптив для мобильного меню */
-        .nav__list .mobile-lang-wrapper {
-            display: none;
-            padding: 20px 0;
-            border-top: 1px solid #f0f0f0;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        /* По умолчанию на ПК скрываем мобильную кнопку авторизации */
         .mobile-only-auth {
             display: none !important;
         }
 
-        .mobile-lang-wrapper .lang-switcher {
-            margin-left: 0;
-            justify-content: flex-start;
+        .mobile-lang-wrapper {
+            display: none;
         }
 
         @media (max-width: 991px) {
-            /* Скрываем десктопный блок действий только на мобильных экранах */
+            .burger-menu {
+                display: block;
+                z-index: 1001;
+            }
+            .nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 320px;
+                height: 100vh;
+                background: white;
+                box-shadow: -2px 0 15px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                padding: 80px 20px 40px;
+                z-index: 999;
+                flex-direction: column;
+            }
+            .nav.active {
+                right: 0;
+            }
+            .nav__list {
+                flex-direction: column;
+                gap: 20px;
+            }
             .header__right-actions {
                 display: none !important;
             }
-            
-            /* Показываем кнопку "Войти" и переключатель внутри открытого бугер-меню */
             .mobile-only-auth {
                 display: block !important;
+                margin-top: 20px;
             }
-            .nav__list .mobile-lang-wrapper {
+            .mobile-lang-wrapper {
                 display: block;
+                margin-top: 30px;
+                border-top: 1px solid #eee;
+                padding-top: 20px;
             }
         }
 
-        /* Скрываем сам некрасивый оригинальный виджет Google */
-        #google_translate_element, .skiptranslate, .goog-te-banner-frame {
-            display: none !important;
-        }
-        body {
-            top: 0 !important;
-        }
-
-        /* --- СТИЛИ ДЛЯ ФУТЕРA --- */
+        /* --- СТИЛИ ДЛЯ ФУТЕРА --- */
         .footer {
             background-color: #1a1a1a;
             color: #ffffff;
@@ -181,7 +238,7 @@
 
         .footer__form-title {
             font-size: 20px;
-            color: #bc9c65;
+            color: var(--accent-gold);
             margin-top: 0;
             margin-bottom: 15px;
             font-weight: 600;
@@ -207,7 +264,7 @@
 
         .footer__input:focus {
             outline: none;
-            border-color: #bc9c65;
+            border-color: var(--accent-gold);
             box-shadow: 0 0 0 3px rgba(188, 156, 101, 0.15);
         }
 
@@ -216,7 +273,7 @@
         }
 
         .footer__submit-btn {
-            background-color: var(--accent-color, #8c6239);
+            background-color: var(--accent-dark);
             color: #ffffff;
             border: none;
             padding: 12px 25px;
@@ -233,11 +290,6 @@
             background-color: #a07244;
         }
 
-        .footer__submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* --- НОВЫЕ СТИЛИ ДЛЯ СОЦ. СЕТЕЙ В ФУТЕРЕ --- */
         .footer__socials {
             max-width: 1100px;
             margin: 40px auto 0;
@@ -264,7 +316,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%; /* Делает фотки круглыми кругляшами */
+            border-radius: 50%;
         }
 
         .footer__bottom {
@@ -288,6 +340,249 @@
                 gap: 15px;
             }
         }
+
+        /* --- СТИЛИ ДЛЯ ПРОМО-БЛОКА (НОВЫЙ) --- */
+        .promo-test-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #fef9f0 0%, #fff6ea 100%);
+            border-radius: 40px;
+            margin: 40px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+        .promo-test-section::before {
+            content: "📖";
+            font-size: 220px;
+            opacity: 0.08;
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            pointer-events: none;
+            transform: rotate(-10deg);
+        }
+        .promo-test-section::after {
+            content: "✨";
+            font-size: 180px;
+            opacity: 0.08;
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            pointer-events: none;
+            transform: rotate(15deg);
+        }
+        .promo-label {
+            color: var(--accent-gold);
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .promo-title {
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 0 auto 20px;
+            max-width: 800px;
+            color: #1e1e1e;
+        }
+        .promo-desc {
+            font-size: 18px;
+            color: #4a4a4a;
+            max-width: 600px;
+            margin: 0 auto 35px;
+        }
+        .promo-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .promo-btn-primary {
+            background: var(--accent-dark);
+            color: white;
+            padding: 14px 38px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(140,98,57,0.2);
+        }
+        .promo-btn-primary:hover {
+            background: #a07244;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(140,98,57,0.3);
+        }
+        .promo-btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-dark);
+            padding: 12px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .promo-btn-secondary:hover {
+            background: rgba(188,156,101,0.1);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            .promo-title {
+                font-size: 28px;
+            }
+            .promo-test-section {
+                padding: 50px 20px;
+            }
+            .promo-btn-primary, .promo-btn-secondary {
+                padding: 12px 25px;
+            }
+        }
+
+        /* --- ДРУГИЕ БАЗОВЫЕ СТИЛИ (если отсутствуют в style.css) --- */
+        body {
+            font-family: 'Cairo', 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #222;
+        }
+        .section-panel {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-title span {
+            color: var(--accent-gold);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .section-title h2 {
+            font-size: 32px;
+            margin-top: 10px;
+        }
+        .split-content {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+        .feature-list li::before {
+            content: "✓";
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
+        }
+        .quote-section {
+            background-color: #121212;
+            color: #f0f0f0;
+            text-align: center;
+            padding: 80px 20px;
+            margin: 40px 0;
+        }
+        .quote-section blockquote {
+            font-size: 26px;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .mentor-photo img {
+            width: 100%;
+            border-radius: 20px;
+        }
+        .mini-stats {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        .reason-grid, .journey-grid, .format-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .telegram-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .contact-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .contact-box a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .contact-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--accent-dark);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .reveal {
+            opacity: 1;
+            transform: none;
+            transition: all 0.6s;
+        }
+        #google_translate_element, .skiptranslate, .goog-te-banner-frame {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+        }
+        @media (max-width: 768px) {
+            .mentor-grid, .telegram-grid, .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -298,26 +593,19 @@
       <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
       <span class="logo__text">MARKAZ AL-MONA</span>
     </a>
-
     <button class="burger-menu" aria-label="Открыть меню" id="burgerButton">
       <span class="burger-menu__line"></span>
     </button>
-
     <nav class="nav" id="navMenu">
       <ul class="nav__list">
-        <li><a href="index.html#about" class="nav__link">О ЦЕНТРЕ</a></li>
-        <li><a href="index.html#formats" class="nav__link">ТАРИФЫ</a></li>
-        <li><a href="index.html#lessons" class="nav__link">УРОКИ</a></li>
+        <li><a href="#about" class="nav__link">О ЦЕНТРЕ</a></li>
+        <li><a href="#formats" class="nav__link">ТАРИФЫ</a></li>
+        <li><a href="#lessons" class="nav__link">УРОКИ</a></li>
         <li><a href="blog.html" class="nav__link">БЛОГ</a></li>
-        <li><a href="index.html#contacts" class="nav__link">СВЯЗЬ</a></li>
+        <li><a href="#contacts" class="nav__link">СВЯЗЬ</a></li>
         <li><a href="nabors.html" class="nav__link">НАБОРЫ</a></li>
         <li><a href="rules.html" class="nav__link">Правила</a></li>
-        
-        <!-- НА ТЕЛЕФОНЕ: Кнопка внутри бургер-меню -->
-        <li class="mobile-only-auth">
-          <a href="login.html" class="nav__link auth-btn-mobile" id="mobileAuthBtn" style="color: #bc9c65; font-weight: 700;">ВОЙТИ</a>
-        </li>
-        
+        <li class="mobile-only-auth"><a href="login.html" class="nav__link" style="color: #bc9c65;">ВОЙТИ</a></li>
         <li class="mobile-lang-wrapper">
             <div class="lang-switcher">
                 <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
@@ -327,11 +615,8 @@
         </li>
       </ul>
     </nav>
-
-    <!-- НА КОМПЬЮТЕРЕ: Отображается в шапке справа -->
     <div class="header__right-actions">
-        <a href="login.html" class="auth-btn-desktop" id="desktopAuthBtn">Войти</a>
-        
+        <a href="login.html" class="auth-btn-desktop">Войти</a>
         <div class="lang-switcher">
             <button class="lang-btn is-active" onclick="changeLanguage('ru')">RU</button>
             <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
@@ -341,457 +626,262 @@
   </div>
 </header>
 
-    <!-- Скрытый контейнер, необходимый для работы скрипта Google -->
-    <div id="google_translate_element"></div>
+<div id="google_translate_element"></div>
 
-    <main> 
-        <section id="about" class="section-panel light-panel reveal">
-            <div class="section-title">
-                <span data-i18n="about_label">О центре</span>
-                <h2 data-i18n="about_title">Онлайн обучение</h2>
+<main> 
+    <section id="about" class="section-panel light-panel reveal">
+        <div class="section-title">
+            <span data-i18n="about_label">О центре</span>
+            <h2 data-i18n="about_title">Онлайн обучение</h2>
+        </div>
+        <div class="split-content">
+            <div>
+                <p data-i18n="about_p1">Markaz al-Mona помогает ученикам спокойно и последовательно идти к владению арабским языком: от первых правил до уверенной практики.</p>
+                <p data-i18n="about_p2">Обучение строится вокруг понятной программы, проверок домашних заданий и живого контакта с преподавателем.</p>
             </div>
-            <div class="split-content">
-                <div>
-                    <p data-i18n="about_p1">Markaz al-Mona помогает ученикам спокойно и последовательно идти к владению арабским языком: от первых правил до уверенной практики.</p>
-                    <p data-i18n="about_p2">Обучение строится вокруг понятной программы, проверок домашних заданий и живого контакта с преподавателем.</p>
+            <ul class="feature-list">
+                <li data-i18n="about_f1">Индивидуальный подход к уровню ученика</li>
+                <li data-i18n="about_f2">Закрытая учебная среда в Telegram</li>
+                <li data-i18n="about_f3">Регулярная проверка и обратная связь</li>
+                <li data-i18n="about_f4">Упор на грамматику, чтение и речь</li>
+                <li data-i18n="about_f5">Уроки в Zoom</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section-panel quote-section reveal">
+        <blockquote data-i18n="quote_text">“Не сравнивайте свой путь в изучении арабского языка с другими. У каждого свой темп и свои возможности.”</blockquote>
+        <p>Teacher Mona Mostafa</p>
+    </section>
+
+    <section id="mentor" class="section-panel mentor-section reveal">
+        <div class="section-title">
+            <span data-i18n="mentor_label">Устаза</span>
+            <h2>Teacher Mona Mostafa</h2>
+        </div>
+        <div class="mentor-grid">
+            <div class="mentor-photo">
+                <img src="assets/Logo.jpg" alt="Teacher Mona Mostafa">
+            </div>
+            <div>
+                <p data-i18n="mentor_p1">Преподаватель арабского языка для неносителей с многолетним опытом Более 10 лет.</p>
+                <p data-i18n="mentor_p2">Специализируется на классическом арабском языке, грамматике и разговорной практике. Объясняет сложные темы понятным языком и ведет ученика по шагам.</p>
+                <div class="mini-stats" style="margin-bottom: 25px;">
+                    <article><strong>10+</strong><span data-i18n="stat_years"> лет опыта</span></article>
+                    <article><strong>500+</strong><span data-i18n="stat_students"> учеников</span></article>
+                    <article><strong>2564</strong><span data-i18n="stat_subscribers"> подписчиков</span></article>
                 </div>
-                <ul class="feature-list">
-                    <li data-i18n="about_f1">Индивидуальный подход к уровню ученика</li>
-                    <li data-i18n="about_f2">Закрытая учебная среда в Telegram</li>
-                    <li data-i18n="about_f3">Регулярная проверка и обратная связь</li>
-                    <li data-i18n="about_f4">Упор на грамматику, чтение и речь</li>
-                    <li data-i18n="about_f5">Уроки в Zoom</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="section-panel quote-section reveal">
-            <blockquote data-i18n="quote_text">“Не сравнивайте свой путь в изучении арабского языка с другими. У каждого свой темп и свои возможности.”</blockquote>
-            <p>Teacher Mona Mostafa</p>
-        </section>
-
-        <section id="mentor" class="section-panel mentor-section reveal">
-            <div class="section-title">
-                <span data-i18n="mentor_label">Устаза</span>
-                <h2>Teacher Mona Mostafa</h2>
-            </div>
-            <div class="mentor-grid">
-                <div class="mentor-photo">
-                    <img src="assets/Logo.jpg" alt="Teacher Mona Mostafa">
-                </div>
-                <div>
-                    <p data-i18n="mentor_p1">Преподаватель арабского языка для неносителей с многолетним опытом Более 10 лет.</p>
-                    <p data-i18n="mentor_p2">Специализируется на классическом арабском языке, грамматике и разговорной практике. Объясняет сложные темы понятным языком и ведет ученика по шагам.</p>
-                    <div class="mini-stats" style="margin-bottom: 25px;">
-                        <article>
-                            <strong>10+</strong>
-                            <span data-i18n="stat_years">лет опыта</span>
-                        </article>
-                        <article>
-                            <strong>500+</strong>
-                            <span data-i18n="stat_students">учеников</span>
-                        </article>
-                        <article>
-                            <strong>2564</strong>
-                            <span data-i18n="stat_subscribers">подписчиков</span>
-                        </article>
-                    </div>
-
-                    <div class="mentor-books" style="background: #fdfbf7; border-left: 3px solid var(--accent-color, #8c6239); padding: 20px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-                        <p style="margin-top: 0; font-weight: 600; color: #333;">😊 Книги, которые преподаёт устаза Муна постоянно, а также она может преподавать и любые другие книги:</p>
-                        <span style="display: block; margin-bottom: 8px; font-weight: bold; color: var(--accent-color, #8c6239);">أسماء الكتب:</span>
-                        <ul class="post-list" style="list-style: none; padding-left: 0; margin-bottom: 0; direction: rtl; text-align: right;">
-                            <li style="margin-bottom: 6px;">📊كتب المدينة كلّها</li>
-                            <li style="margin-bottom: 6px;">📊كتب العربية между يديك كلها</li>
-                            <li style="margin-bottom: 6px;">📊كتاب الآجرومية لابن عثيمين</li>
-                            <li style="margin-bottom: 6px;">📊كتاب الصرف الكافي</li>
-                            <li style="margin-bottom: 6px;">📊كتاب القراءة الراشدة</li>
-                            <li style="margin-bottom: 6px;">📊كتاب قطر الندى بشرح ابن هشام</li>
-                            <li style="margin-bottom: 6px;">📊كتاب البلاغة المُيَسَّرة</li>
-                            <li style="margin-bottom: 6px;">📊كتاب ألفية بن مالك بشرح ابن عقيل</li>
-                            <li style="margin-bottom: 6px;">📊كتاب الممتاز</li>
-                            <li style="margin-bottom: 0;">📊 النحو الواضح</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-panel reveal">
-            <div class="section-title">
-                <span data-i18n="benefits_label">Преимущества</span>
-                <h2 data-i18n="benefits_title">Почему выбирают нас</h2>
-            </div>
-            <div class="reason-grid">
-                <article>
-                    <strong>01</strong>
-                    <h3 data-i18n="benefit_1_title">Премиальность</h3>
-                    <p data-i18n="benefit_1_text">Закрытое сообщество учеников, которые пришли за результатом.</p>
-                </article>
-                <article>
-                    <strong>02</strong>
-                    <h3 data-i18n="benefit_2_title">Академичность</h3>
-                    <p data-i18n="benefit_2_text">Глубокое изучение правил, чтения и структуры арабского языка.</p>
-                </article>
-                <article>
-                    <strong>03</strong>
-                    <h3 data-i18n="benefit_3_title">Обратная связь</h3>
-                    <p data-i18n="benefit_3_text">Преподаватель видит ваш прогресс и помогает исправлять ошибки.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section-panel telegram-section reveal">
-            <div class="section-title">
-                <span>Telegram</span>
-                <h2 data-i18n="telegram_title">Учитесь там, где удобно</h2>
-            </div>
-            <div class="telegram-grid">
-                <div>
-                    <h3 data-i18n="telegram_h3">Все обучение в одном месте</h3>
-                    <p data-i18n="telegram_p1">Уроки, задания, проверка домашних работ и сообщения преподавателя проходят в привычном интерфейсе Telegram.</p>
-                    <p data-i18n="telegram_p2">Не нужно разбираться в сложных платформах: достаточно телефона и желания заниматься регулярно.</p>
-                </div>
-                <div class="telegram-card">
-                    <img src="assets/image.png" alt="Telegram">
-                    <span data-i18n="telegram_card">Канал, задания и связь</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-panel journey-section reveal">
-            <div class="section-title">
-                <span data-i18n="process_label">Процесс</span>
-                <h2 data-i18n="process_title">Путь ученика</h2>
-            </div>
-            <div class="journey-grid">
-                <article>
-                    <span>1</span>
-                    <h3 data-i18n="step_1_title">Заявка</h3>
-                    <p data-i18n="step_1_text">Вы оставляете сообщение через бот или Telegram.</p>
-                </article>
-                <article>
-                    <span>2</span>
-                    <h3 data-i18n="step_2_title">Диагностика</h3>
-                    <p data-i18n="step_2_text">Определяем уровень и подходящий формат обучения.</p>
-                </article>
-                <article>
-                    <span>3</span>
-                    <h3 data-i18n="step_3_title">Старт</h3>
-                    <p data-i18n="step_3_text">Подключаем вас к группе или индивидуальному маршруту.</p>
-                </article>
-                <article>
-                    <span>4</span>
-                    <h3 data-i18n="step_4_title">Результат</h3>
-                    <p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратную связь.</p>
-                </article>
-            </div>
-        </section>
-
-        <section id="formats" class="section-panel formats-section reveal">
-            <div class="section-title">
-                <span data-i18n="pricing_label">Тарифы</span>
-                <h2 data-i18n="pricing_title">Выберите формат обучения</h2>
-            </div>
-            <div class="format-cards">
-                <article>
-                    <div class="tariff-topline" data-i18n="group_label">Групповой курс</div>
-                    <h3 data-i18n="group_title">В закрытой группе</h3>
-                    <p data-i18n="group_text">Подходит тем, кому важны структура, общий темп и учебная атмосфера.</p>
-                    <ul>
-                        <li data-i18n="group_f1">Медийский курс</li>
-                        <li data-i18n="group_f2">Разговорная практика</li>
-                        <li data-i18n="group_f3">Проверка ДЗ в общем чате</li>
+                <div class="mentor-books" style="background: #fdfbf7; border-left: 3px solid var(--accent-dark); padding: 20px; border-radius: 6px;">
+                    <p style="margin-top:0;font-weight:600;">😊 Книги, которые преподаёт устаза Муна постоянно, а также она может преподавать и любые другие книги:</p>
+                    <span style="display:block;margin-bottom:8px;font-weight:bold;color:var(--accent-dark);">أسماء الكتب:</span>
+                    <ul style="list-style:none; padding-left:0; direction:rtl; text-align:right;">
+                        <li>📊كتب المدينة كلّها</li><li>📊كتب العربية بين يديك كلها</li><li>📊كتاب الآجرومية لابن عثيمين</li>
+                        <li>📊كتاب الصرف الكافي</li><li>📊كتاب القراءة الراشدة</li><li>📊كتاب قطر الندى بشرح ابن هشام</li>
+                        <li>📊كتاب البلاغة المُيَسَّرة</li><li>📊كتاب ألفية بن مالك بشرح ابن عقيل</li>
+                        <li>📊كتاب الممتاز</li><li>📊 النحو الواضح</li>
                     </ul>
-                    <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=group_course" target="_blank" rel="noopener" data-i18n="group_button">Выбрать групповой курс</a>
-                </article>
-                <article class="featured-format">
-                    <div class="tariff-topline" data-i18n="individual_label">Индивидуальный курс</div>
-                    <h3 data-i18n="individual_title">Личный маршрут</h3>
-                    <p data-i18n="individual_text">Подходит ученикам, которым нужен личный темп и точная работа над ошибками.</p>
-                    <ul>
-                        <li data-i18n="individual_f1">Личная проверка учителем</li>
-                        <li data-i18n="individual_f2">Акцент на слабые места</li>
-                        <li data-i18n="individual_f3">Премиальный формат сопровождения</li>
-                    </ul>
-                    <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=individual_course" target="_blank" rel="noopener" data-i18n="individual_button">Выбрать индивидуальный курс</a>
-                </article>
-            </div>
-        </section>
-
-        <section id="lessons" class="section-panel lessons-section reveal">
-            <div class="section-title">
-                <span data-i18n="lessons_label">Как проходят уроки</span>
-                <h2 data-i18n="lessons_title">Telegram, Zoom и понятная практика</h2>
-            </div>
-            <div class="lessons-grid">
-                <div class="lesson-board">
-                    <img src="assets/Gemini_Generated_Image_li1vulli1vulli1v.png" alt="Доска Markaz Al-mona">
-                </div>
-                <div class="lesson-flow">
-                    <article>
-                        <span>01</span>
-                        <h3 data-i18n="lesson_1_title">Материалы в Telegram</h3>
-                        <p data-i18n="lesson_1_text">Уроки, задания и напоминания находятся в одном учебном пространстве.</p>
-                    </article>
-                    <article>
-                        <span>02</span>
-                        <h3 data-i18n="lesson_2_title">Созвоны в Zoom</h3>
-                        <p data-i18n="lesson_2_text">Разбираем темы голосом, тренируем произношение и отвечаем на вопросы.</p>
-                    </article>
-                    <article>
-                        <span>03</span>
-                        <h3 data-i18n="lesson_3_title">Проверка и закрепление</h3>
-                        <p data-i18n="lesson_3_text">Вы сдаете домашние задания и получаете понятную обратную связь.</p>
-                    </article>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contacts" class="section-panel contacts-section reveal">
-            <div class="section-title centered">
-                <span data-i18n="contact_label">Связь</span>
-                <h2 data-i18n="contact_title">Куда написать</h2>
-                <p data-i18n="contact_text">Выберите удобный способ: бот для записи, канал для новостей или Instagram для знакомства с центром.</p>
+    <section class="section-panel reveal">
+        <div class="section-title">
+            <span data-i18n="benefits_label">Преимущества</span>
+            <h2 data-i18n="benefits_title">Почему выбирают нас</h2>
+        </div>
+        <div class="reason-grid">
+            <article><strong>01</strong><h3 data-i18n="benefit_1_title">Премиальность</h3><p data-i18n="benefit_1_text">Закрытое сообщество учеников, которые пришли за результатом.</p></article>
+            <article><strong>02</strong><h3 data-i18n="benefit_2_title">Академичность</h3><p data-i18n="benefit_2_text">Глубокое изучение правил, чтения и структуры арабского языка.</p></article>
+            <article><strong>03</strong><h3 data-i18n="benefit_3_title">Обратная связь</h3><p data-i18n="benefit_3_text">Преподаватель видит ваш прогресс и помогает исправлять ошибки.</p></article>
+        </div>
+    </section>
+
+    <!-- НОВЫЙ ПРОМО-БЛОК: ПРОТЕСТИРУЙ СЕБЯ -->
+    <section class="promo-test-section reveal">
+        <div class="promo-label">🎯 LEVEL UP</div>
+        <h2 class="promo-title">Проверьте свой арабский<br>и начните путь к совершенству</h2>
+        <p class="promo-desc">Пройдите бесплатный тест из 28 вопросов — узнайте свой реальный уровень и получите рекомендации, с какого курса лучше стартовать.</p>
+        <div class="promo-buttons">
+            <a href="test.html" class="promo-btn-primary">✨ Пройти тест ✨</a>
+            <a href="#formats" class="promo-btn-secondary">📚 Выбрать курс</a>
+        </div>
+        <div style="margin-top: 30px; font-size: 14px; color: #8c8c8c;">🔍 Не знаете с чего начать? Тест поможет определиться</div>
+    </section>
+
+    <section class="section-panel telegram-section reveal">
+        <div class="section-title">
+            <span>Telegram</span>
+            <h2 data-i18n="telegram_title">Учитесь там, где удобно</h2>
+        </div>
+        <div class="telegram-grid">
+            <div>
+                <h3 data-i18n="telegram_h3">Все обучение в одном месте</h3>
+                <p data-i18n="telegram_p1">Уроки, задания, проверка домашних работ и сообщения преподавателя проходят в привычном интерфейсе Telegram.</p>
+                <p data-i18n="telegram_p2">Не нужно разбираться в сложных платформах: достаточно телефона и желания заниматься регулярно.</p>
             </div>
-            <div class="contact-box">
-                <a href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank" rel="noopener">
-                    <img src="assets/png-clipart-telegram-bot-api-chatbot-internet-bot-application-programming-interface-others-miscellaneous-blue-thumbnail.png" alt="">
-                    <div>
-                        <span data-i18n="contact_bot_title">Записаться на обучение</span>
-                        <small data-i18n="contact_bot_text">Бот в Telegram</small>
-                    </div>
-                    <b data-i18n="contact_open">Открыть</b>
-                </a>
-                <a href="https://t.me/ArabicMarkaz_Mona" target="_blank" rel="noopener">
-                    <img src="assets/image.png" alt="">
-                    <div>
-                        <span data-i18n="contact_channel_title">Перейти в канал</span>
-                        <small data-i18n="contact_channel_text">Новости и материалы Markaz al-Mona</small>
-                    </div>
-                    <b data-i18n="contact_go">Перейти</b>
-                </a>
-                <a href="https://www.instagram.com/monaschoolarbic/" target="_blank" rel="noopener">
-                    <img src="assets/images.jpg" alt="">
-                    <div>
-                        <span data-i18n="contact_inst_title">Посмотреть Instagram</span>
-                        <small data-i18n="contact_inst_text">Публикации и визуальные материалы</small>
-                    </div>
-                    <b data-i18n="contact_view">Смотреть</b>
-                </a>
+            <div class="telegram-card"><img src="assets/image.png" alt="Telegram"><span data-i18n="telegram_card">Канал, задания и связь</span></div>
+        </div>
+    </section>
+
+    <section class="section-panel journey-section reveal">
+        <div class="section-title">
+            <span data-i18n="process_label">Процесс</span>
+            <h2 data-i18n="process_title">Путь ученика</h2>
+        </div>
+        <div class="journey-grid">
+            <article><span>1</span><h3 data-i18n="step_1_title">Заявка</h3><p data-i18n="step_1_text">Вы оставляете сообщение через бот или Telegram.</p></article>
+            <article><span>2</span><h3 data-i18n="step_2_title">Диагностика</h3><p data-i18n="step_2_text">Определяем уровень и подходящий формат обучения.</p></article>
+            <article><span>3</span><h3 data-i18n="step_3_title">Старт</h3><p data-i18n="step_3_text">Подключаем вас к группе или индивидуальному маршруту.</p></article>
+            <article><span>4</span><h3 data-i18n="step_4_title">Результат</h3><p data-i18n="step_4_text">Вы двигаетесь по программе и получаете обратную связь.</p></article>
+        </div>
+    </section>
+
+    <section id="formats" class="section-panel formats-section reveal">
+        <div class="section-title">
+            <span data-i18n="pricing_label">Тарифы</span>
+            <h2 data-i18n="pricing_title">Выберите формат обучения</h2>
+        </div>
+        <div class="format-cards">
+            <article>
+                <div class="tariff-topline" data-i18n="group_label">Групповой курс</div>
+                <h3 data-i18n="group_title">В закрытой группе</h3>
+                <p data-i18n="group_text">Подходит тем, кому важны структура, общий темп и учебная атмосфера.</p>
+                <ul><li data-i18n="group_f1">Медийский курс</li><li data-i18n="group_f2">Разговорная практика</li><li data-i18n="group_f3">Проверка ДЗ в общем чате</li></ul>
+                <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=group_course" target="_blank">Выбрать групповой курс</a>
+            </article>
+            <article class="featured-format">
+                <div class="tariff-topline" data-i18n="individual_label">Индивидуальный курс</div>
+                <h3 data-i18n="individual_title">Личный маршрут</h3>
+                <p data-i18n="individual_text">Подходит ученикам, которым нужен личный темп и точная работа над ошибками.</p>
+                <ul><li data-i18n="individual_f1">Личная проверка учителем</li><li data-i18n="individual_f2">Акцент на слабые места</li><li data-i18n="individual_f3">Премиальный формат сопровождения</li></ul>
+                <a class="button tariff-button" href="https://t.me/MarkazMonaBotMarkazMonaBot?start=individual_course" target="_blank">Выбрать индивидуальный курс</a>
+            </article>
+        </div>
+    </section>
+
+    <section id="lessons" class="section-panel lessons-section reveal">
+        <div class="section-title">
+            <span data-i18n="lessons_label">Как проходят уроки</span>
+            <h2 data-i18n="lessons_title">Telegram, Zoom и понятная практика</h2>
+        </div>
+        <div class="lessons-grid">
+            <div class="lesson-board"><img src="assets/Gemini_Generated_Image_li1vulli1vulli1v.png" alt="Доска Markaz Al-mona" style="width:100%; border-radius:20px;"></div>
+            <div class="lesson-flow">
+                <article><span>01</span><h3 data-i18n="lesson_1_title">Материалы в Telegram</h3><p data-i18n="lesson_1_text">Уроки, задания и напоминания находятся в одном учебном пространстве.</p></article>
+                <article><span>02</span><h3 data-i18n="lesson_2_title">Созвоны в Zoom</h3><p data-i18n="lesson_2_text">Разбираем темы голосом, тренируем произношение и отвечаем на вопросы.</p></article>
+                <article><span>03</span><h3 data-i18n="lesson_3_title">Проверка и закрепление</h3><p data-i18n="lesson_3_text">Вы сдаете домашние задания и получаете понятную обратную связь.</p></article>
             </div>
-            <p class="tagline" data-i18n="tagline">Markaz al-Mona: Ваш путь к истинному арабскому</p>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <section id="contacts" class="section-panel contacts-section reveal">
+        <div class="section-title centered">
+            <span data-i18n="contact_label">Связь</span>
+            <h2 data-i18n="contact_title">Куда написать</h2>
+            <p data-i18n="contact_text">Выберите удобный способ: бот для записи, канал для новостей или Instagram для знакомства с центром.</p>
+        </div>
+        <div class="contact-box">
+            <a href="https://t.me/MarkazMonaBotMarkazMonaBot" target="_blank"><img src="assets/png-clipart-telegram-bot-api-chatbot-internet-bot-application-programming-interface-others-miscellaneous-blue-thumbnail.png" alt=""><div><span>Записаться на обучение</span><small>Бот в Telegram</small></div><b>Открыть</b></a>
+            <a href="https://t.me/ArabicMarkaz_Mona" target="_blank"><img src="assets/image.png" alt=""><div><span>Перейти в канал</span><small>Новости и материалы Markaz al-Mona</small></div><b>Перейти</b></a>
+            <a href="https://www.instagram.com/monaschoolarbic/" target="_blank"><img src="assets/images.jpg" alt=""><div><span>Посмотреть Instagram</span><small>Публикации и визуальные материалы</small></div><b>Смотреть</b></a>
+        </div>
+        <p class="tagline" style="text-align:center; margin-top:40px;">Markaz al-Mona: Ваш путь к истинному арабскому</p>
+    </section>
+</main>
 
 <footer class="footer">
-        <div class="footer__container">
-            <div class="footer__info">
-                <a href="index.html" class="logo">
-                    <img src="assets/Logo.jpg" alt="Markaz Al-Mona" class="logo__img">
-                    <span class="logo__text">MARKAZ AL-MONA</span>
-                </a>
-                <p class="footer__text" data-i18n="footer_description">
-                    Присоединяйтесь к нашему центру и начните уверенный путь в изучении классического арабского языка под руководством опытного наставника.
-                </p>
-            </div>
-            <div class="footer__form-wrapper">
-                <h3 class="footer__form-title" data-i18n="footer_form_title">Остались вопросы?</h3>
-                <form id="feedbackForm" class="footer__form" onsubmit="return false;">
-                    <input type="text" id="formName" name="name" class="footer__input" placeholder="Ваше имя" required data-i18n-placeholder="footer_placeholder_name">
-                    <input type="email" id="formEmail" name="email" class="footer__input" placeholder="Ваш Email" required data-i18n-placeholder="footer_placeholder_email">
-                    <textarea id="formQuestion" name="question" class="footer__input footer__textarea" placeholder="Ваш вопрос" required data-i18n-placeholder="footer_placeholder_question" rows="4"></textarea>
-                    <button type="button" id="submitFormBtn" class="footer__submit-btn" data-i18n="footer_button_submit">Отправить заявку</button>
-                </form>
-            </div>
+    <div class="footer__container">
+        <div class="footer__info">
+            <a href="index.html" class="logo"><img src="assets/Logo.jpg" alt="" class="logo__img"><span class="logo__text">MARKAZ AL-MONA</span></a>
+            <p class="footer__text">Присоединяйтесь к нашему центру и начните уверенный путь в изучении классического арабского языка под руководством опытного наставника.</p>
         </div>
-
-        <!-- СЕКЦИЯ С КРУГЛЫМИ ЗНАЧКАМИ СОЦ. СЕТЕЙ (ДОБАВЛЕНО) -->
-        <div class="footer__socials">
-            <a href="https://facebook.com" target="_blank" rel="noopener" class="footer__social-link">
-                <img src="assets/facebook.png" alt="Facebook" class="footer__social-img">
-            </a>
-            <a href="https://t.me/ArabicMarkaz_Mona" target="_blank" rel="noopener" class="footer__social-link">
-                <img src="assets/telegram.png" alt="Telegram" class="footer__social-img">
-            </a>
-            <a href="https://wa.me/#" target="_blank" rel="noopener" class="footer__social-link">
-                <img src="assets/whatsapp.png" alt="WhatsApp" class="footer__social-img">
-            </a>
-            <a href="https://www.instagram.com/monaschoolarbic/" target="_blank" rel="noopener" class="footer__social-link">
-                <img src="assets/instagram.png" alt="Instagram" class="footer__social-img">
-            </a>
-            <a href="mailto:example@gmail.com" class="footer__social-link">
-                <img src="assets/gmail.png" alt="Gmail" class="footer__social-img">
-            </a>
+        <div class="footer__form-wrapper">
+            <h3 class="footer__form-title">Остались вопросы?</h3>
+            <form id="feedbackForm" class="footer__form" onsubmit="return false;">
+                <input type="text" id="formName" class="footer__input" placeholder="Ваше имя" required>
+                <input type="email" id="formEmail" class="footer__input" placeholder="Ваш Email" required>
+                <textarea id="formQuestion" class="footer__input footer__textarea" placeholder="Ваш вопрос" required rows="4"></textarea>
+                <button type="button" id="submitFormBtn" class="footer__submit-btn">Отправить заявку</button>
+            </form>
         </div>
-
-        <div class="footer__bottom">
-            <p>&copy; 2026 Markaz al-Mona. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <style>
-        .footer__textarea {
-            resize: vertical; /* Разрешаем масштабировать только по высоте */
-            min-height: 80px;
-            max-height: 200px;
-            font-family: inherit; /* Чтобы шрифт внутри соответствовал остальным инпутам */
-        }
-    </style>
-
-    <script src="script.js"></script>
-    <script src="login.js"></script>
-
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'ru',
-                includedLanguages: 'ru,ar,en',
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
-        function changeLanguage(langCode) {
-            const googleSelect = document.querySelector('.goog-te-combo');
-            if (googleSelect) {
-                googleSelect.value = langCode;
-                googleSelect.dispatchEvent(new Event('change'));
-                
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    if(btn.getAttribute('onclick').includes(`'${langCode}'`)) {
-                        btn.classList.add('is-active');
-                    } else {
-                        btn.classList.remove('is-active');
-                    }
-                });
-            }
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </div>
+    <div class="footer__socials">
+        <a href="https://facebook.com" target="_blank" class="footer__social-link"><img src="assets/facebook.png" alt="FB" class="footer__social-img"></a>
+        <a href="https://t.me/ArabicMarkaz_Mona" target="_blank" class="footer__social-link"><img src="assets/telegram.png" alt="TG" class="footer__social-img"></a>
+        <a href="https://wa.me/#" target="_blank" class="footer__social-link"><img src="assets/whatsapp.png" alt="WA" class="footer__social-img"></a>
+        <a href="https://www.instagram.com/monaschoolarbic/" target="_blank" class="footer__social-link"><img src="assets/instagram.png" alt="IG" class="footer__social-img"></a>
+        <a href="mailto:example@gmail.com" class="footer__social-link"><img src="assets/gmail.png" alt="Gmail" class="footer__social-img"></a>
+    </div>
+    <div class="footer__bottom"><p>&copy; 2026 Markaz al-Mona. All rights reserved.</p></div>
+</footer>
 
 <script>
+// --- Бургер-меню ---
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Бургер-меню
-    const burgerButton = document.getElementById('burgerButton');
+    const burger = document.getElementById('burgerButton');
     const navMenu = document.getElementById('navMenu');
-    const header = document.querySelector('.header');
-
-    if (burgerButton && navMenu) {
-        burgerButton.addEventListener('click', () => {
+    if (burger && navMenu) {
+        burger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            burgerButton.classList.toggle('open');
+            burger.classList.toggle('open');
         });
-
-        const navLinks = navMenu.querySelectorAll('.nav__link');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-
-                const href = link.getAttribute('href');
-
-                if (href.includes('#')) {
-
-                    const hash = href.substring(href.indexOf('#'));
-                    const targetSection = document.querySelector(hash);
-
-                    if (targetSection) {
-
-                        e.preventDefault();
-
-                        const headerHeight = header ? header.offsetHeight : 70;
-
-                        const targetPosition =
-                            targetSection.getBoundingClientRect().top +
-                            window.pageYOffset -
-                            headerHeight;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-
+        document.querySelectorAll('.nav__link').forEach(link => {
+            link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
-                burgerButton.classList.remove('open');
+                burger.classList.remove('open');
             });
         });
     }
-
-    // ===== ОТПРАВКА ФОРМЫ С ВОПРОСОМ В TELEGRAM =====
-
+    // --- Отправка формы в Telegram ---
     const submitBtn = document.getElementById('submitFormBtn');
-    const feedbackForm = document.getElementById('feedbackForm');
-
-    if (submitBtn && feedbackForm) {
-
+    const form = document.getElementById('feedbackForm');
+    if (submitBtn && form) {
         submitBtn.addEventListener('click', async () => {
-
-            const nameInput = document.getElementById('formName');
-            const emailInput = document.getElementById('formEmail');
-            const questionInput = document.getElementById('formQuestion');
-
-            // Добавлена валидация для поля вопроса
-            if (!nameInput.checkValidity() || !emailInput.checkValidity() || !questionInput.checkValidity()) {
-                feedbackForm.reportValidity();
+            const name = document.getElementById('formName').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+            const question = document.getElementById('formQuestion').value.trim();
+            if (!name || !email || !question) {
+                alert('Пожалуйста, заполните все поля');
                 return;
             }
-
             const BOT_TOKEN = '8746736459:AAHHWJqbPluNjkfCBaFPbObW6nN_nEQQWpw';
             const CHAT_ID = '325653832';
-
-            const name = nameInput.value.trim();
-            const email = emailInput.value.trim();
-            const question = questionInput.value.trim();
-
-            // Изменен шаблон сообщения — теперь включает поле вопроса
-            const text = 
-`📩 Новое сообщение с сайта
-
-👤 Имя: ${name}
-📧 Email: ${email}
-
-❓ Вопрос:
-${question}
-
-🕒 ${new Date().toLocaleString()}`;
-
+            const text = `📩 Новое сообщение с сайта\n\n👤 Имя: ${name}\n📧 Email: ${email}\n❓ Вопрос:\n${question}\n🕒 ${new Date().toLocaleString()}`;
             try {
-
-                const response = await fetch(
-                    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            chat_id: CHAT_ID,
-                            text: text
-                        })
-                    }
-                );
-
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+                });
                 const result = await response.json();
-
                 if (result.ok) {
-                    alert('Ваше сообщение отправлено!');
-                    feedbackForm.reset();
-                } else {
-                    console.error(result);
-                    alert('Ошибка Telegram');
-                }
-
+                    alert('Сообщение отправлено!');
+                    form.reset();
+                } else alert('Ошибка Telegram');
             } catch (error) {
-                console.error(error);
                 alert('Ошибка соединения');
             }
-
         });
     }
-
 });
+
+// --- Google Translate и кастомные кнопки ---
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'ru', includedLanguages: 'ru,ar,en', autoDisplay: false }, 'google_translate_element');
+}
+function changeLanguage(langCode) {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.getAttribute('onclick').includes(`'${langCode}'`)) btn.classList.add('is-active');
+            else btn.classList.remove('is-active');
+        });
+    }
+}
 </script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
