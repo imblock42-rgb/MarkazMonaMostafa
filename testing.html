@@ -240,16 +240,19 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         .q-text {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1e2a2e;
-            line-height: 1.4;
+            line-height: 1.5;
+            text-align: right;
+            direction: rtl;
         }
         .options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 12px;
+            direction: rtl;
         }
         .option-item {
             background: #fefefe;
@@ -261,6 +264,7 @@
             gap: 12px;
             cursor: pointer;
             transition: all 0.2s;
+            justify-content: flex-start;
         }
         .option-item.selected {
             border-color: var(--accent-gold);
@@ -272,11 +276,13 @@
             color: var(--accent-gold);
             font-size: 18px;
             min-width: 32px;
+            text-align: right;
         }
         .option-item .arabic-answer {
             font-family: 'Cairo', monospace;
             font-size: 18px;
             font-weight: 500;
+            text-align: right;
         }
         input[type="radio"] {
             appearance: none;
@@ -287,6 +293,8 @@
             margin: 0;
             position: relative;
             cursor: pointer;
+            order: 3;
+            margin-right: auto;
         }
         input[type="radio"]:checked {
             border-color: var(--accent-gold);
@@ -445,23 +453,23 @@
     <div class="test-header reveal">
         <div class="gold-overline">اختبار تحديد المستوى</div>
         <h1>Проверь свой арабский</h1>
-        <p>28 вопросов • 3 уровня • Узнай свой результат сразу после прохождения</p>
+        <p>29 вопросов • 3 уровня • Узнай свой результат сразу после прохождения</p>
     </div>
 
     <form id="arabicTestForm">
-        <!-- НАЧАЛЬНЫЙ УРОВЕНЬ (9 вопросов, переведённых) -->
+        <!-- НАЧАЛЬНЫЙ УРОВЕНЬ -->
         <div class="level-block reveal">
             <div class="level-title">المستوى المبتدئ — Начальный уровень</div>
             <div class="questions-grid" id="beginnerQuestions"></div>
         </div>
 
-        <!-- СРЕДНИЙ УРОВЕНЬ (11 вопросов) -->
+        <!-- СРЕДНИЙ УРОВЕНЬ -->
         <div class="level-block reveal">
             <div class="level-title">المستوى المتوسط — Средний уровень</div>
             <div class="questions-grid" id="intermediateQuestions"></div>
         </div>
 
-        <!-- ПРОДВИНУТЫЙ УРОВЕНЬ (8 вопросов) -->
+        <!-- ПРОДВИНУТЫЙ УРОВЕНЬ -->
         <div class="level-block reveal">
             <div class="level-title">المستوى المتقدم — Продвинутый уровень</div>
             <div class="questions-grid" id="advancedQuestions"></div>
@@ -503,45 +511,45 @@
 </footer>
 
 <script>
-// ---------- БАЗА ВОПРОСОВ (РУССКИЙ ТЕКСТ, АРАБСКИЕ ВАРИАНТЫ, ПРАВИЛЬНЫЙ ОТВЕТ) ----------
+// ---------- БАЗА ВОПРОСОВ (ПОЛНОСТЬЮ НА АРАБСКОМ) ----------
 const questionsData = {
     beginner: [
-        { text: "Усердный ученик ...... в своей учёбе.", options: ["أ) ينجحُ", "ب) تنجحُ", "ج) ينجحون", "د) تنجحين"], correct: "a" },
-        { text: "Ахмед пошёл ...... школу утром.", options: ["أ) عن", "ب) في", "ج) إلى", "د) على"], correct: "c" },
-        { text: "Это ...... красивая.", options: ["أ) كتابٌ (книга)", "ب) شجرةٌ (дерево)", "ج) قلمان (две ручки)", "د) بيوتٌ (дома)"], correct: "b" },
-        { text: "Какое слово начинается с \"لام شمسية\" (солнечная буква лам)?", options: ["أ) الكتاب", "ب) الشمس", "ج) القمر", "د) المدرسة"], correct: "b" },
-        { text: "Слово с правильным написанием 'танвин фатх' (تنوين بالفتح):", options: ["أ) كتاباً", "ب) كتابن", "ج) كتابًاً", "د) كتابا"], correct: "a" },
-        { text: "Множественное число слова (نافذة) — окно:", options: ["أ) نافذات", "ب) نوافذ", "ج) أنفذ", "د) نفوذ"], correct: "b" },
-        { text: "Место, куда мы идём покупать лекарства, называется:", options: ["أ) المستشفى (больница)", "ب) الصيدلية (аптека)", "ج) المدرسة (школа)", "د) السوق (рынок)"], correct: "b" },
-        { text: "Правильное значение слова 'الوالدان':", options: ["أ) брат и сестра", "ب) отец и мать", "ج) дед и бабушка", "д) дядя и тётя"], correct: "b" },
-        { text: "Какое слово начинается с 'лам камария' (лунная лам)?", options: ["أ) الرجل", "ب) الثوب", "ج) الباب", "د) السيارة"], correct: "c" }
+        { text: "الطالبُ المجتهدُ ....... في دراسته.", options: ["أ) ينجحُ", "ب) تنجحُ", "ج) ينجحون", "د) تنجحين"], correct: "a" },
+        { text: "ذهبَ أحمدُ ....... المدرسةِ صباحاً.", options: ["أ) عن", "ب) في", "ج) إلى", "د) على"], correct: "c" },
+        { text: "هذه ....... جميلةٌ.", options: ["أ) كتابٌ", "ب) شجرةٌ", "ج) قلمان", "د) بيوتٌ"], correct: "b" },
+        { text: "ما هي الكلمة التي تبدأ بـ \"لام شمسية\"؟", options: ["أ) الكتاب", "ب) الشمس", "ج) القمر", "د) المدرسة"], correct: "b" },
+        { text: "....... طالبةٌ ذكيةٌ ومجتهدةٌ.", options: ["أ) أنتَ", "ب) هو", "ج) أنتِ", "د) نحنُ"], correct: "c" },
+        { text: "الكلمة التي بها \"تنوين بالفتح\" مكتوب بشكل صحيح هي:", options: ["أ) كتاباً", "ب) كتابن", "ج) كتابًاً", "د) كتابا"], correct: "a" },
+        { text: "جمع كلمة (نافذة) هو:", options: ["أ) نافذات", "ب) نوافذ", "ج) أنفذ", "د) نفوذ"], correct: "b" },
+        { text: "المكان الذي نذهب إليه لشراء الأدوية يُسمى:", options: ["أ) المستشفى", "ب) الصيدلية", "ج) المدرسة", "د) السوق"], correct: "b" },
+        { text: "المعنى الصحيح لـ \"الوالدان\" هما:", options: ["أ) الأخ والأخت", "ب) الأب والأم", "ج) الجد والجدة", "د) العم والعمة"], correct: "b" },
+        { text: "ما هي الكلمة التي تبدأ بـ \"لام قمرية\"؟", options: ["أ) الرجل", "ب) الثوب", "ج) الباب", "د) السيارة"], correct: "c" }
     ],
     intermediate: [
-        { text: "Поистине, ...... знания пользуются уважением среди людей.", options: ["أ) طالبيْ", "ب) طالبو", "ج) طالبين", "د) طالباتُ"], correct: "b" },
-        { text: "Вчера рабочий не ...... свою работу с совершенством.", options: ["أ) ينهي", "ب) ينهُ", "ج) ينهيَ", "د) ينهى"], correct: "c" },
-        { text: "Дождь чуть было не ...... .", options: ["أ) ينزلَ", "ب) أن ينزلَ", "ج) نازلٌ", "د) أن ينزلُ"], correct: "a" },
-        { text: "Я прочитал ...... книг в библиотеке.", options: ["أ) خمسةَ عشرَ", "ب) خمسَ عشرةَ", "ج) خمسةَ عشرِ", "د) خمسُ عشرَ"], correct: "a" },
-        { text: "Правильное двойственное число (муанна) слова (دعوى — иск, претензия):", options: ["أ) دعوتان", "ب) دعواتان", "ج) دعويان", "د) دعوين"], correct: "c" },
-        { text: "Я думал, что экзамен ...... .", options: ["أ) سهلاً", "ب) سهلٌ", "ج) سهلٍ", "د) سهلانِ"], correct: "a" },
-        { text: "Дождь всё ещё ...... обильно.", options: ["أ) يسقطُ", "ب) يسقطَ", "ج) يسقطِ", "د) ساقطٌ"], correct: "a" },
-        { text: "Мне понравился город ...... улицы.", options: ["أ) النظيفةِ", "ب) النظيفةُ", "ج) النظيفةَ", "د) نظيفةً"], correct: "b" },
-        { text: "Не ...... своё домашнее задание, о Мухаммад!", options: ["أ) تهملْ", "ب) تهملُ", "ج) تهملَ", "د) تهملي"], correct: "a" },
-        { text: "Директор наградил ...... отличников.", options: ["أ) المعلمانِ", "ب) المعلمينَ", "ج) المعلمون", "د) المعلماتُ"], correct: "b" },
-        { text: "Время дорого. Тип сказуемого (خبر) в этом предложении:", options: ["أ) مفرد (отдельное слово)", "ب) جملة فعلية (глагольное предложение)", "ج) جملة اسمية (именное)", "د) شبه جملة (полупредложение)"], correct: "d" }
+        { text: "إنّ ....... العلمِ محبوكٌ بين الناس.", options: ["أ) طالبيْ", "ب) طالبو", "ج) طالبين", "د) طالباتُ"], correct: "a" },
+        { text: "لم ....... العاملُ عمله بإتقانٍ أمسِ.", options: ["أ) ينهي", "ب) ينهُ", "ج) ينهيَ", "د) ينهى"], correct: "b" },
+        { text: "كادَ المطرُ ....... .", options: ["أ) ينزلَ", "ب) أن ينزلَ", "ج) نازلٌ", "د) أن ينزلُ"], correct: "b" },
+        { text: "قرأتُ ....... كتاباً في المكتبة.", options: ["أ) خمسةَ عشرَ", "ب) خمسَ عشرةَ", "ج) خمسةَ عشرِ", "د) خمسُ عشرَ"], correct: "a" },
+        { text: "ما هو المثنى الصحيح لكلمة (دعوى)؟", options: ["أ) دعوتان", "ب) دعواتان", "ج) دعويان", "د) دعوين"], correct: "c" },
+        { text: "ظننتُ الامتحانَ ....... .", options: ["أ) سهلاً", "ب) سهلٌ", "ج) سهلٍ", "د) سهلانِ"], correct: "a" },
+        { text: "ما زالَ المطرُ ....... بغزارةٍ.", options: ["أ) يسقطُ", "ب) يسقطَ", "ج) يسقطِ", "د) ساقطٌ"], correct: "a" },
+        { text: "أعجبتني المدينةُ ....... شوارعُها.", options: ["أ) النظيفةِ", "ب) النظيفةُ", "ج) النظيفةَ", "د) نظيفةً"], correct: "b" },
+        { text: "لا ....... واجبك يا محمدُ.", options: ["أ) تهملْ", "ب) تهملُ", "ج) تهملَ", "د) تهملي"], correct: "a" },
+        { text: "كافأَ المديرُ ....... المتفوقينِ.", options: ["أ) المعلمانِ", "ب) المعلمينَ", "ج) المعلمون", "د) المعلماتُ"], correct: "b" },
+        { text: "الوقتُ ثمنُهُ غالٍ. نوع الخبر في هذه الجملة هو:", options: ["أ) مفرد", "ب) جملة فعلية", "ج) جملة اسمية", "د) شبه جملة"], correct: "c" }
     ],
     advanced: [
-        { text: "Остерегайся лени, ибо она ...... для устремлений.", options: ["أ) مَثْبطةٌ", "ب) مِثْبطةٌ", "ج) مَثْبَطةٌ", "د) مُثَبِّطٌ"], correct: "d" },
-        { text: "Дайте синтаксический разбор подчёркнутого слова: 'О справедливый, чей приговор, радуйся!' (يا عادلاً حُكمُهُ)", options: ["أ) فاعل لاسم الفاعل", "ب) مضاف إليه", "ج) خبر للمبتدأ", "د) مفعول به لاسم الفاعل"], correct: "b" },
-        { text: "Сколько ...... ты посетил в путешествии? (числительное كم الاستفهامية)", options: ["أ) بلدانٍ", "ب) بلداً", "ج) بلدٍ", "د) بلادٌ"], correct: "b" },
-        { text: "Какова словообразовательная модель (вес) глагола 'يَقِ' в предложении 'Верующий защищает себя'?", options: ["أ) يَفِ", "ب) يَعِ", "ج) يَعِلْ", "د) يَعِلَ"], correct: "a" },
-        { text: "Слово, в котором 'хамза средняя' (الهمزة المتوسطة) написана верно:", options: ["أ) فُجَأة", "ب) فجائة", "ج) فجأةً", "د) فُجْأة"], correct: "c" },
-        { text: "В каком предложении правильно расставлены знаки препинания?", options: ["أ) قال المعلم: ادرسوا بجد.", "ب) قال المعلم، ادرسوا بجد؟", "ج) قال المعلم! ادرسوا بجد.", "د) قال المعلم ادرسوا بجد،"], correct: "a" },
-        { text: "Синоним слова (شَغَف) в фразе 'читает со страстью':", options: ["أ) ملل (скука)", "ب) حب شديد (сильная любовь)", "ج) خوف (страх)", "د) سرعة (скорость)"], correct: "b" },
-        { text: "Антоним слова (يأس — отчаяние):", options: ["أ) أمل (надежда)", "ب) حزن (печаль)", "ج) ضعف (слабость)", "د) خوف (страх)"], correct: "a" }
+        { text: "إياكَ والكسلَ فإنه ....... للهمم.", options: ["أ) مَثْبطةٌ", "ب) مِثْبطةٌ", "ج) مَثْبَطةٌ", "د) مُثَبِّطٌ"], correct: "d" },
+        { text: "أعرب ما تحته خط: \"يا عادلاً حُكمُهُ، أبشرْ\"", options: ["أ) فاعل لاسم الفاعل مرفوع بالضمة", "ب) مضاف إليه مجرور بالكسرة", "ج) خبر للمبتدأ مرفوع بالضمة", "د) مفعول به لاسم الفاعل منصوب بالفتحة"], correct: "a" },
+        { text: "كم ....... زرتَ في رحلتك؟ (المطلوب تمييز كم الاستفهامية)", options: ["أ) بلدانٍ", "ب) بلداً", "ج) بلدٍ", "د) بلادٌ"], correct: "b" },
+        { text: "ما هو الوزن الصرفي لكلمة (يَقِ الخوفَ) في جملة: \"يَقِ المؤمنُ نفسه\"؟", options: ["أ) يَفِ", "ب) يَعِ", "ج) يَعِلْ", "د) يَعِلَ"], correct: "b" },
+        { text: "الكلمة التي كُتبت فيها \"الهمزة المتوسطة\" بشكل صحيح هي:", options: ["أ) فُجَأة", "ب) فجائة", "ج) فجأةً", "د) فُجْأة"], correct: "c" },
+        { text: "أي من الجمل التالية كُتبت فيها علامات الترقيم بشكل صحيح؟", options: ["أ) قال المعلم: ادرسوا بجد.", "ب) قال المعلم، ادرسوا بجد؟", "ج) قال المعلم! ادرسوا بجد.", "د) قال المعلم ادرسوا بجد،"], correct: "a" },
+        { text: "مرادف كلمة (شَغَف) في جملة \"يقرأُ بشغفٍ\" هو:", options: ["أ) ملل", "ب) حب شديد", "ج) خوف", "د) سرعة"], correct: "b" },
+        { text: "ضد كلمة (يأس) هو:", options: ["أ) أمل", "ب) حزن", "ج) ضعف", "د) خوف"], correct: "a" }
     ]
 };
 
-// Сопоставление ответов (a,b,c,d)
 function renderQuestions() {
     renderLevel("beginnerQuestions", questionsData.beginner, "beginner");
     renderLevel("intermediateQuestions", questionsData.intermediate, "intermediate");
@@ -563,9 +571,9 @@ function renderLevel(containerId, questions, levelKey) {
                     const letter = String.fromCharCode(97+optIdx); // a,b,c,d
                     return `
                         <label class="option-item" data-opt="${letter}">
-                            <input type="radio" name="q_${levelKey}_${idx}" value="${letter}" style="margin-left:5px;">
-                            <span class="letter">${opt.charAt(0)}</span>
-                            <span class="arabic-answer">${opt.substring(2)}</span>
+                            <input type="radio" name="q_${levelKey}_${idx}" value="${letter}">
+                            <span class="letter">${opt.split(')')[0]})</span>
+                            <span class="arabic-answer">${opt.split(')')[1].trim()}</span>
                         </label>
                     `;
                 }).join('')}
@@ -575,28 +583,28 @@ function renderLevel(containerId, questions, levelKey) {
     });
 }
 
-// Подсчёт результатов
 function computeResults() {
     let total = 0;
     let correct = 0;
-    // начинающий
+    
     questionsData.beginner.forEach((q, idx) => {
         total++;
         const selected = document.querySelector(`input[name="q_beginner_${idx}"]:checked`);
         if (selected && selected.value === q.correct) correct++;
     });
-    // средний
+    
     questionsData.intermediate.forEach((q, idx) => {
         total++;
         const selected = document.querySelector(`input[name="q_intermediate_${idx}"]:checked`);
         if (selected && selected.value === q.correct) correct++;
     });
-    // продвинутый
+    
     questionsData.advanced.forEach((q, idx) => {
         total++;
         const selected = document.querySelector(`input[name="q_advanced_${idx}"]:checked`);
         if (selected && selected.value === q.correct) correct++;
     });
+    
     const percent = Math.round((correct / total) * 100);
     let level = "";
     let advice = "";
@@ -613,7 +621,6 @@ function computeResults() {
     return { correct, total, percent, level, advice };
 }
 
-// Обработчик кнопки
 document.getElementById("submitTest").addEventListener("click", () => {
     const { correct, total, percent, level, advice } = computeResults();
     const resultDiv = document.getElementById("resultDisplay");
@@ -627,39 +634,27 @@ document.getElementById("submitTest").addEventListener("click", () => {
     adviceSpan.innerHTML = advice;
     fillBar.style.width = `${percent}%`;
     resultDiv.style.display = "block";
-    // плавный скролл до результата
     resultDiv.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
-// Активация выбора по клику на всю карточку варианта + стилизация
 function attachOptionListeners() {
-    document.querySelectorAll('.option-item').forEach(item => {
-        const radio = item.querySelector('input[type="radio"]');
-        item.addEventListener('click', (e) => {
-            if (e.target.tagName !== 'INPUT') {
-                radio.checked = true;
-            }
-            // сброс выделения у всех в группе
-            const name = radio.getAttribute('name');
-            document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
-                r.closest('.option-item')?.classList.remove('selected');
-            });
-            item.classList.add('selected');
-        });
-        if (radio) {
-            radio.addEventListener('change', () => {
-                if (radio.checked) {
-                    document.querySelectorAll(`input[name="${radio.name}"]`).forEach(r => {
-                        r.closest('.option-item')?.classList.remove('selected');
-                    });
-                    item.classList.add('selected');
-                }
-            });
+    document.addEventListener('click', (e) => {
+        const optionItem = e.target.closest('.option-item');
+        if (!optionItem) return;
+        
+        const radio = optionItem.querySelector('input[type="radio"]');
+        if (e.target.tagName !== 'INPUT') {
+            radio.checked = true;
         }
+        
+        const name = radio.getAttribute('name');
+        document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+            r.closest('.option-item')?.classList.remove('selected');
+        });
+        optionItem.classList.add('selected');
     });
 }
 
-// Бургер-меню
 document.addEventListener('DOMContentLoaded', () => {
     renderQuestions();
     attachOptionListeners();
@@ -678,7 +673,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    // небольшая анимация для карточек
 });
 </script>
 </body>
