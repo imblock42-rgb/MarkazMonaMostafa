@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест: Арабский язык | Markaz al-Mona</title>
     <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* --- Глобальные переменные и сброс --- */
         :root {
@@ -240,11 +240,12 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         .q-text {
-            font-size: 22px;
+            font-family: 'Amiri', 'Cairo', serif;
+            font-size: 24px; /* Увеличено для лучшей читаемости Amiri */
             font-weight: 700;
             margin-bottom: 20px;
             color: #1e2a2e;
-            line-height: 1.5;
+            line-height: 1.6;
             text-align: right;
             direction: rtl;
         }
@@ -258,7 +259,7 @@
             background: #fefefe;
             border: 1px solid #e2e2e2;
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -271,6 +272,28 @@
             background: #fdf9f2;
             box-shadow: 0 2px 6px rgba(188,156,101,0.1);
         }
+        
+        /* Стили для результатов (Правильно / Неправильно) */
+        .option-item.is-correct {
+            border-color: #2ecc71 !important;
+            background-color: #f1fbf4 !important;
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.15);
+        }
+        .option-item.is-correct .letter, 
+        .option-item.is-correct .arabic-answer {
+            color: #27ae60 !important;
+        }
+        
+        .option-item.is-wrong {
+            border-color: #e74c3c !important;
+            background-color: #fdf2f2 !important;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.15);
+        }
+        .option-item.is-wrong .letter, 
+        .option-item.is-wrong .arabic-answer {
+            color: #c0392b !important;
+        }
+
         .option-item .letter {
             font-weight: 800;
             color: var(--accent-gold);
@@ -279,11 +302,28 @@
             text-align: right;
         }
         .option-item .arabic-answer {
-            font-family: 'Cairo', monospace;
-            font-size: 18px;
-            font-weight: 500;
+            font-family: 'Amiri', 'Cairo', serif;
+            font-size: 20px; /* Увеличено для лучшей читаемости Amiri */
+            font-weight: 600;
             text-align: right;
         }
+        
+        /* Блок объяснений грамматики */
+        .q-explanation {
+            margin-top: 15px;
+            padding: 14px 18px;
+            background-color: #f7f9fa;
+            border-right: 4px solid var(--accent-gold);
+            border-radius: 6px;
+            font-size: 15px;
+            color: #4a5568;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Amiri', 'Cairo', serif;
+            display: none;
+            line-height: 1.6;
+        }
+
         input[type="radio"] {
             appearance: none;
             width: 18px;
@@ -300,6 +340,9 @@
             border-color: var(--accent-gold);
             background-color: var(--accent-gold);
             box-shadow: inset 0 0 0 3px white;
+        }
+        input[type="radio"]:disabled {
+            cursor: not-allowed;
         }
         .result-area {
             margin-top: 50px;
@@ -511,7 +554,7 @@
 </footer>
 
 <script>
-// ---------- БАЗА ВОПРОСОВ (ПОЛНОСТЬЮ НА АРАБСКОМ) ----------
+// ---------- БАЗА ВОПРОСОВ (ИСПРАВЛЕНА ПО ТВОЕМУ СПИСКУ) ----------
 const questionsData = {
     beginner: [
         { text: "الطالبُ المجتهدُ ....... في دراسته.", options: ["أ) ينجحُ", "ب) تنجحُ", "ج) ينجحون", "د) تنجحين"], correct: "a" },
@@ -519,32 +562,32 @@ const questionsData = {
         { text: "هذه ....... جميلةٌ.", options: ["أ) كتابٌ", "ب) شجرةٌ", "ج) قلمان", "د) بيوتٌ"], correct: "b" },
         { text: "ما هي الكلمة التي تبدأ بـ \"لام شمسية\"؟", options: ["أ) الكتاب", "ب) الشمس", "ج) القمر", "د) المدرسة"], correct: "b" },
         { text: "....... طالبةٌ ذكيةٌ ومجتهدةٌ.", options: ["أ) أنتَ", "ب) هو", "ج) أنتِ", "د) نحنُ"], correct: "c" },
-        { text: "الكلمة التي بها \"تنوين بالفتح\" مكتوب بشكل صحيح هي:", options: ["أ) كتاباً", "ب) كتابن", "ج) كتابًاً", "د) كتابا"], correct: "a" },
+        { text: "الكلمة التي بها \"تنوين بالفتح\" مكتوب بشكل صحيح هي:", options: ["أ) كتاباً", "ب) كتابн", "ج) كتابًاً", "د) كتابا"], correct: "a" },
         { text: "جمع كلمة (نافذة) هو:", options: ["أ) نافذات", "ب) نوافذ", "ج) أنفذ", "د) نفوذ"], correct: "b" },
         { text: "المكان الذي نذهب إليه لشراء الأدوية يُسمى:", options: ["أ) المستشفى", "ب) الصيدلية", "ج) المدرسة", "د) السوق"], correct: "b" },
         { text: "المعنى الصحيح لـ \"الوالدان\" هما:", options: ["أ) الأخ والأخت", "ب) الأب والأم", "ج) الجد والجدة", "د) العم والعمة"], correct: "b" },
         { text: "ما هي الكلمة التي تبدأ بـ \"لام قمرية\"؟", options: ["أ) الرجل", "ب) الثوب", "ج) الباب", "د) السيارة"], correct: "c" }
     ],
     intermediate: [
-        { text: "إنّ ....... العلمِ محبوكٌ بين الناس.", options: ["أ) طالبيْ", "ب) طالبو", "ج) طالبين", "د) طالباتُ"], correct: "a" },
-        { text: "لم ....... العاملُ عمله بإتقانٍ أمسِ.", options: ["أ) ينهي", "ب) ينهُ", "ج) ينهيَ", "د) ينهى"], correct: "b" },
-        { text: "كادَ المطرُ ....... .", options: ["أ) ينزلَ", "ب) أن ينزلَ", "ج) نازلٌ", "د) أن ينزلُ"], correct: "b" },
+        { text: "إنّ ....... العلمِ محبوبانِ بين الناس.", options: ["أ) طالبَيْ", "ب) طالبو", "ج) طالبين", "د) طالباتُ"], correct: "a" },
+        { text: "لم ....... العاملُ عمله بإتقانٍ أمسِ.", options: ["أ) ينهي", "ب) يُنْهِ", "ج) ينهيَ", "د) ينهى"], correct: "b", explanation: "لأن الفعل المضارع معتل الآخر يجزم بحذف حرف العلة (الياء)، فتصبح: يُنْهِ" },
+        { text: "كادَ المطرُ ....... .", options: ["أ) ينزلُ", "ب) أن ينزلَ", "ج) نازلٌ", "د) نزلَ"], correct: "a", explanation: "لأن الفعل (كاد) يقل اقتران خبره بـ (أن)، فالأصح هنا: ينزلُ" },
         { text: "قرأتُ ....... كتاباً في المكتبة.", options: ["أ) خمسةَ عشرَ", "ب) خمسَ عشرةَ", "ج) خمسةَ عشرِ", "د) خمسُ عشرَ"], correct: "a" },
-        { text: "ما هو المثنى الصحيح لكلمة (دعوى)؟", options: ["أ) دعوتان", "ب) دعواتان", "ج) دعويان", "د) دعوين"], correct: "c" },
-        { text: "ظننتُ الامتحانَ ....... .", options: ["أ) سهلاً", "ب) سهلٌ", "ج) سهلٍ", "د) سهلانِ"], correct: "a" },
+        { text: "ما هو المثنى الصحيح لكلمة (دعوى)؟", options: ["أ) دعوتان", "ب) دعواتان", "ج) دعويان", "د) دعوين"], correct: "c", explanation: "لأن كلمة (دعوى) اسم مقصور والألف رابعة، وعند التثنية تُقلب الألف الرابعة ياءً دائماً ثم تضاف علامة المثنى (ان) فتصبح: دعويان" },
+        { text: "ظننتُ الامتحانَ ....... .", options: ["أ) سهلاً", "ب) سهلٌ", "ج) سهلٍ", "د) سهلانِ"], correct: "a", explanation: "لأن الفعل (ظنّ) ينصب مفعولين أصلهما المبتدأ والخبر. (الامتحانَ) مفعول به أول، و(سهلاً) مفعول به ثانٍ منصوب بالفتحة." },
         { text: "ما زالَ المطرُ ....... بغزارةٍ.", options: ["أ) يسقطُ", "ب) يسقطَ", "ج) يسقطِ", "د) ساقطٌ"], correct: "a" },
-        { text: "أعجبتني المدينةُ ....... شوارعُها.", options: ["أ) النظيفةِ", "ب) النظيفةُ", "ج) النظيفةَ", "د) نظيفةً"], correct: "b" },
-        { text: "لا ....... واجبك يا محمدُ.", options: ["أ) تهملْ", "ب) تهملُ", "ج) تهملَ", "د) تهملي"], correct: "a" },
-        { text: "كافأَ المديرُ ....... المتفوقينِ.", options: ["أ) المعلمانِ", "ب) المعلمينَ", "ج) المعلمون", "د) المعلماتُ"], correct: "b" },
-        { text: "الوقتُ ثمنُهُ غالٍ. نوع الخبر في هذه الجملة هو:", options: ["أ) مفرد", "ب) جملة فعلية", "ج) جملة اسمية", "د) شبه جملة"], correct: "c" }
+        { text: "أعجبتني المدينةُ ....... شوارعُها.", options: ["أ) النظيفةِ", "ب) النظيفةُ", "ج) النظيفةَ", "د) نظيفةً"], correct: "b", explanation: "وهذا يسمى (النعت السببي) ويتبع ما بعده في التذكير والتأنيث وما قبله في الإعراب." },
+        { text: "لا ....... واجبك يا محمدُ.", options: ["أ) تهملْ", "ب) تهملُ", "ج) تهملَ", "د) تهملي"], correct: "a", explanation: "لأن (لا) هنا هي لا الناهية وتجزم الفعل المضارع، وعلامة جزم الفعل الصحيح الآخر (تهمل) هي السكون." },
+        { text: "كافأَ المديرُ ....... المتفوقينِ.", options: ["أ) المعلمانِ", "ب) المعلمينَ", "ج) المعلمون", "د) المعلماتُ"], correct: "b", explanation: "لأن موقع الكلمة الإعرابي (مفعول به منصوب)، وعلامة نصب جمع المذكر السالم هي الياء." },
+        { text: "الوقتُ ثمنُهُ غالٍ. نوع الخبر في هذه الجملة هو:", options: ["أ) مفرد", "ب) جملة فعلية", "ج) جملة اسمية", "د) شبه جملة"], correct: "c", explanation: "لأن (الوقتُ) مبتدأ أول، و(ثمنُه) مبتدأ ثانٍ يحتوي على ضمير يعود على المبتدأ الأول، و(غالٍ) خبر المبتدأ الثاني، والجملة الاسمية (ثمنه غال) في محل رفع خبر المبتدأ الأول." }
     ],
     advanced: [
-        { text: "إياكَ والكسلَ فإنه ....... للهمم.", options: ["أ) مَثْبطةٌ", "ب) مِثْبطةٌ", "ج) مَثْبَطةٌ", "د) مُثَبِّطٌ"], correct: "d" },
-        { text: "أعرب ما تحته خط: \"يا عادلاً حُكمُهُ، أبشرْ\"", options: ["أ) فاعل لاسم الفاعل مرفوع بالضمة", "ب) مضاف إليه مجرور بالكسرة", "ج) خبر للمبتدأ مرفوع بالضمة", "د) مفعول به لاسم الفاعل منصوب بالفتحة"], correct: "a" },
-        { text: "كم ....... زرتَ في رحلتك؟ (المطلوب تمييز كم الاستفهامية)", options: ["أ) بلدانٍ", "ب) بلداً", "ج) بلدٍ", "د) بلادٌ"], correct: "b" },
-        { text: "ما هو الوزن الصرفي لكلمة (يَقِ الخوفَ) في جملة: \"يَقِ المؤمنُ نفسه\"؟", options: ["أ) يَفِ", "ب) يَعِ", "ج) يَعِلْ", "د) يَعِلَ"], correct: "b" },
-        { text: "الكلمة التي كُتبت فيها \"الهمزة المتوسطة\" بشكل صحيح هي:", options: ["أ) فُجَأة", "ب) فجائة", "ج) فجأةً", "د) فُجْأة"], correct: "c" },
-        { text: "أي من الجمل التالية كُتبت فيها علامات الترقيم بشكل صحيح؟", options: ["أ) قال المعلم: ادرسوا بجد.", "ب) قال المعلم، ادرسوا بجد؟", "ج) قال المعلم! ادرسوا بجد.", "د) قال المعلم ادرسوا بجد،"], correct: "a" },
+        { text: "إياكَ والكسلَ فإنه ....... للهمم.", options: ["أ) مَثْبطةٌ", "ب) مِثْبطةٌ", "ج) مَثْبَطةٌ", "د) مُثَبِّطٌ"], correct: "d", explanation: "لأن الكلمة مشتقة من الفعل غير الثلاثي (ثبَّطَ)" },
+        { text: "أعرب ما تحته خط: \"يا عادلاً حُكمُهُ، أبشرْ\"", options: ["أ) فاعل لاسم الفاعل مرفوع بالضمة", "ب) مضاف إليه مجرور بالكسرة", "ج) خبر للمبتدأ مرفوع بالضمة", "د) مفعول به لاسم الفاعل منصوب بالفتحة"], correct: "a", explanation: "لأن (عادلاً) اسم فاعل عامل (اعتمد على نداء)" },
+        { text: "كم ....... زرتَ في رحلتك؟ (المطلوب تمييز كم الاستفهامية)", options: ["أ) بلدانٍ", "ب) بلداً", "ج) بلدٍ", "د) بلادٌ"], correct: "b", explanation: "لأن تمييز (كم الاستفهامية) يجب أن يكون مفرداً منصوباً." },
+        { text: "ما هو الوزن الصرفي لكلمة (يَقِ الخوفَ) في جملة: \"يَقِ المؤمنُ نفسه\"؟", options: ["أ) يَفِ", "ب) يَعِ", "ج) يَعِلْ", "د) يَعِلَ"], correct: "b", explanation: "لأن الفعل الماضي هو (وَقَى) على وزن (فَعَلَ). عند صياغة المضارع (يَقِي) حُذفت الواو (فاء الفعل) فصار (يَعِي)، وعند جزم المضارع بحذف حرف العلة (الياء وهي لام الفعل) يتبقى حرف القاف مكسوراً (يَقِ) ويقابله في الوزن (يَعِ)." },
+        { text: "الكلمة التي كُتبت فيها \"الهمزة المتوسطة\" بشكل صحيح هي:", options: ["أ) فُجَأة", "ب) فجائة", "ج) فجأةً", "د) فُجْأة"], correct: "c", explanation: "لأن الهمزة مفتوحة وما قبلها ساكن (فُجْـ-أَ)، والفتحة أقوى من السكون فترسم на ألف. ولكن (ج) فجأةً هي الأكثر دقة لورود تنوين الفتح المكتوب صحيحاً مع التاء المربوطة." },
+        { text: "أي من الجمل التالية كُتبت فيها علامات الترقيم بشكل صحيح؟", options: ["أ) قال المعلم: ادرسوا بجد.", "ب) قال المعلم، ادرسوا بجد؟", "ج) قال المعلم! ادرسوا بجد.", "د) قال المعلم ادرسوا بجد،"], correct: "a", explanation: "لأن النقطتين الرأسيتين (:) توضعان بعد القول (قال المعلم)، والنقطة (.) توضع في نهاية الجملة التامة." },
         { text: "مرادف كلمة (شَغَف) في جملة \"يقرأُ بشغفٍ\" هو:", options: ["أ) ملل", "ب) حب شديد", "ج) خوف", "د) سرعة"], correct: "b" },
         { text: "ضد كلمة (يأس) هو:", options: ["أ) أمل", "ب) حزن", "ج) ضعف", "د) خوف"], correct: "a" }
     ]
@@ -578,6 +621,7 @@ function renderLevel(containerId, questions, levelKey) {
                     `;
                 }).join('')}
             </div>
+            ${q.explanation ? `<div class="q-explanation" id="exp_${levelKey}_${idx}">💡 <strong>الشرح:</strong> ${q.explanation}</div>` : ''}
         `;
         container.appendChild(card);
     });
@@ -623,6 +667,41 @@ function computeResults() {
 
 document.getElementById("submitTest").addEventListener("click", () => {
     const { correct, total, percent, level, advice } = computeResults();
+    
+    // ---------- ПОДСВЕТКА ОТВЕТОВ И ОТКРЫТИЕ РАЗБОРОВ ----------
+    const levels = ['beginner', 'intermediate', 'advanced'];
+    levels.forEach(levelKey => {
+        questionsData[levelKey].forEach((q, idx) => {
+            const radios = document.querySelectorAll(`input[name="q_${levelKey}_${idx}"]`);
+            radios.forEach(radio => {
+                const optionItem = radio.closest('.option-item');
+                if (!optionItem) return;
+                
+                // Блокируем выбор, чтобы нельзя было переответить
+                radio.disabled = true;
+                
+                const isCorrectAnswer = (radio.value === q.correct);
+                const isChecked = radio.checked;
+                
+                // Если это эталонный правильный ответ — всегда подсвечиваем зелёным
+                if (isCorrectAnswer) {
+                    optionItem.classList.add('is-correct');
+                } 
+                // Если пользователь выбрал этот ответ, но он неверный — красим в красный
+                else if (isChecked && !isCorrectAnswer) {
+                    optionItem.classList.add('is-wrong');
+                }
+            });
+            
+            // Автоматически показываем блок с объяснением правила, если он заложен
+            const expDiv = document.getElementById(`exp_${levelKey}_${idx}`);
+            if (expDiv) {
+                expDiv.style.display = "block";
+            }
+        });
+    });
+
+    // Показ блока результатов
     const resultDiv = document.getElementById("resultDisplay");
     const scoreTextSpan = document.getElementById("scoreText");
     const levelSpan = document.getElementById("levelText");
@@ -643,6 +722,9 @@ function attachOptionListeners() {
         if (!optionItem) return;
         
         const radio = optionItem.querySelector('input[type="radio"]');
+        // Если тест уже отправлен и кнопки заблокированы — ничего не делаем
+        if (!radio || radio.disabled) return;
+        
         if (e.target.tagName !== 'INPUT') {
             radio.checked = true;
         }
