@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест: Арабский язык | Markaz al-Mona</title>
     <link rel="icon" href="assets/Logo.jpg" type="image/jpeg">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* --- Глобальные переменные и сброс --- */
         :root {
@@ -182,7 +182,7 @@
         }
         .test-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
         .test-header .gold-overline {
             color: var(--accent-gold);
@@ -203,9 +203,51 @@
             max-width: 700px;
             margin: 15px auto 0;
         }
+
+        /* Экран выбора уровня */
+        .level-selection-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .level-select-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .level-select-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(188,156,101,0.15);
+        }
+        .level-select-card h3 {
+            font-size: 22px;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .level-select-card .arabic-subtitle {
+            font-family: 'Cairo', sans-serif;
+            color: var(--accent-gold);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .level-select-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
         /* Карточки уровней */
         .level-block {
             margin-bottom: 60px;
+            display: none; /* Скрыты по умолчанию */
         }
         .level-title {
             font-size: 28px;
@@ -241,7 +283,7 @@
         }
         .q-text {
             font-family: 'Amiri', 'Cairo', serif;
-            font-size: 24px; /* Увеличено для лучшей читаемости Amiri */
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1e2a2e;
@@ -303,7 +345,7 @@
         }
         .option-item .arabic-answer {
             font-family: 'Amiri', 'Cairo', serif;
-            font-size: 20px; /* Увеличено для лучшей читаемости Amiri */
+            font-size: 20px;
             font-weight: 600;
             text-align: right;
         }
@@ -352,6 +394,7 @@
             border-radius: 28px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color);
+            display: none; /* Скрыто до выбора уровня */
         }
         .btn-check {
             background: var(--accent-dark);
@@ -496,30 +539,49 @@
     <div class="test-header reveal">
         <div class="gold-overline">اختبار تحديد المستوى</div>
         <h1>Проверь свой арабский</h1>
-        <p>29 вопросов • 3 уровня • Узнай свой результат сразу после прохождения</p>
+        <p id="testSubtitle">Выберите желаемый уровень сложности для начала тестирования</p>
     </div>
 
-    <form id="arabicTestForm">
+    <!-- ЭКРАН ВЫБОРА УРОВНЯ -->
+    <div id="levelSelectionScreen" class="level-selection-container reveal">
+        <div class="level-select-card" onclick="startTest('beginner')">
+            <div class="arabic-subtitle">المستوى المبتدئ</div>
+            <h3>Начальный уровень</h3>
+            <p>10 вопросов. Базовая грамматика, простые фразы и алфавитные правила.</p>
+        </div>
+        <div class="level-select-card" onclick="startTest('intermediate')">
+            <div class="arabic-subtitle">المستوى المتوسط</div>
+            <h3>Средний уровень</h3>
+            <p>11 вопросов. Изучение слабых глаголов, числительных и строения сложных предложений.</p>
+        </div>
+        <div class="level-select-card" onclick="startTest('advanced')">
+            <div class="arabic-subtitle">المستوى المتقدم</div>
+            <h3>Продвинутый уровень</h3>
+            <p>8 вопросов. Стилистика, продвинутый сарф и нахв, тонкости классических текстов.</p>
+        </div>
+    </div>
+
+    <form id="arabicTestForm" style="display: none;">
         <!-- НАЧАЛЬНЫЙ УРОВЕНЬ -->
-        <div class="level-block reveal">
+        <div class="level-block reveal" id="block_beginner">
             <div class="level-title">المستوى المبتدئ — Начальный уровень</div>
             <div class="questions-grid" id="beginnerQuestions"></div>
         </div>
 
         <!-- СРЕДНИЙ УРОВЕНЬ -->
-        <div class="level-block reveal">
+        <div class="level-block reveal" id="block_intermediate">
             <div class="level-title">المستوى المتوسط — Средний уровень</div>
             <div class="questions-grid" id="intermediateQuestions"></div>
         </div>
 
         <!-- ПРОДВИНУТЫЙ УРОВЕНЬ -->
-        <div class="level-block reveal">
+        <div class="level-block reveal" id="block_advanced">
             <div class="level-title">المستوى المتقدم — Продвинутый уровень</div>
             <div class="questions-grid" id="advancedQuestions"></div>
         </div>
     </form>
 
-    <div class="result-area reveal">
+    <div class="result-area reveal" id="testResultArea">
         <button type="button" id="submitTest" class="btn-check">✨ Узнать результат ✨</button>
         <div id="resultDisplay" class="result-box" style="display: none;">
             <div id="scoreText"></div>
@@ -554,7 +616,7 @@
 </footer>
 
 <script>
-// ---------- БАЗА ВОПРОСОВ (ИСПРАВЛЕНА ПО ТВОЕМУ СПИСКУ) ----------
+// ---------- БАЗА ВОПРОСОВ ----------
 const questionsData = {
     beginner: [
         { text: "الطالبُ المجتهدُ ....... في دراسته.", options: ["أ) ينجحُ", "ب) تنجحُ", "ج) ينجحون", "د) تنجحين"], correct: "a" },
@@ -563,9 +625,9 @@ const questionsData = {
         { text: "ما هي الكلمة التي تبدأ بـ \"لام شمسية\"؟", options: ["أ) الكتاب", "ب) الشمس", "ج) القمر", "د) المدرسة"], correct: "b" },
         { text: "....... طالبةٌ ذكيةٌ ومجتهدةٌ.", options: ["أ) أنتَ", "ب) هو", "ج) أنتِ", "د) نحنُ"], correct: "c" },
         { text: "الكلمة التي بها \"تنوين بالفتح\" مكتوب بشكل صحيح هي:", options: ["أ) كتاباً", "ب) كتاب", "ج) كتابًاً", "د) كتاب"], correct: "a" },
-        { text: "جمع كلمة (نافذة) هو:", options: ["أ) نافذات", "ب) نوافذ", "ج) أنفذ", "د) نفوذ"], correct: "b" },
+        { text: "جمع كلمة (نافذة) هو:", options: ["أ) نافذات", "ب) نوافذ", "ج) أنفذ", "د) nفوذ"], correct: "b" },
         { text: "المكان الذي نذهب إليه لشراء الأدوية يُسمى:", options: ["أ) المستشفى", "ب) الصيدلية", "ج) المدرسة", "د) السوق"], correct: "b" },
-        { text: "المعنى الصحيح لـ \"الوالدان\" هما:", options: ["أ) الأخ والأخت", "ب) الأب والأم", "ج) الجد والجدة", "د) العم والعمة"], correct: "b" },
+        { text: "المعنى الصحيح لـ \"الوالدان\" هма:", options: ["أ) الأخ والأخت", "ب) الأب والأم", "ج) الجد والجدة", "د) العم والعمة"], correct: "b" },
         { text: "ما هي الكلمة التي تبدأ بـ \"لام قمرية\"؟", options: ["أ) الرجل", "ب) الثوب", "ج) الباب", "د) السيارة"], correct: "c" }
     ],
     intermediate: [
@@ -592,6 +654,8 @@ const questionsData = {
         { text: "ضد كلمة (يأس) هو:", options: ["أ) أمل", "ب) حزن", "ج) ضعف", "د) خوف"], correct: "a" }
     ]
 };
+
+let activeLevel = null; // Хранит выбранный уровень
 
 function renderQuestions() {
     renderLevel("beginnerQuestions", questionsData.beginner, "beginner");
@@ -627,78 +691,81 @@ function renderLevel(containerId, questions, levelKey) {
     });
 }
 
+// Переключение экранов при выборе уровня
+function startTest(level) {
+    activeLevel = level;
+    
+    // Скрываем меню выбора
+    document.getElementById("levelSelectionScreen").style.display = "none";
+    
+    // Меняем подзаголовок в шапке теста
+    const totalQuestions = questionsData[level].length;
+    document.getElementById("testSubtitle").innerText = `${totalQuestions} вопросов • Узнай свой результат сразу после прохождения`;
+
+    // Показываем форму и нужный блок вопросов
+    document.getElementById("arabicTestForm").style.display = "block";
+    document.getElementById(`block_${level}`).style.display = "block";
+    
+    // Показываем зону кнопки проверки
+    document.getElementById("testResultArea").style.display = "block";
+    
+    // Скролл к первому вопросу
+    window.scrollTo({ top: document.getElementById("arabicTestForm").offsetTop - 100, behavior: "smooth" });
+}
+
 function computeResults() {
     let total = 0;
     let correct = 0;
     
-    questionsData.beginner.forEach((q, idx) => {
+    // Считаем результаты только для выбранного уровня
+    questionsData[activeLevel].forEach((q, idx) => {
         total++;
-        const selected = document.querySelector(`input[name="q_beginner_${idx}"]:checked`);
-        if (selected && selected.value === q.correct) correct++;
-    });
-    
-    questionsData.intermediate.forEach((q, idx) => {
-        total++;
-        const selected = document.querySelector(`input[name="q_intermediate_${idx}"]:checked`);
-        if (selected && selected.value === q.correct) correct++;
-    });
-    
-    questionsData.advanced.forEach((q, idx) => {
-        total++;
-        const selected = document.querySelector(`input[name="q_advanced_${idx}"]:checked`);
+        const selected = document.querySelector(`input[name="q_${activeLevel}_${idx}"]:checked`);
         if (selected && selected.value === q.correct) correct++;
     });
     
     const percent = Math.round((correct / total) * 100);
-    let level = "";
+    let levelText = "";
     let advice = "";
+    
     if (percent < 40) {
-        level = "Начинающий уровень";
-        advice = "Рекомендуем начать с группового курса или интенсивного введения в арабский язык. Не бойтесь ошибок — каждый шаг приближает к цели!";
-    } else if (percent < 70) {
-        level = "Средний уровень (B1)";
-        advice = "У вас хорошая база! Для прогресса стоит уделить внимание грамматике и разговорной практике. Индивидуальные уроки помогут подтянуть слабые места.";
+        levelText = "Рекомендуется дополнительное изучение";
+        advice = "Рекомендуем начать с группового курса или интенсивного введения в основы выбранного уровня. Не бойтесь ошибок — каждый шаг приближает к цели!";
+    } else if (percent < 75) {
+        levelText = "Хороший базовый уровень";
+        advice = "У вас хорошая база по выбранным темам! Для уверенного прогресса стоит уделить внимание деталям грамматики. Индивидуальные уроки в Markaz al-Mona помогут закрепить успех.";
     } else {
-        level = "Продвинутый уровень (B2–C1)";
-        advice = "Отличный результат! Вы можете углублять знания через чтение классических текстов и занятия с носителем. Присоединяйтесь к продвинутой группе Markaz al-Mona.";
+        levelText = "Отличный уровень знаний!";
+        advice = "Замечательный результат! Вы продемонстрировали глубокое понимание структуры языка. Можете смело переходить на следующую ступень обучения или браться за сложные тексты.";
     }
-    return { correct, total, percent, level, advice };
+    
+    return { correct, total, percent, level: levelText, advice };
 }
 
 document.getElementById("submitTest").addEventListener("click", () => {
     const { correct, total, percent, level, advice } = computeResults();
     
-    // ---------- ПОДСВЕТКА ОТВЕТОВ И ОТКРЫТИЕ РАЗБОРОВ ----------
-    const levels = ['beginner', 'intermediate', 'advanced'];
-    levels.forEach(levelKey => {
-        questionsData[levelKey].forEach((q, idx) => {
-            const radios = document.querySelectorAll(`input[name="q_${levelKey}_${idx}"]`);
-            radios.forEach(radio => {
-                const optionItem = radio.closest('.option-item');
-                if (!optionItem) return;
-                
-                // Блокируем выбор, чтобы нельзя было переответить
-                radio.disabled = true;
-                
-                const isCorrectAnswer = (radio.value === q.correct);
-                const isChecked = radio.checked;
-                
-                // Если это эталонный правильный ответ — всегда подсвечиваем зелёным
-                if (isCorrectAnswer) {
-                    optionItem.classList.add('is-correct');
-                } 
-                // Если пользователь выбрал этот ответ, но он неверный — красим в красный
-                else if (isChecked && !isCorrectAnswer) {
-                    optionItem.classList.add('is-wrong');
-                }
-            });
+    // ---------- ПОДСВЕТКА ОТВЕТОВ ----------
+    questionsData[activeLevel].forEach((q, idx) => {
+        const radios = document.querySelectorAll(`input[name="q_${activeLevel}_${idx}"]`);
+        radios.forEach(radio => {
+            const optionItem = radio.closest('.option-item');
+            if (!optionItem) return;
             
-            // Автоматически показываем блок с объяснением правила, если он заложен
-            const expDiv = document.getElementById(`exp_${levelKey}_${idx}`);
-            if (expDiv) {
-                expDiv.style.display = "block";
+            radio.disabled = true; // Запрещаем перевыбор
+            
+            const isCorrectAnswer = (radio.value === q.correct);
+            const isChecked = radio.checked;
+            
+            if (isCorrectAnswer) {
+                optionItem.classList.add('is-correct');
+            } else if (isChecked && !isCorrectAnswer) {
+                optionItem.classList.add('is-wrong');
             }
         });
+        
+        const expDiv = document.getElementById(`exp_${activeLevel}_${idx}`);
+        if (expDiv) expDiv.style.display = "block";
     });
 
     // Показ блока результатов
@@ -722,7 +789,6 @@ function attachOptionListeners() {
         if (!optionItem) return;
         
         const radio = optionItem.querySelector('input[type="radio"]');
-        // Если тест уже отправлен и кнопки заблокированы — ничего не делаем
         if (!radio || radio.disabled) return;
         
         if (e.target.tagName !== 'INPUT') {
